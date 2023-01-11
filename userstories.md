@@ -1,0 +1,24 @@
+- [ ] Tylko zalogowani użytkownicy mogą zadawać nowe pytania
+- [ ] Tylko zalogowani użytkownicy mogą odpowiadać na pytanie
+- [ ] Tylko użytkownicy z rolą moderatora mogą usuwać pytania i odpowiedzi.
+- [ ] Tylko użytkownicy z rolą moderatora mogą zawieszać i banować inne konta.
+- [ ] Możliwość logowania się za pomocą emaila i hasła
+- [ ] Możliwość logowania się za pomocą Google i Github
+- [ ] Możliwość edytowania pytania i odpowiedzi ( graficzna informacja )
+- [ ] Możliwość komentowania odpowiedzi
+- [ ] Wyszukiwarka jako modal do szukania pytań ( odpowiednio zoptymalizowana )
+- [ ] Oddzielna podstrona do wyszukiwania pytań
+- [ ] Użytkownik ma możliwość zmiany jego nazwy ( jeśli zalogować się za pomocą adresu email i hasła )
+- [ ] Użytkownik ma możliwość do zmiany zdjęcia profilowego ( jeśli zalogować się za pomocą adresu email i hasła )
+- [ ] Użytkownik ma możliwość weryfikacji adresu email ( jeśli zalogować się za pomocą adresu email i hasła )
+- [ ] Użytkownik może zmienić swoje hasło ( jeśli zalogować się za pomocą adresu email i hasła )
+- [ ] Użytkownik ma możliwość zresetowania hasła za pomocą adresu email
+- [ ] Użytkownik posiada własny profil z zaznaczonymi pytaniami oraz stworzone przez niego pytania
+- [ ] W panelu znajdują się zadane pytania zalogowanego użytkownika
+- [ ] W panelu znajdują się polubione przez zalogowanego użytkownika pytania
+- [ ] Użytkownik obok pytania posiada przyciski "up vote" i "down vote" do zostawiania reakcji czy dane pytanie jest pomocne
+- [ ] Odpowiedzi do pytania sortują się według bilansu głosów
+- [ ] Zalogowany użytkownik ma możliwość zgłoszenia pytania
+- [ ] Użytkownicy z rolą ekspert mogą zaznaczać czy dana odpowiedź jest prawidłowa nawet jeśli nie ma wystarczającej ilości głosów
+- [ ] Użytkownik ma możliwość usunięcia swojego pytania jeśli posiada mniej niż x wyświetleń pod pytaniem
+- [ ] Naliczane są wyświetlenia pytania od zalogowanych i nie zalogowanych użytkowników

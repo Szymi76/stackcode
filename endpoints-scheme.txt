@@ -1,0 +1,27 @@
+/api/auth 
+	@POST /login (email, password)
+	@POST /register (displayName, email, password)
+	@GET /google 
+	@GET /github
+	@PATCH /update-display-name (displayName)
+	@PATCH /update-profile-photo (file in form data)
+	@PATCH /update-password (oldPassword, newPassword)
+	@PATCH /verify-email
+	@PATCH /reset-password (email)
+	@DELETE /delete-account 
+	@GET /logout
+	@GET /refresh
+
+/api/question
+	@POST /add-new (title, content, tags)
+	@GET /get-by-title (title from params)
+	@POST /add-comment (anwearID, content)
+	@POST /add-answear (questionID, content)
+
+/api/questions
+	@GET /marked-by-user
+	@GET /all-by-user
+
+
+	
+	

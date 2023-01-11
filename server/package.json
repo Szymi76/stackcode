@@ -1,0 +1,29 @@
+{
+  "name": "stackcode-rest-api",
+  "version": "1.0.0",
+  "description": "Forum dla programistów",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "set NODE_ENV=dev&& nodemon index.js",
+    "start": "set NODE_ENV=prod&& node index.js"
+  },
+  "keywords": [],
+  "author": "szymi76",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.3",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
