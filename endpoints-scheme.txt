@@ -15,8 +15,8 @@
 /api/question
 	@POST /add-new (title, content, tags)
 	@GET /get-by-title (title from params)
-	@POST /add-comment (anwearID, content)
-	@POST /add-answear (questionID, content)
+	@POST /add-comment (answerID, content)
+	@POST /add-answer (questionID, content)
 
 /api/questions
 	@GET /marked-by-user
