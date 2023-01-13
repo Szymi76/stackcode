@@ -4,7 +4,7 @@ import User from "./User.js";
 
 const CommentScheme = new mongoose.Schema(
   {
-    authorID: {
+    author: {
       type: mongoose.Types.ObjectId,
       ref: User,
       required: true,

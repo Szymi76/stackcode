@@ -14,7 +14,7 @@
 
 /api/question
 	@POST /add (title, content, tags)
-	@GET /get-by-title (title from params)
+	@GET /by-title (title from params)
 	@POST /add-comment (answerID, content)
 	@POST /add-answer (questionID, content)
 	@POST /vote (questionID, type)

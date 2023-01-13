@@ -3,7 +3,7 @@ import User from "./User.js";
 
 const ReportsScheme = new mongoose.Schema(
   {
-    authorID: {
+    author: {
       type: mongoose.Types.ObjectId,
       ref: User,
       required: true,

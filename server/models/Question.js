@@ -10,9 +10,10 @@ const QuestionScheme = new mongoose.Schema(
       required: true,
       minLength: 5,
       maxLength: 40,
+      unique: true,
     },
     content: {
-      type: String,
+      type: Object,
       required: true,
       minLength: 1,
       maxLength: 300,
@@ -21,7 +22,7 @@ const QuestionScheme = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    authorID: {
+    author: {
       type: mongoose.Types.ObjectId,
       ref: User,
       required: true,

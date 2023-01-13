@@ -5,7 +5,7 @@ import Report from "./Reports.js";
 
 const AnswerScheme = new mongoose.Schema(
   {
-    authorID: {
+    author: {
       type: mongoose.Types.ObjectId,
       ref: User,
       required: true,
