@@ -12,7 +12,9 @@ import corsOptions from "./config/corsOptions.js";
 import authRouter from "./routes/auth.js";
 import questionRouter from "./routes/question.js";
 import questionsRouter from "./routes/questions.js";
-import reportsRouter from "./routes/reports.js";
+import reportRouter from "./routes/report.js";
+import commentRouter from "./routes/comment.js";
+import answerRouter from "./routes/answer.js";
 
 // konfiguracja .env.local
 config({ path: path.join(__dirname, ".env.local") });
@@ -38,7 +40,9 @@ app.use("/images", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRouter);
 app.use("/api/question", questionRouter);
 app.use("/api/questions", questionsRouter);
-app.use("/api/reports", reportsRouter);
+app.use("/api/report", reportRouter);
+app.use("/api/comment", commentRouter);
+app.use("/api/answer", answerRouter);
 
 // error handler
 app.use(errorHandler);

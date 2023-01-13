@@ -1,13 +1,13 @@
 import jwt from "jsonwebtoken";
 
 const createAccessToken = (payload) => {
-  const expiresIn = 6 * 30; // 3 minuty
+  const expiresIn = 10 * 60; // 10 minuty
   const token = jwt.sign(payload, process.env.ACCESS_TOKEN, { expiresIn });
   return token;
 };
 
 const createRefreshToken = (payload) => {
-  const expiresIn = 12 * 60; // 6 minut
+  const expiresIn = 20 * 60; // 20 minut
   const token = jwt.sign(payload, process.env.REFRESH_TOKEN, { expiresIn });
   return token;
 };
