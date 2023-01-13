@@ -13,14 +13,22 @@
 	@GET /refresh
 
 /api/question
-	@POST /add-new (title, content, tags)
+	@POST /add (title, content, tags)
 	@GET /get-by-title (title from params)
 	@POST /add-comment (answerID, content)
 	@POST /add-answer (questionID, content)
+	@POST /vote (questionID, type)
+	@POST /toggle-marked (questionID)
+	@PATCH / (title, content, tags)
+	@DELETE / (questionID)
 
 /api/questions
 	@GET /marked-by-user
 	@GET /all-by-user
+
+/api/report
+	@POST /question (questionID),
+	@POST /answer (answerID)
 
 
 	

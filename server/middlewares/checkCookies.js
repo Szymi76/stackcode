@@ -4,13 +4,12 @@ import cookieOptions from "../config/cookieOptions.js";
 
 const checkCookies = async (req, res, next) => {
   const { refresh_token } = req.cookies;
-  const id = req.user._id;
-  const user = await User.findById(id).exec();
+  const user = await User.findById(req.user._id).exec();
 
   const userFromRefreshToken = await User.findOne({ refreshTokens: refresh_token });
 
   // sprawdzanie czy ktoś inny też nie ma takiego samego refresh tokena
-  if (id.toString() !== userFromRefreshToken._id.toString()) {
+  if (req.user._id.toString() !== userFromRefreshToken._id.toString()) {
     userFromRefreshToken.refreshTokens = [];
     await userFromRefreshToken.save();
     res.clearCookie("access_token");
@@ -28,7 +27,7 @@ const checkCookies = async (req, res, next) => {
   };
 
   const newAccessToken = createAccessToken(payload);
-  const newRefreshToken = createRefreshToken(id);
+  const newRefreshToken = createRefreshToken({ id: req.user._id });
 
   // usuwanie uzytego refresh tokena i ustawienie nowego
   user.refreshTokens = [...user.refreshTokens.filter((t) => t !== refresh_token), newRefreshToken];
@@ -37,7 +36,8 @@ const checkCookies = async (req, res, next) => {
   res.cookie("access_token", newAccessToken, cookieOptions);
   res.cookie("refresh_token", newRefreshToken, cookieOptions);
 
-  next();
+  const { status, message } = req.result;
+  res.status(status).json({ message });
 };
 
 export default checkCookies;
