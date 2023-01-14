@@ -22,16 +22,16 @@
 
 /api/questions
 	@GET /marked-by-user ✔️
-	@GET /created-by-user 
+	@GET /created-by-user ✔️
 
 /api/comment
 	@POST /add (answerID, content) ✔️
 
 /api/answer 
 	@POST /add (questionID, content) ✔️
-	@PATCH /edit (questionID, content)
-	@PATCH /toggle-vote (questionID, type)
-	@DELETE /delete (questionID)
+	@PATCH /edit (answerID, content) ✔️
+	@PATCH /toggle-vote (answerID, type) ✔️
+	@DELETE /delete (answerID) ✔️
 
 /api/report
 	@POST /question (questionID),

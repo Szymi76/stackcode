@@ -11,9 +11,10 @@ const AnswerScheme = new mongoose.Schema(
       required: true,
     },
     content: {
-      type: String,
+      type: Object,
       minlength: 1,
       maxlength: 300,
+      required: true,
     },
     votes: {
       up: [

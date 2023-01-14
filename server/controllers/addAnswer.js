@@ -25,6 +25,7 @@ const addAnswer = async (req, res) => {
 
     res.status(201).json({ message: "Answer was added" });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "Something went wrong" });
   }
 };

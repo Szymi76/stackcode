@@ -1,6 +1,6 @@
 import Question from "../models/Question.js";
 
-const toggleVote = async (req, res) => {
+const toggleQuestionVote = async (req, res) => {
   const { questionID, vote } = req.body;
 
   if (!questionID || !vote) return res.status(400).json({ message: "Required data is missing" });
@@ -47,4 +47,4 @@ const toggleVote = async (req, res) => {
   return res.status(200).json({ message: "Vote was toggled" });
 };
 
-export default toggleVote;
+export default toggleQuestionVote;

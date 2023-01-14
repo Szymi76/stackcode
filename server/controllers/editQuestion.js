@@ -11,31 +11,36 @@ const editQuestion = async (req, res) => {
 
     const question = await Question.findById(questionID).exec();
 
-    // sprawdzanie czy nowy tytuł jest okej
-    if (typeof title == "string" && title.trim().length > 0) {
-      question.title = title;
+    if (!question) return res.status(404).json({ message: "Question was not found" });
+
+    if (question.author.toString() == req.user._id.toString()) {
+      // sprawdzanie czy nowy tytuł jest okej
+      if (typeof title == "string" && title.trim().length > 0) {
+        question.title = title;
+      }
+
+      // sprawdzanie czy nowy kontent jest okej
+      if (content && "ops" in content && Array.isArray(content.ops)) {
+        const newContent = uploadDeltaImages(content);
+
+        if (newContent === null)
+          return res.status(400).json({ message: "Something went wrong while uploading images" });
+
+        question.content = newContent;
+      }
+
+      // sprawdzanie czy nowe tagi jest okej
+      if (Array.isArray(tags) && tags.length > 0) {
+        question.tags = tags;
+      }
+
+      await question.save();
+
+      return res.status(200).json({ message: "Question was edited successfully", question });
     }
 
-    // sprawdzanie czy nowy kontent jest okej
-    if (content && "ops" in content && Array.isArray(content.ops)) {
-      const newContent = uploadDeltaImages(content);
-
-      if (newContent === null)
-        return res.status(400).json({ message: "Somethinf went wrong went uploading images" });
-
-      question.content = newContent;
-    }
-
-    // sprawdzanie czy nowe tagi jest okej
-    if (Array.isArray(tags) && tags.length > 0) {
-      question.tags = tags;
-    }
-
-    await question.save();
-
-    res.status(200).json({ message: "Question was edited successfully", delta: question.content });
+    return res.status(200).json({ message: "You are not allowed to edit this question" });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Something went wrong" });
   }
 };

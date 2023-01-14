@@ -3,7 +3,7 @@ import verifyTokens from "../middlewares/verifyTokens.js";
 
 import addNewQuestion from "../controllers/addNewQuestion.js";
 import getQuestionByTitle from "../controllers/getQuestionByTitle.js";
-import toggleVote from "../controllers/toggleVote.js";
+import toggleVote from "../controllers/toggleQuestionVote.js";
 import toogleMarked from "../controllers/toogleMarked.js";
 import editQuestion from "../controllers/editQuestion.js";
 import deleteQuestion from "../controllers/deleteQuestion.js";
