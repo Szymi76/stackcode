@@ -1,0 +1,50 @@
+:root {
+  --black: #17252a;
+  --dark-green: #2b7a78;
+  --green: #3aafa9;
+  --green-hover: #57cfc8;
+  --light-green: #def2f1;
+  --very-light-green: #f1f9f9;
+  --light-gray: rgba(0, 0, 0, 0.1);
+  --gray: rgba(0, 0, 0, 0.55);
+  --white: #feffff;
+}
+
+.link {
+  color: var(--green);
+  font-size: 0.9em;
+}
+
+.h-line {
+  width: 45%;
+  height: 1px;
+  background-color: var(--gray);
+}
+
+.login-provider-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--light-gray);
+  background-color: var(--white);
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 100ms;
+  text-decoration: none;
+  color: var(--black);
+}
+.login-provider-card:hover {
+  filter: brightness(95%);
+}
+
+.auth-ilustration {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 65vh;
+  /* width: 50vw; */
+  object-fit: contain;
+  padding: 0.5rem;
+}
