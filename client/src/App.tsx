@@ -5,10 +5,11 @@ import jwtDecode from "jwt-decode";
 import Editor from "./components/Editor";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import useGetUserFromCookies from "./hooks/useGetUserFromCookies";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["access_token", "refresh_token"]);
-
+  console.log(import.meta.env.VITE_DEV_BASE_URL);
   useEffect(() => {
     if (!cookies.access_token) return;
     const decoded = jwtDecode(cookies.access_token);
@@ -18,6 +19,8 @@ const App = () => {
   const handleLogout = async () => {
     await axios.get("http://localhost:3000/api/auth/logout", { withCredentials: true });
   };
+
+  useGetUserFromCookies();
 
   return (
     <div>

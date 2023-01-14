@@ -22,8 +22,10 @@ const checkCookies = async (req, res, next) => {
     id: user._id.toString(),
     displayName: user.displayName,
     email: user.email,
-    provider: user.provider,
     photoURL: user.photoURL,
+    provider: user.provider,
+    roles: user.roles,
+    emailVerified: user.emailVerified,
   };
 
   const newAccessToken = createAccessToken(payload);

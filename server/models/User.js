@@ -27,10 +27,10 @@ const UserSchema = new mongoose.Schema(
       maxLength: 60,
       select: false,
     },
-    role: {
-      type: String,
+    roles: {
+      type: [String],
       required: true,
-      default: "user",
+      default: ["user"],
     },
     emailVerified: {
       type: Boolean,
