@@ -1,16 +1,19 @@
 import { useState } from "react";
-import StackcodeLogo from "../assets/logo3.png";
-import { Flex } from "@welcome-ui/flex";
-import { Box } from "@welcome-ui/box";
-import { Text } from "@welcome-ui/text";
-import { Button } from "@welcome-ui/button";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import UserMenu from "./UserMenu";
-import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
 import { setUser } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+
+// komponenty
+import UserMenu from "./UserMenu";
+import { Flex } from "@welcome-ui/flex";
+import { Box } from "@welcome-ui/box";
+import { Button } from "@welcome-ui/button";
+import { Link } from "react-router-dom";
+import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+
+// ikony
+import StackcodeLogo from "../assets/logo3.png";
 
 const Nav = () => {
   const dispatch = useAppDispatch();
@@ -20,13 +23,9 @@ const Nav = () => {
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
 
-  const handleToggleUserMenu = () => {
-    setShowUserMemu(!showUserMenu);
-  };
+  const handleToggleUserMenu = () => setShowUserMemu(!showUserMenu);
 
-  const toggleMenu = () => {
-    setMenuToggled(!menuToggled);
-  };
+  const toggleMenu = () => setMenuToggled(!menuToggled);
 
   const handleLogout = async () => {
     await logout();
@@ -59,10 +58,13 @@ const Nav = () => {
           mt={{ _: "3rem", md: "0" }}
           gap="1.25rem"
           flexDirection={{ _: "column", md: "row" }}>
+          {/* linki navigatora */}
           <Link to="/zadaj-pytanie" className="nav-link" children={"Zadaj pytanie"} />
           <Link to="/forum" className="nav-link" children={"Forum"} />
           <Link to="/blog" className="nav-link" children={"Blog"} />
           <Link to="/szukaj" className="nav-link" children={"Szukaj"} />
+
+          {/* dodatkowe linki dla rozwijanego menu  */}
           <Flex direction="column" gap="1.25rem" display={{ _: !menuToggled ? "none" : "flex", md: "none" }}>
             {!user && <Link to="/zaloguj-sie" className="nav-link" children={"Zaloguj się"} />}
             {user && <Link to="/twoj-profil" className="nav-link" children={"Twój profil"} />}
@@ -70,9 +72,11 @@ const Nav = () => {
             <XMarkIcon height={55} color="white" style={{ marginTop: "1rem" }} cursor="pointer" onClick={toggleMenu} />
           </Flex>
         </Flex>
+
         {/* awatar użytkownika lub przycisk do logowania */}
-        <Box h="100%" display={{ _: "none", md: "block" }}>
+        <Flex h="100%" align="center" display={{ _: "none", md: "flex" }}>
           {user ? (
+            // pokazanie awatara użytkownika jeśli jest zalogowany
             <Flex h="100%" align="center">
               <img
                 src={user.photoURL}
@@ -80,13 +84,18 @@ const Nav = () => {
                 style={{ borderRadius: "9999px", cursor: "pointer" }}
                 onClick={handleToggleUserMenu}
               />
+
+              {/* menu użytkownika w prawym górnym rogu */}
               {showUserMenu && <UserMenu />}
             </Flex>
           ) : (
+            // przycisk do logowania dla nawigatora
             <Button onClick={() => navigate("/zaloguj-sie")} children="Zaloguj się" />
           )}
-        </Box>
+        </Flex>
       </Flex>
+
+      {/* ikona do togglowania menu hamburger */}
       <Box position="absolute" right="1rem" top=".5rem" display={{ _: menuToggled ? "none" : "block", md: "none" }}>
         <Bars3BottomRightIcon height={45} cursor="pointer" onClick={toggleMenu} />
       </Box>

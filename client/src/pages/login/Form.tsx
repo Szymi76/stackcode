@@ -2,6 +2,8 @@ import { useAppDispatch } from "../../app/hooks";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { setUser } from "../../features/auth/authSlice";
+
+// komponenty
 import { InputText } from "@welcome-ui/input-text";
 import { Field } from "@welcome-ui/field";
 import { Text } from "@welcome-ui/text";
@@ -34,9 +36,12 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {/* adres email */}
       <Field error={errors && errors.email && errors.email.message} label="Adres email">
         <InputText {...register("email", { required: "Pole jest wymagane" })} type="email" size="md" />
       </Field>
+
+      {/* hasło */}
       <Field error={errors && errors.password && errors.password.message} label="Hasło" mb="1rem">
         <InputText
           {...register("password", {
@@ -65,7 +70,7 @@ const Form = () => {
       {/* przycisk do logowania */}
       <Button w="100%" type="submit" my=".25rem" children="Kontynuuj" />
 
-      {/* text - nie masz konta wraz z linkiem */}
+      {/* link do stworzenia konta */}
       <Flex alignItems="start" gap=".75rem" mb=".25rem">
         <Text fontWeight={400} fontSize="0.9em" margin={0}>
           Nie masz konta?{" "}
@@ -73,7 +78,7 @@ const Form = () => {
         <Link to={"/stworz-konto"} className={"link"} children="Stwórz konto" />
       </Flex>
 
-      {/* link zapomniełeś hasła */}
+      {/* link do resetowania hasła */}
       <Link to={"/resetowanie-hasla"} className={"link"} children="Zapomniałeś hasła?" />
     </form>
   );

@@ -1,16 +1,18 @@
 import { Text } from "@welcome-ui/text";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
+import Form from "./Form";
+import { Link } from "react-router-dom";
 
+// loga i ilustracje
 import GoogleLogo from "../../assets/googlelogo.png";
 import GithubLogo from "../../assets/githublogo.png";
 import StackcodeLogo from "../../assets/logo3.png";
-import Form from "./Form";
-import { Link } from "react-router-dom";
 
 const RightSection = () => {
   return (
     <Box w={{ _: "100%", md: "50%" }}>
+      {/* link z logiem */}
       <Link to={"/home"}>
         <Box
           h="10%"
@@ -22,12 +24,14 @@ const RightSection = () => {
           <img src={StackcodeLogo} height="100%" style={{ margin: "auto" }} />
         </Box>
       </Link>
-      {/* kontent */}
+
       <Box maxWidth={450} mx="auto" mt="10%" p="2rem" h="75%">
         <Text variant="h1">Zaloguj się</Text>
+
         {/* forumlarz */}
         <Form />
-        {/* linia z lub na środku */}
+
+        {/* linia z "lub" na środku */}
         <Flex alignItems="center">
           <div className="h-line"></div>
           <Text color="gray" p=".5rem" children="lub" />
@@ -48,6 +52,8 @@ const RightSection = () => {
           </a>
         </Flex>
       </Box>
+
+      {/* stopka */}
       <Flex
         h="15%"
         bg="dark-green"

@@ -1,14 +1,16 @@
 import { Text } from "@welcome-ui/text";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
-
-import StackcodeLogo from "../../assets/logo3.png";
-import Form from "./Form";
 import { Link } from "react-router-dom";
+import Form from "./Form";
+
+// ilustracja
+import StackcodeLogo from "../../assets/logo3.png";
 
 const RightSection = () => {
   return (
     <Box w={{ _: "100%", md: "50%" }}>
+      {/* link z logiem */}
       <Link to={"/home"}>
         <Box
           h="10%"
@@ -21,13 +23,13 @@ const RightSection = () => {
         </Box>
       </Link>
 
-      {/* kontent */}
+      {/* forumlarz */}
       <Box maxWidth={450} mx="auto" mt="10%" p="2rem" h="75%">
         <Text variant="h1">Stwórz konto</Text>
-
-        {/* forumlarz */}
         <Form />
       </Box>
+
+      {/* stopka */}
       <Flex
         h="15%"
         bg="dark-green"

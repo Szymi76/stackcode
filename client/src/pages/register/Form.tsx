@@ -2,6 +2,8 @@ import { useAppDispatch } from "../../app/hooks";
 import { useRegisterMutation } from "../../features/auth/authApiSlice";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { setUser } from "../../features/auth/authSlice";
+
+// komponenty
 import { InputText } from "@welcome-ui/input-text";
 import { Field } from "@welcome-ui/field";
 import { Text } from "@welcome-ui/text";
@@ -41,6 +43,7 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {/* nazwa */}
       <Field error={errors && errors.displayName && errors.displayName.message} label="Twoja nazwa" mb="1rem">
         <InputText
           {...register("displayName", {
@@ -52,9 +55,13 @@ const Form = () => {
           size="md"
         />
       </Field>
+
+      {/* email */}
       <Field error={errors && errors.email && errors.email.message} label="Adres email" mb="1rem">
         <InputText {...register("email", { required: "Pole jest wymagane" })} type="email" size="md" />
       </Field>
+
+      {/* hasło */}
       <Field error={errors && errors.password && errors.password.message} label="Hasło" mb="1rem">
         <InputText
           {...register("password", {
@@ -65,6 +72,8 @@ const Form = () => {
           size="md"
         />
       </Field>
+
+      {/* powtórzenie hasła */}
       <Field error={errors && errors.passwordRepeat && errors.passwordRepeat.message} label="Powtórz hasło" mb="1rem">
         <InputText
           {...register("passwordRepeat", {
@@ -85,6 +94,8 @@ const Form = () => {
       {error && error.data && error.data.status == 409 && (
         <Text fontSize="sm" m={0} children="Użytkownik z takim adresem email już istnieje" />
       )}
+
+      {/* checkbox z informacją o polityce */}
       <Controller
         name="policy"
         control={control}
@@ -98,6 +109,7 @@ const Form = () => {
         }}
       />
 
+      {/* checkbox z informacją o newsleterze */}
       <Controller
         name="newsLetter"
         control={control}
@@ -115,7 +127,7 @@ const Form = () => {
       {/* przycisk do logowania */}
       <Button w="100%" type="submit" my=".25rem" children="Kontynuuj" />
 
-      {/* text - nie masz konta wraz z linkiem */}
+      {/* link do logowania  */}
       <Flex alignItems="start" gap=".75rem" mb=".25rem">
         <Text fontWeight={400} fontSize="0.9em" margin={0} children="Masz już konto" />
         <Link to={"/zaloguj-sie"} className={"link"} children="Zaloguj się" />
