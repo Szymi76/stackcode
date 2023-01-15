@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/styled-components": "^5.1.26",
     "@welcome-ui/box": "^4.2.0",

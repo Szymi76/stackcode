@@ -48,3 +48,39 @@
   object-fit: contain;
   padding: 0.5rem;
 }
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--white);
+  transition-duration: 100ms;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+#user-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  width: 18rem;
+  top: 5rem;
+  left: calc(100% - 19rem);
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.user-menu-link {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-top: 1px solid var(--light-gray);
+  transition-duration: 300ms;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+.user-menu-link:hover {
+  backdrop-filter: brightness(95%) !important;
+}
