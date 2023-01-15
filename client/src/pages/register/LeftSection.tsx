@@ -2,7 +2,7 @@ import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
 import { Flex } from "@welcome-ui/flex";
 import StackcodeLogo from "../../assets/logo3.png";
-import Ilustration from "../../assets/Log in.png";
+import Ilustration from "../../assets/registerIlustration.png";
 import { Link } from "react-router-dom";
 
 const LeftSection = () => {
@@ -23,8 +23,8 @@ const LeftSection = () => {
       </Box>
       <Flex h="15%" bg="dark-green" color="white" justify="center" align="center">
         <Text px="10%">
-          Zalogowanie się do twojego konta STACKCODE umożliwia ci zadawanie pytań, odpowiadanie na nie i co
-          najważniejsze zdobywanie wiedzy
+          Stworzenie twojego konta STACKCODE umożliwia ci zadawanie pytań, odpowiadanie na nie i co najważniejsze
+          zdobywanie wiedzy
         </Text>
       </Flex>
     </Box>

@@ -1,10 +1,9 @@
-import React from "react";
 import { Outlet } from "react-router";
-import useGetUserFromCookies from "../hooks/useGetUserFromCookies";
+import useInitializeUser from "../hooks/useInitializeUser";
 
 const Layout = () => {
-  // pobieranie użytkownika z ciasteczek
-  useGetUserFromCookies();
+  // pobieranie użytkownika z ciasteczek podczas pierwszego renderu
+  useInitializeUser();
 
   return <Outlet />;
 };

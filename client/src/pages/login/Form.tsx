@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../app/hooks";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { setIsVerified } from "../../features/auth/authSlice";
+import { setUser } from "../../features/auth/authSlice";
 import { InputText } from "@welcome-ui/input-text";
 import { Field } from "@welcome-ui/field";
 import { Text } from "@welcome-ui/text";
@@ -27,12 +27,10 @@ const Form = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const { email, password } = data;
-      await login({ email, password });
-      dispatch(setIsVerified(false));
+      const { user } = await login({ email, password }).unwrap();
+      dispatch(setUser(user));
     } catch (err) {}
   };
-
-  //   console.log(error);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

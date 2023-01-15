@@ -7,8 +7,10 @@ const login = async (req, res) => {
     id: req.user._id.toString(),
     displayName: req.user.displayName,
     email: req.user.email,
-    provider: req.user.provider,
     photoURL: req.user.photoURL,
+    provider: req.user.provider,
+    roles: req.user.roles,
+    emailVerified: req.user.emailVerified,
   };
 
   const newAccessToken = createAccessToken(payload);
@@ -21,7 +23,7 @@ const login = async (req, res) => {
   res.cookie("access_token", newAccessToken, cookieOptions);
   res.cookie("refresh_token", newRefreshToken, cookieOptions);
 
-  res.status(200).json({ message: "You logged in successfully" });
+  res.status(200).json({ user: payload });
 };
 
 export default login;

@@ -10,6 +10,7 @@ import loginWithGoogle from "../controllers/loginWithGoogle.js";
 import logout from "../controllers/logout.js";
 import refresh from "../controllers/refresh.js";
 import updateDisplayName from "../controllers/updateDisplayName.js";
+import getUser from "../controllers/getUser.js";
 
 import "../services/localStrategy.js";
 import "../services/googleStrategy.js";
@@ -17,6 +18,7 @@ import "../services/googleStrategy.js";
 const router = Router();
 
 //@GET
+router.get("/user", verifyTokens, getUser);
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/logout", logout);
 router.get("/refresh", refresh);

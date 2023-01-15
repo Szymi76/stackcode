@@ -204,9 +204,7 @@ const theme = createTheme({
       "#36D2C9",
       " 100%);\n      background-repeat: no-repeat;\n      background-size: 100% 50%;\n      background-position-y: calc(200% - 2px);\n      transition: background-position-y 250ms, background-size 250ms, color 250ms;\n    ",
     ],
-    hover: [
-      "\n      opacity: 1;\n      background-position-y: 100%;\n      background-size: 100% 100%;\n    ",
-    ],
+    hover: ["\n      opacity: 1;\n      background-position-y: 100%;\n      background-size: 100% 100%;\n    "],
   },
   defaultCards: {
     backgroundColor: "rgba(255, 255, 255, 1)",
@@ -1415,8 +1413,8 @@ const theme = createTheme({
     },
     checked: {
       color: "rgba(0, 0, 0, 1)",
-      backgroundColor: "#36D2C9",
-      borderColor: "#36D2C9",
+      backgroundColor: "#3aafa9",
+      borderColor: "#3aafa9",
     },
   },
   toggles: {
