@@ -36,13 +36,13 @@ const UserMenu = () => {
       {/* przycisk do profilu */}
       <Box className="user-menu-link" onClick={redirectToProfile}>
         <UserIcon color="gray" height="2rem" />
-        <Text variant="body2" color="gray" children="Twój profil" />
+        <Text variant="body2" fontWeight={500} color="gray" children="Twój profil" />
       </Box>
 
       {/* przycisk do wylogowania */}
       <Box className="user-menu-link" onClick={handleLogout}>
         <ArrowLeftOnRectangleIcon color="gray" height="2rem" />
-        <Text variant="body2" color="gray" children="Wyloguj się" />
+        <Text variant="body2" fontWeight={500} color="gray" children="Wyloguj się" />
       </Box>
     </div>
   );

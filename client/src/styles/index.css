@@ -84,3 +84,29 @@
 .user-menu-link:hover {
   backdrop-filter: brightness(95%) !important;
 }
+
+.home-ilustration {
+  height: 70vh;
+  width: 50vw;
+  object-fit: contain;
+  padding: 0 1rem;
+}
+
+#home-list {
+  color: var(--gray);
+  font-weight: 500;
+  font-size: x-large;
+}
+
+#why-us-skew {
+  z-index: -10;
+}
+
+.footer-link {
+  color: #a0a5a2;
+  text-decoration: none;
+  transition-duration: 100ms;
+}
+.footer-link:hover {
+  color: var(--white);
+}

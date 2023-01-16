@@ -1,7 +1,17 @@
-import React from "react";
+import Cards from "./Cards";
+import NoMoreProblems from "./NoMoreProblems";
+import Welcome from "./Welcome";
+import WhyUs from "./WhyUs";
 
 const index = () => {
-  return <div>index</div>;
+  return (
+    <>
+      <Welcome />
+      <WhyUs />
+      <NoMoreProblems />
+      <Cards />
+    </>
+  );
 };
 
 export default index;

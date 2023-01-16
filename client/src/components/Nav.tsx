@@ -41,8 +41,10 @@ const Nav = () => {
       align="center"
       px="1rem"
       position="fixed"
+      zIndex={20}
       w="100%"
-      flexDirection={{ _: "column", md: "row" }}>
+      flexDirection={{ _: "column", md: "row" }}
+      transitionDuration={150}>
       {/* logo */}
       <Link to="/home">
         <img src={StackcodeLogo} height="100%" style={{ maxHeight: "4rem" }} />
