@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
+import useOnScreen from "../../hooks/useOnScreen";
 
 const WhyUs = () => {
   return (

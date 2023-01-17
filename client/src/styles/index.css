@@ -15,6 +15,17 @@
   font-size: 0.9em;
 }
 
+#editor-container .ql-container {
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  border-color: var(--light-gray);
+}
+
+.toolbar {
+  border-color: var(--light-gray) !important;
+  border-radius: 5px 5px 0 0;
+}
+
 .h-line {
   width: 45%;
   height: 1px;
@@ -109,4 +120,19 @@
 }
 .footer-link:hover {
   color: var(--white);
+}
+
+.fade-in {
+  animation: fade-in 750ms forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

@@ -9,7 +9,7 @@ const QuestionScheme = new mongoose.Schema(
       type: String,
       required: true,
       minLength: 5,
-      maxLength: 40,
+      maxLength: 80,
       unique: true,
     },
     content: {

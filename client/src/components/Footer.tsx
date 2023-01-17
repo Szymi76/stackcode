@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <Box bg="black" color="white" px="5rem" py="2rem">
-      <Flex wrap="wrap" pb="1rem" gap="5rem" mx="auto">
+      <Flex wrap="wrap" pb="1rem" columnGap="5rem" rowGap="2.5rem" mx="auto">
         {/* forum */}
         <Flex direction="column" gap=".5rem">
           <Text variant="h3" fontWeight="500" color="white" children="Forum" />

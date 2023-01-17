@@ -19,6 +19,7 @@ import App from "./App";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import MakeQuestion from "./pages/makeQuestion";
 
 // other
 import theme from "./utils/theme";
@@ -48,7 +49,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                   <Route path="/stworz-konto" element={<Register />} />
                 </Route>
                 {/* route tylko dla zalogowanych użytkowników */}
-                {/* <Route path="/" element={<LoggedInOnly />}></Route> */}
+                <Route path="/" element={<LoggedInOnly />}>
+                  <Route path="/zadaj-pytanie" element={<MakeQuestion />} />
+                </Route>
               </Route>
             </Routes>
           </BrowserRouter>

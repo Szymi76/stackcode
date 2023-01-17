@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { Quill } from "react-quill";
 
 const CustomUndo = () => (
@@ -51,9 +52,9 @@ export const formats = [
   "code-block",
 ];
 
-export const EditorToolbar = ({ id }: { id: string }) => {
+export const EditorToolbar = ({ id, style }: { id: string; style?: CSSProperties }) => {
   return (
-    <div id={id}>
+    <div id={id} className="toolbar" style={style}>
       <span className="ql-formats">
         <button className="ql-bold" />
         <button className="ql-italic" />
