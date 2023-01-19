@@ -1,8 +1,0 @@
-black - #17252A
-dark-green - #2B7A78
-green - #3AAFA9 hover - #57cfc8
-light-green - #DEF2F1
-very-light-green - #F1F9F9
-light-gray - rgba(0,0,0,0.1)
-gray - rgba(0,0,0,0.55)
-white - #FEFFFF
