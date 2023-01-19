@@ -27,6 +27,7 @@ import theme from "./utils/theme";
 // css
 import "./styles/index.css";
 import Tests from "./pages/tests";
+import QuestionPage from "./pages/question";
 
 // const theme = createTheme();
 
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<AccessForAll />}>
                   <Route index path="/home" element={<Home />} />
                   <Route path="/" element={<Navigate to={"/home"} />} />
+                  <Route path="/pytanie/:questionTitle" element={<QuestionPage />} />
                   {/* <Route path="/tests" element={<Tests />} /> */}
                 </Route>
 

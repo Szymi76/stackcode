@@ -7,7 +7,7 @@ type Question = {
   title: string;
   content: object;
   tags: string[];
-  author: User | string;
+  author: User;
   views: number;
   votes: {
     up: User[] | string[];

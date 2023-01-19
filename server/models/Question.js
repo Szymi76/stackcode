@@ -27,7 +27,10 @@ const QuestionScheme = new mongoose.Schema(
       ref: User,
       required: true,
     },
-    views: Number,
+    views: {
+      type: Number,
+      default: 0,
+    },
     votes: {
       up: [
         {
