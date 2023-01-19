@@ -10,18 +10,50 @@ import { Field } from "@welcome-ui/field";
 import { Tag } from "@welcome-ui/tag";
 import { Tooltip } from "@welcome-ui/tooltip";
 import { useModalState } from "@welcome-ui/modal";
-import FinishModal from "./FinishModal";
+import { useNavigate } from "react-router-dom";
+import FinishModal from "../tests";
+import { Loader } from "@welcome-ui/loader";
+import { useAddQuestionMutation } from "../../features/question/questionApiSlice";
+
+type Errors = {
+  title: string | undefined;
+  content: string | undefined;
+  tags: string | undefined;
+};
 
 const MakeQuestion = () => {
   const [tags, setTags] = useState<string[]>(["Javascript", "React"]);
-  const modal = useModalState();
+  const [errors, setErrors] = useState<Errors>({ title: undefined, content: undefined, tags: undefined });
+  const modal = useModalState({ animated: true });
+  const [addQuestion, { isLoading, isError }] = useAddQuestionMutation();
   const editorRef = useRef<ReactQuill>(null);
   const tagRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
 
-  const isWantToSeeModal = Boolean(localStorage.getItem("want-to-see-finish-modal"));
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    modal.show();
+  const handleSubmit = async () => {
+    try {
+      const content = editorRef.current?.getEditor().getContents();
+      if (!titleRef.current || !content) return;
+      const title = titleRef.current.value.trim();
+      if (title.length == 0) {
+        setErrors({ ...errors, title: "Tytuł nie może być pusty" });
+        return;
+      }
+      if (title.length < 4) {
+        setErrors({ ...errors, title: "Tytuł musi wynosić co najmniej 4 znaki" });
+        return;
+      }
+      if (content.length() == 0) {
+        setErrors({ ...errors, content: "Treść nie może być pusta" });
+        return;
+      }
+
+      await addQuestion({ title, content, tags }).unwrap();
+
+      modal.show();
+    } catch (err) {}
   };
 
   // dodawanie nowego tagu
@@ -33,9 +65,13 @@ const MakeQuestion = () => {
     setTags([...tags, newTag]);
   };
 
+  const redirectToHome = () => navigate("/home");
+
   return (
     <Box minH="100vh" py="6rem" px="2rem" bg="very-light-green">
+      {/* wrapper */}
       <Flex direction="column" maxW="1100px" mx="auto" gap=".75rem">
+        {/* kontent */}
         <Text variant="h3" mb="0" children="Zadaj nowe pytanie ★" />
         <Flex
           direction="column"
@@ -45,18 +81,34 @@ const MakeQuestion = () => {
           borderColor="light-gray"
           borderRadius="5"
           p="1.5rem">
-          <Field label="Pytanie *" hint="skonstruuj takie pytanie, aby inni łatwo do niego dotarli (min. 5 znaków)">
-            <InputText size="md" minLength={5} maxLength={80} />
+          {/* pytanie */}
+          <Field
+            error={errors.title && <Text variant="body4" mt=".25rem" children={errors.title} />}
+            label="Pytanie *"
+            hint="skonstruuj takie pytanie, aby inni łatwo do niego dotarli (min. 5 znaków)">
+            <InputText ref={titleRef} size="md" minLength={5} maxLength={80} />
           </Field>
-          <Field label="Treść *" hint="możesz umieszczać co chcesz, zdjęcia, kod, linki i wiele innych">
+
+          {/* treść */}
+          <Field
+            error={errors.content && <Text variant="body4" mt=".25rem" children={errors.content} />}
+            label="Treść *"
+            hint="możesz umieszczać co chcesz, zdjęcia, kod, linki i wiele innych">
             <Editor ref={editorRef} style={{ editor: { height: "300px" } }} />
           </Field>
-          <Field label="Tagi" hint="tagi m.in pomogą innym znaleść twoje pytanie (max. 5 tagów)">
+
+          {/* tagi */}
+          <Field
+            error={errors.tags && <Text variant="body4" mt=".25rem" children={errors.tags} />}
+            label="Tagi"
+            hint="tagi m.in pomogą innym znaleść twoje pytanie (max. 5 tagów)">
             <Flex gap=".5rem">
               <InputText size="md" minLength={3} maxLength={12} ref={tagRef} />
               <Button children="Dodaj" onClick={handleAddTag} />
             </Flex>
           </Field>
+
+          {/* lista tagów */}
           <Flex wrap="wrap" gap=".5rem">
             {tags.map((tag, index) => {
               const handleRemoveTag = () => {
@@ -67,9 +119,8 @@ const MakeQuestion = () => {
               const variant = Math.floor(Math.random() * 6) + 1;
 
               return (
-                <Tooltip content="Kliknij aby usunąć">
+                <Tooltip key={"tag" + index} content="Kliknij aby usunąć">
                   <Tag
-                    key={"tag" + index}
                     // @ts-ignore
                     variant={`${variant}`}
                     cursor="pointer"
@@ -81,9 +132,14 @@ const MakeQuestion = () => {
             })}
           </Flex>
         </Flex>
-        <Button children="Zadaj pytanie" w="175px" px="1rem" alignSelf="end" onClick={handleSubmit} />
+
+        {/* przycisk do przesyłania pytania */}
+        <Button children="Prześlij" w="175px" px="1rem" alignSelf="end" onClick={handleSubmit} />
+        {/* <Button children={true && <Loader color="white" size="sm" />} w="175px" px="1rem" alignSelf="end" /> */}
       </Flex>
-      <FinishModal modal={modal} />
+
+      {/* finish modal */}
+      <FinishModal modal={modal} onClose={redirectToHome} />
     </Box>
   );
 };

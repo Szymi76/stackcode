@@ -28,7 +28,7 @@ const WhyUs = () => {
       {/* drugi skos */}
       <Box display={{ _: "none", md: "block" }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path fill="#2b7a78" fill-opacity="1" d="M0,96L1440,192L1440,0L0,0Z"></path>
+          <path fill="#2b7a78" fillOpacity="1" d="M0,96L1440,192L1440,0L0,0Z"></path>
         </svg>
       </Box>
     </Box>

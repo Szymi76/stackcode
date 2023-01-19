@@ -26,6 +26,7 @@ import theme from "./utils/theme";
 
 // css
 import "./styles/index.css";
+import Tests from "./pages/tests";
 
 // const theme = createTheme();
 
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<AccessForAll />}>
                   <Route index path="/home" element={<Home />} />
                   <Route path="/" element={<Navigate to={"/home"} />} />
+                  {/* <Route path="/tests" element={<Tests />} /> */}
                 </Route>
 
                 {/* route tylko dla NIE zalogowanych użytkowników */}

@@ -7,14 +7,19 @@ import { Checkbox } from "@welcome-ui/checkbox";
 import { Field } from "@welcome-ui/field";
 import { useNavigate } from "react-router-dom";
 
-const FinishModal = ({ modal }: { modal: ModalStateReturn }) => {
+interface FinishModalProps {
+  modal: ModalStateReturn;
+  onClose?: () => void;
+}
+
+const FinishModal = ({ modal, onClose }: FinishModalProps) => {
   const navigate = useNavigate();
 
   const redirectToHome = () => navigate("/home");
   const redirectToProfile = () => navigate("/profile");
 
   return (
-    <Modal {...modal} ariaLabel="finish-modal" size="md">
+    <Modal {...modal} ariaLabel="finish-modal" size="md" onClose={onClose}>
       <Modal.Content>
         {/* header */}
         <Modal.Title children="Twoje pytanie zostało przesłane pomyślnie" p="0" borderBottom="none" />
