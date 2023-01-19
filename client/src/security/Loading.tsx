@@ -5,7 +5,7 @@ import { Text } from "@welcome-ui/text";
 
 const Loading = () => {
   return (
-    <Flex bg="very-light-green" h="100vh" justify="center" align="center" gap="1rem">
+    <Flex wrap="wrap" bg="very-light-green" h="100vh" justify="center" align="center" gap="1rem">
       <Text variant="h3" children="Czekanie aż twoje połączenie będzie bezpieczne" />
       <Loader color="green" size="md" />
     </Flex>

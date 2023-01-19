@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, ModalStateReturn } from "@welcome-ui/modal";
 import { Button } from "@welcome-ui/button";
 import { Text } from "@welcome-ui/text";
@@ -7,14 +7,25 @@ import { Checkbox } from "@welcome-ui/checkbox";
 import { Field } from "@welcome-ui/field";
 import { useNavigate } from "react-router-dom";
 
-const FinishModal = ({ modal }: { modal: ModalStateReturn }) => {
+interface FinishModalProps {
+  modal: ModalStateReturn;
+  onClose?: () => void;
+}
+
+const FinishModal = ({ modal, onClose }: FinishModalProps) => {
+  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
   const redirectToHome = () => navigate("/home");
   const redirectToProfile = () => navigate("/profile");
 
+  const handleChange = () => {
+    setChecked(!checked);
+    localStorage.setItem("show-finish-modal", String(checked));
+  };
+
   return (
-    <Modal {...modal} ariaLabel="finish-modal" size="md">
+    <Modal {...modal} ariaLabel="finish-modal" size="md" onClose={onClose}>
       <Modal.Content>
         {/* header */}
         <Modal.Title children="Twoje pytanie zostało przesłane pomyślnie" p="0" borderBottom="none" />
@@ -23,7 +34,7 @@ const FinishModal = ({ modal }: { modal: ModalStateReturn }) => {
         <Modal.Cover display="flex" flexDirection="column" alignItems="flex-start">
           <Text color="gray">Twoje pytanie możesz znaleść na swoim profilu. Pytanie możesz usunąć i edytować.</Text>
           <Field ml=".5rem" w="100%" label="zaznacz, jeśli nie chcesz widzieć tego okna ponownie">
-            <Checkbox />
+            <Checkbox checked={checked} onChange={handleChange} />
           </Field>
         </Modal.Cover>
 

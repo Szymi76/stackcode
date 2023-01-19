@@ -1,19 +1,20 @@
 import { useRef, useState } from "react";
+import { useAddQuestionMutation } from "../../features/question/questionApiSlice";
+import { useModalState } from "@welcome-ui/modal";
+import { useNavigate } from "react-router-dom";
+
+// komponenty
 import Editor from "../../components/Editor";
 import ReactQuill from "react-quill";
+import TagsList from "./TagsList";
+import FinishModal from "./FinishModal";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Button } from "@welcome-ui/button";
 import { Text } from "@welcome-ui/text";
 import { InputText } from "@welcome-ui/input-text";
 import { Field } from "@welcome-ui/field";
-import { Tag } from "@welcome-ui/tag";
-import { Tooltip } from "@welcome-ui/tooltip";
-import { useModalState } from "@welcome-ui/modal";
-import { useNavigate } from "react-router-dom";
-import FinishModal from "../tests";
 import { Loader } from "@welcome-ui/loader";
-import { useAddQuestionMutation } from "../../features/question/questionApiSlice";
 
 type Errors = {
   title: string | undefined;
@@ -32,27 +33,36 @@ const MakeQuestion = () => {
 
   const navigate = useNavigate();
 
+  const redirectToHome = () => navigate("/home");
+
+  // dodawanie nowego pytania
   const handleSubmit = async () => {
     try {
       const content = editorRef.current?.getEditor().getContents();
       if (!titleRef.current || !content) return;
       const title = titleRef.current.value.trim();
+
+      // walidacja
       if (title.length == 0) {
-        setErrors({ ...errors, title: "Tytuł nie może być pusty" });
+        setErrors({ ...errors, title: "Pytanie nie może być puste" });
         return;
       }
       if (title.length < 4) {
-        setErrors({ ...errors, title: "Tytuł musi wynosić co najmniej 4 znaki" });
+        setErrors({ ...errors, title: "Pytanie musi wynosić co najmniej 4 znaki" });
         return;
       }
-      if (content.length() == 0) {
+
+      if (content.length() <= 1) {
         setErrors({ ...errors, content: "Treść nie może być pusta" });
         return;
       }
 
+      // przesyłanie
       await addQuestion({ title, content, tags }).unwrap();
 
-      modal.show();
+      // sprawdzanie czy modal ma zostać wyświetlony
+      const showModal = JSON.parse(localStorage.getItem("show-finish-modal") || "true");
+      showModal ? modal.show() : redirectToHome();
     } catch (err) {}
   };
 
@@ -64,8 +74,6 @@ const MakeQuestion = () => {
     if (tags.includes(newTag) || tags.length == 5) return;
     setTags([...tags, newTag]);
   };
-
-  const redirectToHome = () => navigate("/home");
 
   return (
     <Box minH="100vh" py="6rem" px="2rem" bg="very-light-green">
@@ -86,7 +94,13 @@ const MakeQuestion = () => {
             error={errors.title && <Text variant="body4" mt=".25rem" children={errors.title} />}
             label="Pytanie *"
             hint="skonstruuj takie pytanie, aby inni łatwo do niego dotarli (min. 5 znaków)">
-            <InputText ref={titleRef} size="md" minLength={5} maxLength={80} />
+            <InputText
+              ref={titleRef}
+              size="md"
+              minLength={5}
+              maxLength={80}
+              onChange={() => errors.title && setErrors({ ...errors, title: undefined })}
+            />
           </Field>
 
           {/* treść */}
@@ -94,7 +108,11 @@ const MakeQuestion = () => {
             error={errors.content && <Text variant="body4" mt=".25rem" children={errors.content} />}
             label="Treść *"
             hint="możesz umieszczać co chcesz, zdjęcia, kod, linki i wiele innych">
-            <Editor ref={editorRef} style={{ editor: { height: "300px" } }} />
+            <Editor
+              ref={editorRef}
+              style={{ editor: { height: "300px" } }}
+              onChange={() => errors.content && setErrors({ ...errors, content: undefined })}
+            />
           </Field>
 
           {/* tagi */}
@@ -109,47 +127,21 @@ const MakeQuestion = () => {
           </Field>
 
           {/* lista tagów */}
-          <Flex wrap="wrap" gap=".5rem">
-            {tags.map((tag, index) => {
-              const handleRemoveTag = () => {
-                const filteredTags = tags.filter((t) => t != tag);
-                setTags(filteredTags);
-              };
-
-              const variant = Math.floor(Math.random() * 6) + 1;
-
-              return (
-                <Tooltip key={"tag" + index} content="Kliknij aby usunąć">
-                  <Tag
-                    // @ts-ignore
-                    variant={`${variant}`}
-                    cursor="pointer"
-                    children={tag}
-                    onClick={handleRemoveTag}
-                  />
-                </Tooltip>
-              );
-            })}
-          </Flex>
+          <TagsList tags={tags} setTags={setTags} />
         </Flex>
 
         {/* przycisk do przesyłania pytania */}
-        <Button children="Prześlij" w="175px" px="1rem" alignSelf="end" onClick={handleSubmit} />
-        {/* <Button children={true && <Loader color="white" size="sm" />} w="175px" px="1rem" alignSelf="end" /> */}
+        <Button w="175px" px="1rem" alignSelf="end" disabled={isLoading} onClick={handleSubmit}>
+          {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
+          Prześlij
+        </Button>
+        {isError && <Text variant="body4" color="red" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       </Flex>
 
       {/* finish modal */}
-      <FinishModal modal={modal} onClose={redirectToHome} />
+      {modal.visible && <FinishModal modal={modal} onClose={redirectToHome} />}
     </Box>
   );
 };
 
 export default MakeQuestion;
-
-{
-  /* <Editor
-        ref={editorRef}
-        style={{ editor: { maxWidth: "900px", height: "300px" }, toolbar: { maxWidth: "900px" } }}
-      /> */
-}
-//   console.log(editorRef.current?.getEditor().getContents())

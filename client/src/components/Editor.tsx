@@ -5,10 +5,11 @@ import "react-quill/dist/quill.snow.css";
 
 interface EditorProps {
   defaultValue?: string;
+  onChange?: () => void;
   style?: { toolbar?: CSSProperties; editor?: CSSProperties };
 }
 
-const Editor = forwardRef<ReactQuill, EditorProps>(({ defaultValue = "", style }, ref) => {
+const Editor = forwardRef<ReactQuill, EditorProps>(({ defaultValue = "", onChange, style }, ref) => {
   return (
     <>
       <div id="editor-container">
@@ -21,6 +22,7 @@ const Editor = forwardRef<ReactQuill, EditorProps>(({ defaultValue = "", style }
           ref={ref}
           defaultValue={defaultValue}
           className="test"
+          onChange={onChange}
         />
       </div>
     </>
