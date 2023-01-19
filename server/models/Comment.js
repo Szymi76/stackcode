@@ -10,9 +10,8 @@ const CommentScheme = new mongoose.Schema(
       required: true,
     },
     content: {
-      type: String,
-      minLength: 1,
-      maxLength: 50,
+      type: Object,
+      required: true,
     },
     reports: [
       {
