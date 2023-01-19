@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAddQuestionMutation } from "../../features/question/questionApiSlice";
 import { useModalState } from "@welcome-ui/modal";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +25,14 @@ type Errors = {
 const MakeQuestion = () => {
   const [tags, setTags] = useState<string[]>(["Javascript", "React"]);
   const [errors, setErrors] = useState<Errors>({ title: undefined, content: undefined, tags: undefined });
+  const [addQuestion, { isLoading, isError, error }] = useAddQuestionMutation();
   const modal = useModalState({ animated: true });
-  const [addQuestion, { isLoading, isError }] = useAddQuestionMutation();
+  const navigate = useNavigate();
+
+  // refy
   const editorRef = useRef<ReactQuill>(null);
   const tagRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-
-  const navigate = useNavigate();
 
   const redirectToHome = () => navigate("/home");
 
@@ -41,23 +42,20 @@ const MakeQuestion = () => {
       const content = editorRef.current?.getEditor().getContents();
       if (!titleRef.current || !content) return;
       const title = titleRef.current.value.trim();
+      let newErrors = { ...errors };
 
       // walidacja
-      if (title.length == 0) {
-        setErrors({ ...errors, title: "Pytanie nie może być puste" });
-        return;
-      }
-      if (title.length < 4) {
-        setErrors({ ...errors, title: "Pytanie musi wynosić co najmniej 4 znaki" });
+      if (title.length < 4) newErrors = { ...newErrors, title: "Pytanie musi wynosić co najmniej 4 znaki" };
+      if (title.length == 0) newErrors = { ...newErrors, title: "Pytanie nie może być puste" };
+      if (content && content.length() <= 1) newErrors = { ...newErrors, content: "Treść nie może być pusta" };
+
+      const isValid = Object.values(newErrors).every((e) => e === undefined);
+
+      if (!isValid) {
+        setErrors(newErrors);
         return;
       }
 
-      if (content.length() <= 1) {
-        setErrors({ ...errors, content: "Treść nie może być pusta" });
-        return;
-      }
-
-      // przesyłanie
       await addQuestion({ title, content, tags }).unwrap();
 
       // sprawdzanie czy modal ma zostać wyświetlony
@@ -66,6 +64,13 @@ const MakeQuestion = () => {
     } catch (err) {}
   };
 
+  // błąd z informacją o duplikacji pytania
+  useEffect(() => {
+    // @ts-ignore
+    if (error && error.status && error.status == 409)
+      setErrors({ ...errors, title: "Pytanie z takim tytyłem już istnieje" });
+  }, [error]);
+
   // dodawanie nowego tagu
   const handleAddTag = () => {
     if (!tagRef.current) return;
@@ -73,6 +78,7 @@ const MakeQuestion = () => {
     if (newTag.length < 3 || newTag.length > 12) return;
     if (tags.includes(newTag) || tags.length == 5) return;
     setTags([...tags, newTag]);
+    tagRef.current.value = "";
   };
 
   return (
@@ -135,7 +141,7 @@ const MakeQuestion = () => {
           {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
           Prześlij
         </Button>
-        {isError && <Text variant="body4" color="red" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
+        {isError && <Text variant="body4" color="gray" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       </Flex>
 
       {/* finish modal */}

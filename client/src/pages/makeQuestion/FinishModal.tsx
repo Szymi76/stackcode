@@ -32,7 +32,7 @@ const FinishModal = ({ modal, onClose }: FinishModalProps) => {
 
         {/* kontent */}
         <Modal.Cover display="flex" flexDirection="column" alignItems="flex-start">
-          <Text color="gray">Twoje pytanie możesz znaleść na swoim profilu. Pytanie możesz usunąć i edytować.</Text>
+          <Text color="gray">Możesz je znaleść na swoim profilu. Pytanie możesz usunąć i edytować.</Text>
           <Field ml=".5rem" w="100%" label="zaznacz, jeśli nie chcesz widzieć tego okna ponownie">
             <Checkbox checked={checked} onChange={handleChange} />
           </Field>
