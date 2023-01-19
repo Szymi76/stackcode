@@ -19,7 +19,7 @@ import App from "./App";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import MakeQuestion from "./pages/makeQuestion";
+import MakeQuestion from "./pages/addQuestion";
 
 // other
 import theme from "./utils/theme";
