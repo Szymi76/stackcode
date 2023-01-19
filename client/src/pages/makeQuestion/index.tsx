@@ -53,6 +53,7 @@ const MakeQuestion = () => {
 
       if (!isValid) {
         setErrors(newErrors);
+        if (newErrors.title) titleRef.current.focus();
         return;
       }
 

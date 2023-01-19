@@ -28,10 +28,15 @@ const FinishModal = ({ modal, onClose }: FinishModalProps) => {
     <Modal {...modal} ariaLabel="finish-modal" size="md" onClose={onClose}>
       <Modal.Content>
         {/* header */}
-        <Modal.Title children="Twoje pytanie zostało przesłane pomyślnie" p="0" borderBottom="none" />
+        <Modal.Title children="Twoje pytanie zostało przesłane pomyślnie" p={{ md: "0" }} borderBottom="none" />
 
         {/* kontent */}
-        <Modal.Cover display="flex" flexDirection="column" alignItems="flex-start">
+        <Modal.Cover
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          pt={{ _: "3rem", md: "0" }}
+          pl={{ _: "2rem", md: "0" }}>
           <Text color="gray">Możesz je znaleść na swoim profilu. Pytanie możesz usunąć i edytować.</Text>
           <Field ml=".5rem" w="100%" label="zaznacz, jeśli nie chcesz widzieć tego okna ponownie">
             <Checkbox checked={checked} onChange={handleChange} />
@@ -39,7 +44,7 @@ const FinishModal = ({ modal, onClose }: FinishModalProps) => {
         </Modal.Cover>
 
         {/* stopka */}
-        <Modal.Footer p="0" borderTop="none">
+        <Modal.Footer w={{ _: "auto", md: "100%" }} p={{ md: "0" }} pl={{ _: "2rem" }} borderTop="none">
           <Flex wrap="wrap" pt="1rem" justify="end" gap=".5rem">
             <Button children="Wróć do strony głównej" onClick={redirectToHome} />
             <Button children="Przejdź do swojego profilu" onClick={redirectToProfile} />
