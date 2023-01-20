@@ -32,7 +32,14 @@ const AnswerScheme = new mongoose.Schema(
         },
       ],
     },
-    verified: Boolean,
+    views: {
+      type: Number,
+      default: 0
+    },
+    verified: {
+      type: Boolean,
+      default: false
+    },
     comments: [
       {
         type: mongoose.Types.ObjectId,
