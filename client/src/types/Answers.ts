@@ -10,6 +10,7 @@ type Answer = {
     up: User[] | string[];
     down: User[] | string[];
   };
+  views: number
   verified: boolean;
   comments: Comment[];
   reports: Report[];
