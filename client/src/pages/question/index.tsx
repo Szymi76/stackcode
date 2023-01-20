@@ -11,6 +11,8 @@ import Question from "./Question";
 import QuestionType from "../../types/Question";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setQuestion } from "../../features/question/questionSlice";
+import { Loader } from "@welcome-ui/loader";
+import NotFound from "./NotFound";
 
 const QuestionPage = () => {
   const dispatch = useAppDispatch();
@@ -18,17 +20,16 @@ const QuestionPage = () => {
   const { data, isLoading, isError } = useGetQuestionByTitleQuery({ questionTitle: questionTitle! });
   const question = useAppSelector((state) => state.question);
 
-  useEffect(() => {
-    console.log(question);
-  }, [question]);
-
+  // ustawianie pytania
   useEffect(() => {
     const result = data ? data.question : null;
-    console.log(result);
     dispatch(setQuestion(result));
   }, [data]);
 
-  if (!questionTitle || isError) return <div style={{ padding: "5rem" }}>Nie ma takiego pytania</div>;
+  // ui dla ładowania i pytania nie znaleziono
+  if (isLoading) return <Flex minH="100vh" pt="6rem" justify="center" children={<Loader color="green" />} />;
+  if (!questionTitle || isError) return <NotFound />;
+
   return (
     <Box minH="100vh" pt="4rem" bg="very-light-green">
       <Stack py="2rem" spacing="md" maxW="1200px" mx="auto">

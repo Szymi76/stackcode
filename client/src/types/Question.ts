@@ -10,10 +10,10 @@ type Question = {
   author: User;
   views: number;
   votes: {
-    up: User[] | string[];
-    down: User[] | string[];
+    up: string[];
+    down: string[];
   };
-  markedBy: User[] | string[];
+  markedBy: string[];
   reports: Report[];
   answers: Answer[];
   createdAt: Date;

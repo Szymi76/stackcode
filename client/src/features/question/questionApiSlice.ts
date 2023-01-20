@@ -2,11 +2,10 @@ import { apiSlice } from "../../app/api/apiSlice";
 import Question from "../../types/Question";
 
 type AddQuestionBody = { title: string; content: object; tags: string[] };
-type ToggleVoteBody = { questionID: string, vote: "up"| "down"};
+type ToggleVoteBody = { questionID: string; vote: "up" | "down" };
 
 export const questionApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-
     // dodawanie nowego pytania
     addQuestion: build.mutation<void, AddQuestionBody>({
       query: (body) => ({
@@ -23,23 +22,27 @@ export const questionApiSlice = apiSlice.injectEndpoints({
 
     // zmiana głosu
     toggleQuestionVote: build.mutation<void, ToggleVoteBody>({
-      query: ({ vote, questionID }) => ({
-        url: "/question/toggleVote",
+      query: (body) => ({
+        url: "/question/toggle-vote",
         method: "PATCH",
-        body
-      })
+        body,
+      }),
     }),
 
     // zmiana zaznaczonego pytania
     toggleMarkekQuestion: build.mutation<void, { questionID: string }>({
       query: (body) => ({
-        url: "/question/toggleMarked",
-        method: "POST",
-        body
-      })
-    })
-
+        url: "/question/toggle-marked",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAddQuestionMutation, useGetQuestionByTitleQuery } = questionApiSlice;
+export const {
+  useAddQuestionMutation,
+  useGetQuestionByTitleQuery,
+  useToggleMarkekQuestionMutation,
+  useToggleQuestionVoteMutation,
+} = questionApiSlice;

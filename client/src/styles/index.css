@@ -136,3 +136,14 @@
     opacity: 1;
   }
 }
+
+.move-down {
+  position: relative;
+  cursor: pointer;
+  transition-duration: 0.15s;
+  -webkit-transition-duration: 0.15s; /* Safari */
+}
+
+.move-down:active {
+  top: 2px;
+}
