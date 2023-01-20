@@ -41,7 +41,7 @@ const MakeQuestion = () => {
     try {
       const content = editorRef.current?.getEditor().getContents();
       if (!titleRef.current || !content) return;
-      const title = titleRef.current.value.trim();
+      const title = titleRef.current.value.trim().replaceAll(" ", "-");
       let newErrors = { ...errors };
 
       // walidacja

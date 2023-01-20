@@ -1,21 +1,23 @@
-import React from "react";
-import QuestionType from "../../types/Question";
+import { useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import useOnScreen from "../../hooks/useOnScreen";
+import { useToast } from "@welcome-ui/toast";
+import useOpenImages from "../../hooks/useOpenImages";
+import { toggleVoteUp, toggleVoteDown, toggleMarked } from "../../features/question/questionSlice";
+import copyToClipboard from "../../utils/copyToClipboard";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
+import {
+  useToggleQuestionVoteMutation,
+  useToggleMarkekQuestionMutation,
+} from "../../features/question/questionApiSlice";
+
+// komponenty
+import { StarIcon, LinkIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
 import { Tag } from "@welcome-ui/tag";
 import { Stack } from "@welcome-ui/stack";
-import { StarIcon, LinkIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { toggleVoteUp, toggleVoteDown, toggleMarked } from "../../features/question/questionSlice";
-import {
-  useToggleQuestionVoteMutation,
-  useToggleMarkekQuestionMutation,
-} from "../../features/question/questionApiSlice";
-import { Button } from "@welcome-ui/button";
-import { Toast, useToast } from "@welcome-ui/toast";
-import copyToClipboard from "../../utils/copyToClipboard";
 
 const Question = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +26,12 @@ const Question = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [toggleVoteAsync] = useToggleQuestionVoteMutation();
   const [toggleMarkedAsync] = useToggleMarkekQuestionMutation();
+
+  // hook do otwierania zdjęć w nowej karcie
+  useOpenImages("quill-result");
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  // const visible = useOnScreen(wrapperRef);
 
   // @ts-ignore
   const html = new QuillDeltaToHtmlConverter(question.content.ops, {}).convert();
@@ -47,7 +55,7 @@ const Question = () => {
   const marked = question?.markedBy.includes(user?.id || "");
 
   return (
-    <Flex>
+    <Flex ref={wrapperRef}>
       {/* lewa kolumna */}
       <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
         <ChevronUpIcon
@@ -79,7 +87,7 @@ const Question = () => {
       <Stack w="90%" p="1.5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
         {/* góra */}
         <Stack>
-          <Text variant="h3" m="0" color="black" children={question?.title} />
+          <Text variant="h3" m="0" color="black" children={question?.title.replaceAll("-", " ")} />
           <Flex gap=".25rem">
             {question?.tags.map((tag, i) => (
               <Tag key={`tag-${i}`} variant="3" children={tag} size="sm" />
@@ -88,7 +96,7 @@ const Question = () => {
         </Stack>
 
         {/* kontent */}
-        <Box dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" />
+        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" />
 
         {/* dół */}
         <Flex justify="space-between">
