@@ -5,13 +5,37 @@ const questionSlice = createSlice({
   name: "question",
   initialState: null as Question | null,
   reducers: {
+    // ustawianie całego state-u
     setQuestion: (state, action: PayloadAction<Question | null>) => {
       return action.payload;
     },
-    toggleVote: (state, action: PayloadAction<{ vote: "up" | "down"; userID: string }>) => {
-      const { vote, userID } = action.payload;
+    // zmiana vote w momencie kliknięcia "up"
+    toggleVoteUp: (state, action: PayloadAction<{ userID: string }>) => {
+      const { userID } = action.payload;
 
-      // if(state == null) return state;
+      if(state.votes.down.includes(userID)) {
+        state.votes.down.fliter(id => id != userID);
+        state.votes.up = [...state.votes.up, userID];
+      } else if(state.votes.up.includes(userID)) {
+        state.votes.up.filter(id => id != userID);
+      } else {
+        state.votes.up = [...state.votes.up, userID];
+      }
+      
+    },
+    // zmiana vote w momencie kliknięcia "down"
+    toggleVoteDown: (state, action: PayloadAction<{ userID: string }>) => {
+      const { userID } = action.payload;
+
+      if(state.votes.up.includes(userID)) {
+        state.votes.up.fliter(id => id != userID);
+        state.votes.down = [...state.votes.down, userID];
+      } else if(state.votes.down.includes(userID)) {
+        state.votes.down.filter(id => id != userID);
+      } else {
+        state.votes.down = [...state.votes.down, userID];
+      }
+      
     },
   },
 });
