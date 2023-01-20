@@ -37,6 +37,14 @@ const questionSlice = createSlice({
       }
       
     },
+    // zmiana zaznaczonego pytania
+    toggleMarked: (state, action: PayloadAction<{ userID: string}>) => {
+      const { userID } = action.payload;
+
+      if(state.markedBy.includes(userID)) state.markedBy.filter(id => id != userID);
+      else state.markedBy = [...state.markedBy, userID];
+
+    }
   },
 });
 
