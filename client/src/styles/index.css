@@ -147,3 +147,45 @@
 .move-down:active {
   top: 2px;
 }
+
+.quill-result h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+.quill-result .ql-size-small {
+  font-size: small;
+}
+.quill-result .ql-size-medium {
+  font-size: medium;
+}
+.quill-result .ql-size-large {
+  font-size: large;
+}
+.quill-result ol {
+  list-style-type: decimal;
+  padding-left: 1.75rem;
+}
+.quill-result ul {
+  list-style-type: disc;
+  padding-left: 1.75rem;
+}
+.quill-result a {
+  color: var(--green);
+}
+.quill-result img {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.quill-result pre {
+  background-color: #23241f;
+  color: #f8f8f2;
+  border-radius: 0.25rem;
+  font-size: medium;
+  padding: 0.45rem;
+  font-family: monospace;
+}
