@@ -49,4 +49,4 @@ const questionSlice = createSlice({
 });
 
 export default questionSlice.reducer;
-export const { setQuestion, toggleVote } = questionSlice.actions;
+export const { setQuestion, toggleVoteUp, toggleVoteDown, toggleMarked } = questionSlice.actions;
