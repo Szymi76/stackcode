@@ -15,6 +15,7 @@ export const questionApiSlice = apiSlice.injectEndpoints({
     getQuestionByTitle: build.query<{ question: Question }, { questionTitle: string }>({
       query: ({ questionTitle }) => `/question/by-title/${questionTitle}`,
     }),
+    
   }),
 });
 
