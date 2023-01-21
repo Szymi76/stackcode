@@ -7,8 +7,7 @@ const toogleMarked = async (req, res) => {
 
   const question = await Question.findById(questionID).exec();
 
-  if (!question)
-    return res.status(404).json({ message: "Question with provided id was not found" });
+  if (!question) return res.status(404).json({ message: "Question with provided id was not found" });
 
   const isContain = question.markedBy.includes(req.user._id);
   question.markedBy = isContain
@@ -17,7 +16,7 @@ const toogleMarked = async (req, res) => {
 
   await question.save();
 
-  res.status(200).json({ message: "Marked question was toggled" });
+  res.status(200).json({ markedBy: question.markedBy });
 };
 
 export default toogleMarked;

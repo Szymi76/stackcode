@@ -7,10 +7,10 @@ type Answer = {
   author: User | string;
   content: object;
   votes: {
-    up: User[] | string[];
-    down: User[] | string[];
+    up: string[];
+    down: string[];
   };
-  views: number
+  views: number;
   verified: boolean;
   comments: Comment[];
   reports: Report[];

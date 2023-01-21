@@ -9,47 +9,29 @@ const questionSlice = createSlice({
     setQuestion: (state, action: PayloadAction<Question | null>) => {
       return action.payload;
     },
-    // zmiana vote w momencie kliknięcia "up"
-    toggleVoteUp: (state, action: PayloadAction<{ userID: string }>) => {
-      const { userID } = action.payload;
-
+    // zmiana głosów dla pytania
+    toggleQuestionVote: (state, action: PayloadAction<{ votes: any }>) => {
       if (!state) return state;
-
-      if (state.votes.down.includes(userID)) {
-        state.votes.down = state.votes.down.filter((id) => id != userID);
-        state.votes.up = [...state.votes.up, userID];
-      } else if (state.votes.up.includes(userID)) {
-        state.votes.up = state.votes.up.filter((id) => id != userID);
-      } else {
-        state.votes.up = [...state.votes.up, userID];
-      }
+      state.votes = action.payload.votes;
     },
-    // zmiana vote w momencie kliknięcia "down"
-    toggleVoteDown: (state, action: PayloadAction<{ userID: string }>) => {
-      const { userID } = action.payload;
 
-      if (!state) return state;
-
-      if (state.votes.up.includes(userID)) {
-        state.votes.up = state.votes.up.filter((id) => id != userID);
-        state.votes.down = [...state.votes.down, userID];
-      } else if (state.votes.down.includes(userID)) {
-        state.votes.down = state.votes.down.filter((id) => id != userID);
-      } else {
-        state.votes.down = [...state.votes.down, userID];
-      }
-    },
     // zmiana zaznaczonego pytania
-    toggleMarked: (state, action: PayloadAction<{ userID: string }>) => {
-      const { userID } = action.payload;
+    toggleMarked: (state, action: PayloadAction<{ markedBy: string[] }>) => {
+      if (!state) return state;
+      state.markedBy = action.payload.markedBy;
+    },
+
+    // zmiana głosów dla odpowiedzi
+    toggleAnswerVote: (state, action: PayloadAction<{ answerID: string; votes: any }>) => {
+      const { answerID, votes } = action.payload;
 
       if (!state) return state;
-
-      if (state.markedBy.includes(userID)) state.markedBy = state.markedBy.filter((id) => id != userID);
-      else state.markedBy = [...state.markedBy, userID];
+      const index = state.answers.findIndex((a) => a._id == answerID);
+      if (index < 0) return state;
+      state.answers[index].votes = votes;
     },
   },
 });
 
 export default questionSlice.reducer;
-export const { setQuestion, toggleVoteUp, toggleVoteDown, toggleMarked } = questionSlice.actions;
+export const { setQuestion, toggleQuestionVote, toggleAnswerVote, toggleMarked } = questionSlice.actions;

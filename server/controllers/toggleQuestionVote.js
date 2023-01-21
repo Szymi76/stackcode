@@ -8,8 +8,7 @@ const toggleQuestionVote = async (req, res) => {
 
   const question = await Question.findById(questionID).exec();
 
-  if (!question)
-    return res.status(404).json({ message: "Question with provided id does not exists" });
+  if (!question) return res.status(404).json({ message: "Question with provided id does not exists" });
 
   const isContainUp = question.votes.up.includes(req.user._id);
   const isContainDown = question.votes.down.includes(req.user._id);
@@ -18,9 +17,7 @@ const toggleQuestionVote = async (req, res) => {
     // głosowanie up, w momencie gdy głos jest już down
     if (isContainDown) {
       question.votes.up = [...question.votes.up, req.user._id];
-      question.votes.down = question.votes.down.filter(
-        (uid) => uid.toString() != req.user._id.toString()
-      );
+      question.votes.down = question.votes.down.filter((uid) => uid.toString() != req.user._id.toString());
     } else {
       // głosowanie up, w momencie gdy głos down nie zawiera id
       question.votes.up = isContainUp
@@ -31,9 +28,7 @@ const toggleQuestionVote = async (req, res) => {
     // głosowanie down, w momencie gdy głos jest już up
     if (isContainUp) {
       question.votes.down = [...question.votes.down, req.user._id];
-      question.votes.up = question.votes.down.filter(
-        (uid) => uid.toString() != req.user._id.toString()
-      );
+      question.votes.up = question.votes.down.filter((uid) => uid.toString() != req.user._id.toString());
       // głosowanie down, w momencie gdy głos up nie zawiera id
     } else {
       question.votes.down = isContainDown
@@ -44,7 +39,7 @@ const toggleQuestionVote = async (req, res) => {
 
   await question.save();
 
-  return res.status(200).json({ message: "Vote was toggled" });
+  return res.status(200).json({ votes: question.votes });
 };
 
 export default toggleQuestionVote;

@@ -21,7 +21,7 @@ export const questionApiSlice = apiSlice.injectEndpoints({
     }),
 
     // zmiana głosu
-    toggleQuestionVote: build.mutation<void, ToggleVoteBody>({
+    toggleQuestionVote: build.mutation<{ votes: any }, ToggleVoteBody>({
       query: (body) => ({
         url: "/question/toggle-vote",
         method: "PATCH",
@@ -30,7 +30,7 @@ export const questionApiSlice = apiSlice.injectEndpoints({
     }),
 
     // zmiana zaznaczonego pytania
-    toggleMarkekQuestion: build.mutation<void, { questionID: string }>({
+    toggleMarkekQuestion: build.mutation<{ markedBy: string[] }, { questionID: string }>({
       query: (body) => ({
         url: "/question/toggle-marked",
         method: "PATCH",

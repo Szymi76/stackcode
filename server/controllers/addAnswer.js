@@ -17,13 +17,12 @@ const addAnswer = async (req, res) => {
     const answer = await new Answer({ author: req.user._id, content: newContent }).save();
 
     const question = await Question.findById(questionID).exec();
-    if (!question)
-      return res.status(404).json({ message: "Question with provided id does not exists" });
+    if (!question) return res.status(404).json({ message: "Question with provided id does not exists" });
 
     question.answers = [...question.answers, answer._id];
     await question.save();
 
-    res.status(201).json({ message: "Answer was added" });
+    res.status(201).json({ answer });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Something went wrong" });

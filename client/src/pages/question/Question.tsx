@@ -3,9 +3,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import useOnScreen from "../../hooks/useOnScreen";
 import { useToast } from "@welcome-ui/toast";
 import useOpenImages from "../../hooks/useOpenImages";
-import { toggleVoteUp, toggleVoteDown, toggleMarked } from "../../features/question/questionSlice";
+import { toggleMarked, toggleQuestionVote } from "../../features/question/questionSlice";
 import copyToClipboard from "../../utils/copyToClipboard";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
+import moment from "moment";
 import {
   useToggleQuestionVoteMutation,
   useToggleMarkekQuestionMutation,
@@ -39,20 +40,24 @@ const Question = () => {
   // zmiana głosu na pytanie
   const handleToggleVote = async (vote: "up" | "down") => {
     if (!user || !question) return;
-    await toggleVoteAsync({ questionID: question?._id, vote });
-    dispatch(vote == "up" ? toggleVoteUp({ userID: user.id }) : toggleVoteDown({ userID: user.id }));
+    const { votes } = await toggleVoteAsync({ questionID: question?._id, vote }).unwrap();
+    dispatch(toggleQuestionVote({ votes }));
   };
 
   // zaznaczanie / odznaczanie pytania
   const handleToggleMarked = async () => {
     if (!user || !question) return;
-    await toggleMarkedAsync({ questionID: question._id });
-    dispatch(toggleMarked({ userID: user.id }));
+    const { markedBy } = await toggleMarkedAsync({ questionID: question._id }).unwrap();
+    dispatch(toggleMarked({ markedBy }));
   };
 
   // sprawdzanie czy użytkownik zagłosował i czy zadał pytanie
   const voted = (vote: "up" | "down") => question?.votes[vote].includes(user?.id || "");
   const marked = question?.markedBy.includes(user?.id || "");
+
+  const date = new Date(question?.createdAt || "");
+  moment.locale("pl");
+  const time = moment(date).fromNow();
 
   return (
     <Flex ref={wrapperRef}>
@@ -93,10 +98,11 @@ const Question = () => {
               <Tag key={`tag-${i}`} variant="3" children={tag} size="sm" />
             ))}
           </Flex>
+          <Text variant="body2" mt="0" color="gray" children={time} />
         </Stack>
 
         {/* kontent */}
-        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" />
+        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="scroll" />
 
         {/* dół */}
         <Flex justify="space-between">

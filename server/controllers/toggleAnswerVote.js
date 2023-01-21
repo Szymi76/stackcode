@@ -17,9 +17,7 @@ const toggleAnswerVote = async (req, res) => {
     // głosowanie up, w momencie gdy głos jest już down
     if (isContainDown) {
       answer.votes.up = [...answer.votes.up, req.user._id];
-      answer.votes.down = answer.votes.down.filter(
-        (uid) => uid.toString() != req.user._id.toString()
-      );
+      answer.votes.down = answer.votes.down.filter((uid) => uid.toString() != req.user._id.toString());
     } else {
       // głosowanie up, w momencie gdy głos down nie zawiera id
       answer.votes.up = isContainUp
@@ -30,9 +28,7 @@ const toggleAnswerVote = async (req, res) => {
     // głosowanie down, w momencie gdy głos jest już up
     if (isContainUp) {
       answer.votes.down = [...answer.votes.down, req.user._id];
-      answer.votes.up = answer.votes.down.filter(
-        (uid) => uid.toString() != req.user._id.toString()
-      );
+      answer.votes.up = answer.votes.down.filter((uid) => uid.toString() != req.user._id.toString());
       // głosowanie down, w momencie gdy głos up nie zawiera id
     } else {
       answer.votes.down = isContainDown
@@ -43,7 +39,7 @@ const toggleAnswerVote = async (req, res) => {
 
   await answer.save();
 
-  return res.status(200).json({ message: "Vote was toggled" });
+  return res.status(200).json({ votes: answer.votes });
 };
 
 export default toggleAnswerVote;
