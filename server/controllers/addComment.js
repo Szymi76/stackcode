@@ -15,7 +15,10 @@ const addComment = async (req, res) => {
   answer.comments = [...answer.comments, comment._id];
   await answer.save();
 
-  res.status(201).json({ message: "Comment was created" });
+  const populateArr = [{ path: "author", select: "displayName email photoURL" }];
+  const populatedComment = await comment.populate(populateArr);
+
+  res.status(201).json({ comment: populatedComment });
 };
 
 export default addComment;

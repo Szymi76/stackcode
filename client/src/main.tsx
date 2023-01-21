@@ -43,7 +43,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<AccessForAll />}>
                   <Route index path="/home" element={<Home />} />
                   <Route path="/" element={<Navigate to={"/home"} />} />
-                  <Route path="/pytanie/:questionTitle" element={<QuestionPage />} />
+                  <Route path="/pytanie/:questionId" element={<QuestionPage />} />
                   {/* <Route path="/tests" element={<Tests />} /> */}
                 </Route>
 

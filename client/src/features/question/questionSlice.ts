@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Question from "../../types/Question";
+import Comment from "../../types/Comment";
+import Answer from "../../types/Answers";
 
 const questionSlice = createSlice({
   name: "question",
@@ -30,8 +32,27 @@ const questionSlice = createSlice({
       if (index < 0) return state;
       state.answers[index].votes = votes;
     },
+
+    // dodawanie nowej odpowiedzi
+    addAnswer: (state, action: PayloadAction<{ answer: Answer }>) => {
+      if (!state) return state;
+
+      state.answers.push(action.payload.answer);
+    },
+
+    // dodawanie nowego komentarza
+    addComment: (state, action: PayloadAction<{ answerID: string; comment: Comment }>) => {
+      const { answerID, comment } = action.payload;
+
+      if (!state) return state;
+      const index = state?.answers.findIndex((a) => a._id == answerID);
+      if (index < 0) return state;
+      // @ts-ignore
+      state.answers[index].comments.push(comment);
+    },
   },
 });
 
 export default questionSlice.reducer;
-export const { setQuestion, toggleQuestionVote, toggleAnswerVote, toggleMarked } = questionSlice.actions;
+export const { setQuestion, toggleQuestionVote, toggleAnswerVote, toggleMarked, addComment, addAnswer } =
+  questionSlice.actions;

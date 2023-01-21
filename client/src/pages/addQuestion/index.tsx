@@ -25,6 +25,7 @@ type Errors = {
 const MakeQuestion = () => {
   const [tags, setTags] = useState<string[]>(["Javascript", "React"]);
   const [errors, setErrors] = useState<Errors>({ title: undefined, content: undefined, tags: undefined });
+  const [questionID, setQuestionID] = useState<string | null>(null);
   const [addQuestion, { isLoading, isError, error }] = useAddQuestionMutation();
   const modal = useModalState({ animated: true });
   const navigate = useNavigate();
@@ -34,14 +35,12 @@ const MakeQuestion = () => {
   const tagRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
 
-  const redirectToHome = () => navigate("/home");
-
   // dodawanie nowego pytania
   const handleSubmit = async () => {
     try {
       const content = editorRef.current?.getEditor().getContents();
       if (!titleRef.current || !content) return;
-      const title = titleRef.current.value.trim().replaceAll(" ", "-");
+      const title = titleRef.current.value.trim();
       let newErrors = { ...errors };
 
       // walidacja
@@ -57,11 +56,12 @@ const MakeQuestion = () => {
         return;
       }
 
-      await addQuestion({ title, content, tags }).unwrap();
+      const { question } = await addQuestion({ title, content, tags }).unwrap();
+      setQuestionID(question._id);
 
       // sprawdzanie czy modal ma zostać wyświetlony
       const showModal = JSON.parse(localStorage.getItem("show-finish-modal") || "true");
-      showModal ? modal.show() : redirectToHome();
+      showModal ? modal.show() : navigate(`/pytanie/${question._id}`);
     } catch (err) {}
   };
 
@@ -146,7 +146,9 @@ const MakeQuestion = () => {
       </Flex>
 
       {/* finish modal */}
-      {modal.visible && <FinishModal modal={modal} onClose={redirectToHome} />}
+      {modal.visible && questionID && (
+        <FinishModal modal={modal} questionID={questionID} onClose={() => navigate("/home")} />
+      )}
     </Box>
   );
 };

@@ -1,27 +1,25 @@
+import QuestionType from "../../types/Question";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetQuestionByTitleQuery } from "../../features/question/questionApiSlice";
-import { useImmer } from "use-immer";
+import { setQuestion } from "../../features/question/questionSlice";
+import { useGetQuestionByIdQuery } from "../../features/question/questionApiSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
+// komponenty
+import AddAnswer from "./AddAnswer";
+import Answer from "./Answer";
+import NotFound from "./NotFound";
+import Question from "./Question";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
-import { Button } from "@welcome-ui/button";
 import { Stack } from "@welcome-ui/stack";
-import Question from "./Question";
-import QuestionType from "../../types/Question";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setQuestion } from "../../features/question/questionSlice";
 import { Loader } from "@welcome-ui/loader";
-import NotFound from "./NotFound";
-import Answer from "./Answer";
-import Editor from "../../components/Editor";
-import Response from "./Response";
 import { Text } from "@welcome-ui/text";
 
 const QuestionPage = () => {
   const dispatch = useAppDispatch();
-  const { questionTitle } = useParams();
-  const { data, isLoading, isError } = useGetQuestionByTitleQuery({ questionTitle: questionTitle! });
+  const { questionId } = useParams();
+  const { data, isLoading, isError } = useGetQuestionByIdQuery({ id: questionId! });
   const question = useAppSelector((state) => state.question);
 
   // ustawianie pytania
@@ -30,14 +28,17 @@ const QuestionPage = () => {
     dispatch(setQuestion(result));
   }, [data]);
 
-  // ui dla ładowania i pytania nie znaleziono
+  // ui dla ładowania i 404
   if (isLoading) return <Flex minH="100vh" pt="6rem" justify="center" children={<Loader color="green" />} />;
-  if (!questionTitle || isError || !question) return <NotFound />;
+  if (!questionId || isError || !question) return <NotFound />;
 
   return (
     <Box minH="100vh" pt="4rem" bg="very-light-green">
       <Stack py="2rem" spacing="md" maxW="1200px" mx="auto">
+        {/* pytanie */}
         <Question />
+
+        {/* odpowiedzi */}
         <Stack mt="3rem">
           <Flex mx="5%">
             <Text variant="h3" children={`Liczba odpowiedzi ${question.answers.length}`} />
@@ -47,7 +48,8 @@ const QuestionPage = () => {
           ))}
         </Stack>
         <Box>
-          <Response />
+          {/* dodawanie odpowiedzi */}
+          <AddAnswer />
         </Box>
       </Stack>
     </Box>

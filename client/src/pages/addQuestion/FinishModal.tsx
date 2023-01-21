@@ -10,14 +10,12 @@ import { useNavigate } from "react-router-dom";
 interface FinishModalProps {
   modal: ModalStateReturn;
   onClose?: () => void;
+  questionID: string;
 }
 
-const FinishModal = ({ modal, onClose }: FinishModalProps) => {
+const FinishModal = ({ modal, questionID, onClose }: FinishModalProps) => {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
-
-  const redirectToHome = () => navigate("/home");
-  const redirectToProfile = () => navigate("/profile");
 
   const handleChange = () => {
     setChecked(!checked);
@@ -25,7 +23,7 @@ const FinishModal = ({ modal, onClose }: FinishModalProps) => {
   };
 
   return (
-    <Modal {...modal} ariaLabel="finish-modal" size="md" onClose={onClose}>
+    <Modal {...modal} ariaLabel="add-comment-modal" size="md" onClose={() => navigate("/home")}>
       <Modal.Content>
         {/* header */}
         <Modal.Title children="Twoje pytanie zostało przesłane pomyślnie" p={{ md: "0" }} borderBottom="none" />
@@ -46,8 +44,7 @@ const FinishModal = ({ modal, onClose }: FinishModalProps) => {
         {/* stopka */}
         <Modal.Footer w={{ _: "auto", md: "100%" }} p={{ md: "0" }} pl={{ _: "2rem" }} borderTop="none">
           <Flex wrap="wrap" pt="1rem" justify="end" gap=".5rem">
-            <Button children="Wróć do strony głównej" onClick={redirectToHome} />
-            <Button children="Przejdź do swojego profilu" onClick={redirectToProfile} />
+            <Button children="Zobacz pytanie" onClick={() => navigate(`/pytanie/${questionID}`)} />
           </Flex>
         </Modal.Footer>
       </Modal.Content>

@@ -1,12 +1,12 @@
+import useOnScreen from "../../hooks/useOnScreen";
+import moment from "moment";
+import useOpenImages from "../../hooks/useOpenImages";
+import copyToClipboard from "../../utils/copyToClipboard";
 import { useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import useOnScreen from "../../hooks/useOnScreen";
 import { useToast } from "@welcome-ui/toast";
-import useOpenImages from "../../hooks/useOpenImages";
 import { toggleMarked, toggleQuestionVote } from "../../features/question/questionSlice";
-import copyToClipboard from "../../utils/copyToClipboard";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
-import moment from "moment";
 import {
   useToggleQuestionVoteMutation,
   useToggleMarkekQuestionMutation,
@@ -55,6 +55,7 @@ const Question = () => {
   const voted = (vote: "up" | "down") => question?.votes[vote].includes(user?.id || "");
   const marked = question?.markedBy.includes(user?.id || "");
 
+  // ile czasu temu pytanie zostało napisane
   const date = new Date(question?.createdAt || "");
   moment.locale("pl");
   const time = moment(date).fromNow();
@@ -63,6 +64,7 @@ const Question = () => {
     <Flex ref={wrapperRef}>
       {/* lewa kolumna */}
       <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
+        {/* strzałka w góre */}
         <ChevronUpIcon
           className="move-down"
           height={30}
@@ -71,6 +73,7 @@ const Question = () => {
           onClick={() => handleToggleVote("up")}
         />
 
+        {/* bilans głosów */}
         <Text
           variant="h3"
           fontWeight="500"
@@ -78,6 +81,8 @@ const Question = () => {
           color="black"
           children={question && question?.votes.up.length - question?.votes.down.length}
         />
+
+        {/* strzałka w dół */}
         <ChevronDownIcon
           className="move-down"
           height={30}
@@ -92,17 +97,22 @@ const Question = () => {
       <Stack w="90%" p="1.5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
         {/* góra */}
         <Stack>
-          <Text variant="h3" m="0" color="black" children={question?.title.replaceAll("-", " ")} />
+          {/* tytuł */}
+          <Text variant="h3" m="0" color="black" children={question?.title} />
+
+          {/* tagi */}
           <Flex gap=".25rem">
             {question?.tags.map((tag, i) => (
               <Tag key={`tag-${i}`} variant="3" children={tag} size="sm" />
             ))}
           </Flex>
+
+          {/* czas */}
           <Text variant="body2" mt="0" color="gray" children={time} />
         </Stack>
 
         {/* kontent */}
-        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="scroll" />
+        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
 
         {/* dół */}
         <Flex justify="space-between">

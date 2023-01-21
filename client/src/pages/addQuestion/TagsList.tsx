@@ -18,14 +18,11 @@ const TagsList = ({ tags, setTags }: TagsListProps) => {
           setTags(filteredTags);
         };
 
-        // liczba 1-7 do wygenerowania koloru tagu [DO ZMIANY]
-        const variant = Math.floor(Math.random() * 6) + 1;
-
         return (
           <Tooltip key={"tag" + index} content="Kliknij aby usunąć">
             <Tag
               // @ts-ignore
-              variant={`${variant}`}
+              variant="3"
               cursor="pointer"
               children={tag}
               onClick={handleRemoveTag}

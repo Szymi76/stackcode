@@ -180,6 +180,7 @@ h6 {
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  max-width: 100%;
 }
 .quill-result pre {
   background-color: #23241f;

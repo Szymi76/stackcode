@@ -1,10 +1,10 @@
+import Ilustration from "../../assets/404.png";
 import { useNavigate } from "react-router-dom";
 
+// komponenty
 import { Text } from "@welcome-ui/text";
 import { Button } from "@welcome-ui/button";
 import { Stack } from "@welcome-ui/stack";
-
-import Ilustration from "../../assets/404.png";
 
 const NotFound = () => {
   const navigate = useNavigate();

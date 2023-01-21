@@ -1,11 +1,12 @@
 import { apiSlice } from "../../app/api/apiSlice";
+import Answer from "../../types/Answers";
 
 type AddAnswerBody = { questionID: string; content: any };
 type ToggleAnswerVoteBody = { answerID: string; vote: "up" | "down" };
 
 export const questionApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    addAnswer: build.mutation<void, AddAnswerBody>({
+    addAnswer: build.mutation<{ answer: Answer }, AddAnswerBody>({
       query: (body) => ({
         url: "/answer/add",
         method: "POST",

@@ -7,7 +7,7 @@ type ToggleVoteBody = { questionID: string; vote: "up" | "down" };
 export const questionApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     // dodawanie nowego pytania
-    addQuestion: build.mutation<void, AddQuestionBody>({
+    addQuestion: build.mutation<{ question: Question }, AddQuestionBody>({
       query: (body) => ({
         url: "/question/add",
         method: "POST",
@@ -16,8 +16,8 @@ export const questionApiSlice = apiSlice.injectEndpoints({
     }),
 
     // wybieranie pytania po tytule
-    getQuestionByTitle: build.query<{ question: Question }, { questionTitle: string }>({
-      query: ({ questionTitle }) => `/question/by-title/${questionTitle}`,
+    getQuestionById: build.query<{ question: Question }, { id: string }>({
+      query: ({ id }) => `/question/by-title/${id}`,
     }),
 
     // zmiana głosu
@@ -42,7 +42,7 @@ export const questionApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useAddQuestionMutation,
-  useGetQuestionByTitleQuery,
+  useGetQuestionByIdQuery,
   useToggleMarkekQuestionMutation,
   useToggleQuestionVoteMutation,
 } = questionApiSlice;
