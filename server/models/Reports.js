@@ -8,7 +8,14 @@ const ReportsScheme = new mongoose.Schema(
       ref: User,
       required: true,
     },
-    text: String,
+    text: {
+      type: String,
+      required: true,
+    },
+    for: {
+      type: String,
+      required: true,
+    },
     reasons: {
       type: [String],
       default: [],

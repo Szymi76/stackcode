@@ -17,8 +17,7 @@ const refresh = async (req, res) => {
   const user = await User.findOne({ refreshTokens: refresh_token }).exec();
 
   // sprawdzanie czy istnieje użytkownik z takim refresh tokenem
-  if (!user)
-    return res.status(403).json({ message: "User with provided refresh token does not exists" });
+  if (!user) return res.status(403).json({ message: "User with provided refresh token does not exists" });
 
   const filteredRefreshTokens = user.refreshTokens.filter((token) => token !== refresh_token);
 
@@ -43,8 +42,7 @@ const refresh = async (req, res) => {
     }
 
     // sprawdzanie czy to ten sam użytkownik
-    if (err || user._id.toString() !== decoded.id)
-      return res.status(403).json({ message: "Refresh token is expired" });
+    if (err || user._id.toString() !== decoded.id) return res.status(403).json({ message: "Refresh token is expired" });
 
     // dane które znajdą się w nowym access tokenie
     const payload = {
@@ -53,6 +51,7 @@ const refresh = async (req, res) => {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      roles: user.roles,
       provider: user.provider,
     };
 

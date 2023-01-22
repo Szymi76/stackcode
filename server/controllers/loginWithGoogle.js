@@ -3,15 +3,16 @@ import User from "../models/User.js";
 import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
 
 const loginWithGoogle = async (req, res) => {
-  const CLIENT_URL =
-    process.env.NODE_ENV == "prod" ? process.env.PROD_CLIENT_URL : process.env.DEV_CLIENT_URL;
+  const CLIENT_URL = process.env.NODE_ENV == "prod" ? process.env.PROD_CLIENT_URL : process.env.DEV_CLIENT_URL;
 
   const payload = {
-    id: req.user._id.toString(),
+    id: req.user._id,
     displayName: req.user.displayName,
     email: req.user.email,
-    provider: req.user.provider,
     photoURL: req.user.photoURL,
+    provider: req.user.provider,
+    roles: req.user.roles,
+    emailVerified: req.user.emailVerified,
   };
 
   const newAccessToken = createAccessToken(payload);

@@ -21,7 +21,7 @@ const authGoogleStrategy = new GoogleStrategy(
       if (user) done(null, user);
       else {
         const hash = await bcrypt.hash(Math.random().toString(), 10);
-        const newUser = new User({
+        const newUser = await new User({
           email: profile.emails[0].value,
           password: hash,
           displayName: profile.displayName,
