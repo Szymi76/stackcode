@@ -37,6 +37,25 @@ export const questionApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+
+    // zwraca stworzone przez użytkownika pytania
+    getUserCreatedQuestions: build.query<{ questions: Question[] }, void>({
+      query: () => "/questions/created-by-user",
+    }),
+
+    // zwraca zaznaczone przez użytkownika pytania
+    getUserMarkedQuestions: build.query<{ questions: Question[] }, void>({
+      query: () => "/questions/marked-by-user",
+    }),
+
+    // usuwa pytania po id
+    deleteQuestion: build.mutation<void, { questionID: string }>({
+      query: (body) => ({
+        url: "/question/delete",
+        method: "DELETE",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -45,4 +64,7 @@ export const {
   useGetQuestionByIdQuery,
   useToggleMarkekQuestionMutation,
   useToggleQuestionVoteMutation,
+  useGetUserCreatedQuestionsQuery,
+  useGetUserMarkedQuestionsQuery,
+  useDeleteQuestionMutation,
 } = questionApiSlice;

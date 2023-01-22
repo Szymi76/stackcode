@@ -5,6 +5,7 @@ type Report = {
   author: User | string;
   text: string;
   reasons: string[];
+  for: "question" | "answer" | "comment" | "user";
   createdAt: Date;
   updatedAt: Date;
 };

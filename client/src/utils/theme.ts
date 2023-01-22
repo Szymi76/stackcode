@@ -560,8 +560,8 @@ const theme = createTheme({
         backgroundColor: "rgba(0, 135, 92, 0.4)",
       },
       "primary-warning": {
-        backgroundColor: "#EBC484",
-        borderColor: "#EBC484",
+        backgroundColor: "#ef4444",
+        borderColor: "#ef4444",
       },
       "secondary-warning": {
         backgroundColor: "rgba(185, 127, 34, 0.4)",

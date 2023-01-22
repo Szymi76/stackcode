@@ -22,6 +22,7 @@
     "@welcome-ui/input-text": "^4.2.0",
     "@welcome-ui/loader": "^4.2.0",
     "@welcome-ui/modal": "^4.5.1",
+    "@welcome-ui/select": "^4.2.0",
     "@welcome-ui/stack": "^4.2.0",
     "@welcome-ui/system": "^5.0.0-alpha.8",
     "@welcome-ui/tag": "^4.2.0",
