@@ -41,6 +41,7 @@ const AddCommentModal = ({ modal, answer, onClose }: AddCommentModalProps) => {
       content,
     }).unwrap();
     dispatch(addComment({ answerID: answer._id, comment }));
+    textareaRef.current.value = "";
     modal.hide();
   };
 

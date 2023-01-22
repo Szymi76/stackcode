@@ -44,7 +44,7 @@ const QuestionPage = () => {
             <Text variant="h3" children={`Liczba odpowiedzi ${question.answers.length}`} />
           </Flex>
           {question.answers.map((ans, i) => (
-            <Answer key={`answer-${i}`} answer={ans} />
+            <Answer key={`answer-${i}`} answer={ans} index={i} />
           ))}
         </Stack>
         <Box>

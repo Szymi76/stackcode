@@ -23,6 +23,7 @@ import {
 } from "@heroicons/react/24/outline";
 import AddCommentModal from "./AddCommentModal";
 import Comment from "./Comment";
+import ReportModal from "../../components/ReportModal";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
@@ -32,18 +33,23 @@ import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 interface AnswerProps {
   answer: AnswerType;
+  index: number;
 }
 
-const Answer = ({ answer }: AnswerProps) => {
+const Answer = ({ answer, index }: AnswerProps) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const modal = useModalState();
+  const reportModal = useModalState();
   const [showComments, setShowComments] = useState(false);
   const { question } = useAppSelector((state) => state);
   const { user } = useAppSelector((state) => state.auth);
   const [toggleVoteAsync] = useToggleAnswerVoteMutation();
 
-  const toggleShowComments = () => setShowComments(!showComments);
+  const toggleShowComments = () => {
+    if (answer.comments.length == 0) return;
+    setShowComments(!showComments);
+  };
 
   // hook do otwierania zdjęć w nowej karcie
   useOpenImages("quill-result");
@@ -69,8 +75,10 @@ const Answer = ({ answer }: AnswerProps) => {
   moment.locale("pl");
   const time = moment(date).fromNow();
 
+  const textToCopy = `${location.origin}${location.pathname}#${index + 1}`;
+
   return (
-    <Flex>
+    <Flex id={`${index + 1}`}>
       {/* lewa kolumna */}
       <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
         {/* znaczek veryfikacji */}
@@ -106,7 +114,7 @@ const Answer = ({ answer }: AnswerProps) => {
       </Stack>
 
       {/* środek */}
-      <Stack w="90%" p="1.5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
+      <Stack w="90%" px="1rem" py=".5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
         {/* kontent */}
         <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
 
@@ -136,7 +144,7 @@ const Answer = ({ answer }: AnswerProps) => {
 
             {/* przez kogo i czy był edytowany */}
             <Flex align="center" m="0" color="gray">
-              {answer.updatedAt != answer.createdAt && <PencilSquareIcon height={15} />}
+              {/* {answer.updatedAt != answer.createdAt && <PencilSquareIcon height={15} />} */} {/* DO NAPRAWY  */}
               <Text variant="body3" m="0" children={`Autor: ${question?.author.displayName}`} />
             </Flex>
           </Flex>
@@ -144,11 +152,26 @@ const Answer = ({ answer }: AnswerProps) => {
 
         {/* komentarze */}
         <Stack
-          pt={showComments ? "1rem" : "0"}
+          py={showComments ? ".5rem" : "0"}
           h="100%"
           maxH={showComments ? "3000px" : "0px"}
           overflow="hidden"
           transitionDuration={100}>
+          {/* ukryj komentarze */}
+
+          <Flex justify="center" align="center" mb="1rem">
+            <Box w="45%" h="1px" bg="light-gray" />
+            <Text
+              color={{ _: "gray", hover: "green" }}
+              cursor="pointer"
+              whiteSpace="nowrap"
+              mx="1.5rem"
+              children="ukryj komentarze"
+              onClick={() => setShowComments(false)}
+            />
+            <Box w="45%" h="1px" bg="light-gray" />
+          </Flex>
+
           {answer.comments.map((com, i) => (
             <Comment key={`comment-${com._id}`} comment={com} />
           ))}
@@ -158,15 +181,15 @@ const Answer = ({ answer }: AnswerProps) => {
       {/* prawa kolumna */}
       <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
         {/* kopiowanie linku */}
-        <LinkIcon
+        {/* <LinkIcon
           className="move-down"
           height={30}
           title="Kopiuj link"
-          onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: location.href })}
-        />
+          onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: textToCopy })}
+        /> */}
 
         {/* zgłaszanie */}
-        <FlagIcon className="move-down" height={30} title="Zgłoś pytanie" />
+        <FlagIcon className="move-down" height={30} title="Zgłoś" onClick={() => reportModal.show()} />
 
         {/* pokaż / ukryj komentarze */}
         <Box position="relative" color={showComments ? "green" : "black"}>
@@ -182,6 +205,7 @@ const Answer = ({ answer }: AnswerProps) => {
 
       {/* modal do dodawania komentarzy */}
       {modal.visible && <AddCommentModal modal={modal} answer={answer} />}
+      {reportModal.visible && <ReportModal modal={reportModal} id={answer._id} reportFor="answer" />}
     </Flex>
   );
 };

@@ -13,16 +13,19 @@ import {
 } from "../../features/question/questionApiSlice";
 
 // komponenty
+import ReportModal from "../../components/ReportModal";
 import { StarIcon, LinkIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
 import { Tag } from "@welcome-ui/tag";
 import { Stack } from "@welcome-ui/stack";
+import { useModalState } from "@welcome-ui/modal";
 
 const Question = () => {
   const dispatch = useAppDispatch();
   const toast = useToast();
+  const modal = useModalState();
   const { question } = useAppSelector((state) => state);
   const { user } = useAppSelector((state) => state.auth);
   const [toggleVoteAsync] = useToggleQuestionVoteMutation();
@@ -139,8 +142,9 @@ const Question = () => {
           title="Kopiuj link"
           onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: location.href })}
         />
-        <FlagIcon className="move-down" height={30} title="Zgłoś pytanie" />
+        <FlagIcon className="move-down" height={30} title="Zgłoś pytanie" onClick={() => modal.show()} />
       </Stack>
+      {modal.visible && question && <ReportModal modal={modal} id={question?._id} reportFor="question" />}
     </Flex>
   );
 };

@@ -28,6 +28,7 @@ const AddAnswer = () => {
 
     const { answer } = await addAnswerAsync({ questionID: question?._id, content }).unwrap();
     dispatch(addAnswer({ answer }));
+    editorRef.current?.editor?.setText("");
   };
 
   const text =
