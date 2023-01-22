@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 // providers
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, HashRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import { WuiProvider, createTheme } from "@welcome-ui/core";
 import { store } from "./app/store";
@@ -38,7 +38,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <CookiesProvider>
       <Provider store={store}>
         <WuiProvider theme={theme}>
-          <BrowserRouter>
+          {/* <BrowserRouter> */}
+          <HashRouter>
             <Routes>
               <Route path="/" element={<Layout />}>
                 {/* route dla zalogowanych i nie zalogowanych */}
@@ -62,7 +63,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 </Route>
               </Route>
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
+          {/* </BrowserRouter> */}
         </WuiProvider>
       </Provider>
     </CookiesProvider>
