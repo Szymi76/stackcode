@@ -1,6 +1,6 @@
 const cookieOptions = {
   httpOnly: true,
-  sameSite: false,
+  sameSite: "None",
   secure: true,
 };
 
