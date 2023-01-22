@@ -9,6 +9,8 @@ import GoogleLogo from "../../assets/googlelogo.png";
 import GithubLogo from "../../assets/githublogo.png";
 import StackcodeLogo from "../../assets/logo3.png";
 
+const SERVER_URL = import.meta.env.DEV ? import.meta.env.VITE_DEV_SERVER_URL : import.meta.env.VITE_PROD_SERVER_URL;
+
 const RightSection = () => {
   return (
     <Box w={{ _: "100%", md: "50%" }}>
@@ -40,13 +42,13 @@ const RightSection = () => {
 
         <Flex direction="column" gap=".5rem">
           {/* logowanie za pomocą google */}
-          <a href="http://localhost:3000/api/auth/google" className="login-provider-card">
+          <a href={`${SERVER_URL}/auth/google`} className="login-provider-card">
             <img src={GoogleLogo} height={40} width={40} />
             <Text>Kontynuuj za pomocą Google</Text>
           </a>
 
           {/* logowanie za pomocą google */}
-          <a href="http://localhost:3000/api/auth/google" className="login-provider-card">
+          <a href={`${SERVER_URL}/auth/github`} className="login-provider-card">
             <img src={GithubLogo} height={40} width={40} />
             <Text>Kontynuuj za pomocą Github</Text>
           </a>
