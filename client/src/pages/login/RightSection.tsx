@@ -9,9 +9,9 @@ import GoogleLogo from "../../assets/googlelogo.png";
 import GithubLogo from "../../assets/githublogo.png";
 import StackcodeLogo from "../../assets/logo3.png";
 
-const SERVER_URL = import.meta.env.DEV ? import.meta.env.VITE_DEV_SERVER_URL : import.meta.env.VITE_PROD_SERVER_URL;
-
 const RightSection = () => {
+  const SERVER_URL = import.meta.env.DEV ? import.meta.env.VITE_DEV_SERVER_URL : import.meta.env.VITE_PROD_SERVER_URL;
+
   return (
     <Box w={{ _: "100%", md: "50%" }}>
       {/* link z logiem */}
@@ -48,7 +48,7 @@ const RightSection = () => {
           </a>
 
           {/* logowanie za pomocą google */}
-          <a href={`${SERVER_URL}/auth/github`} className="login-provider-card">
+          <a href={`${SERVER_URL}/api/auth/github`} className="login-provider-card">
             <img src={GithubLogo} height={40} width={40} />
             <Text>Kontynuuj za pomocą Github</Text>
           </a>
