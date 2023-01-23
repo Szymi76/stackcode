@@ -6,7 +6,9 @@ import { config } from "dotenv";
 import __dirname from "../config/serverDir.js";
 import path from "path";
 
-config({ path: path.join(__dirname, ".env.local") });
+const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : ".env";
+
+config({ path: path.join(__dirname, envPath) });
 
 const authGoogleStrategy = new GoogleStrategy(
   {
