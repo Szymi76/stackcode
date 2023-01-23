@@ -2,7 +2,9 @@ import { config } from "dotenv";
 import path from "path";
 import __dirname from "./serverDir.js";
 
-config({ path: path.join(__dirname, ".env.local") });
+const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : ".env";
+
+config({ path: path.join(__dirname, envPath) });
 
 const corsOptions = {
   // allowedHeaders: [],
