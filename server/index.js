@@ -49,9 +49,9 @@ app.use("/api/comment", commentRouter);
 app.use("/api/answer", answerRouter);
 
 app.post("/test", (req, res) => {
-  const cookies = req.cookies;
+  const cookies = req;
 
-  res.status(200).json({ cookies });
+  res.status(200).json({ req });
 });
 
 // error handler
