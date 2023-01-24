@@ -11,7 +11,7 @@ const corsOptions = {
   credentials: true,
   // exposedHeaders: [],
   // methods: [],
-  origin: [process.env.DEV_CLIENT_URL, process.env.PROD_CLIENT_URL],
+  origin: [process.env.DEV_CLIENT_URL, process.env.PROD_CLIENT_URL, "https://stackcode.win"],
 };
 
 export default corsOptions;
