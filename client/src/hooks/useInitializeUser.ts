@@ -18,7 +18,7 @@ const useInitializeUser = () => {
   const [logout] = useLogoutMutation();
   const [getCurrentUser] = useGetCurrentUserMutation();
   const [{ access_token }] = useCookies();
-  const { data } = useGetCookieQuery();
+  const { data, isLoading } = useGetCookieQuery();
   const dispatch = useAppDispatch();
 
   // inicjacja użytkownika
@@ -37,24 +37,24 @@ const useInitializeUser = () => {
       }
     }
 
-    if (!user && !access_token) {
+    if (!data && !isLoading) {
       dispatch(setIsVerified(true));
       return;
     }
 
-    if (access_token) {
-      const userFromToken: DecodedUser = jwtDecode(access_token);
-      const now = +new Date();
+    // if (access_token) {
+    //   const userFromToken: DecodedUser = jwtDecode(access_token);
+    //   const now = +new Date();
 
-      // sprawdzanie czy ciasteczka użytkownika są ważne
-      if (userFromToken.exp * 1000 > now) dispatch(setUser(userFromToken));
-      else {
-        const freshUser = await (await getCurrentUser().unwrap()).user;
-        dispatch(setUser(freshUser));
-      }
-    }
+    //   // sprawdzanie czy ciasteczka użytkownika są ważne
+    //   if (userFromToken.exp * 1000 > now) dispatch(setUser(userFromToken));
+    //   else {
+    //     const freshUser = await (await getCurrentUser().unwrap()).user;
+    //     dispatch(setUser(freshUser));
+    //   }
+    // }
 
-    dispatch(setIsVerified(true));
+    // dispatch(setIsVerified(true));
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const useInitializeUser = () => {
     } catch (err) {
       console.warn("Coś poszło nie tak podczas inicjacji użytkownika.");
     }
-  }, [isVerified]);
+  }, [isVerified, data]);
 };
 
 export default useInitializeUser;
