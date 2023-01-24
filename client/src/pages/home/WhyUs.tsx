@@ -9,6 +9,7 @@ const WhyUs = () => {
   const test = async () => {
     const res = await axios.post("https://app.stackcode.win/api/test", { a: "1" }, { withCredentials: true });
     console.log(res);
+    console.log(res.data);
   };
 
   return (
