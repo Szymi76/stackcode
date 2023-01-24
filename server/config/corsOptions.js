@@ -14,8 +14,8 @@ const corsOptions = {
   origin: [
     process.env.DEV_CLIENT_URL,
     process.env.PROD_CLIENT_URL,
-    "https://api-stackcode.onrender.com",
     "https://stackcode.onrender.com",
+    "https://stackcode.win",
   ],
 };
 
