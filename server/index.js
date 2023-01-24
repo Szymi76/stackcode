@@ -51,7 +51,7 @@ app.use("/api/answer", answerRouter);
 app.post("/api/test", (req, res) => {
   const cookies = req;
 
-  res.status(200).json({ req });
+  res.status(200).json({ result: req });
 });
 
 // error handler
