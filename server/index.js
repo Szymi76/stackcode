@@ -34,6 +34,9 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(passport.initialize());
 
+// proxy
+app.set("trust proxy", 1);
+
 // statyczna ścieżka dla zdjęć
 app.use("/images", express.static(path.join(__dirname, "uploads")));
 
