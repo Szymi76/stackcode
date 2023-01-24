@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useCookies } from "react-cookie";
 import { setUser, setIsVerified } from "../features/auth/authSlice";
-import { useLogoutMutation, useGetCurrentUserMutation } from "../features/auth/authApiSlice";
+import { useLogoutMutation, useGetCurrentUserMutation, useGetCookieQuery } from "../features/auth/authApiSlice";
 import jwtDecode from "jwt-decode";
 import User from "../types/User";
 
@@ -18,11 +18,24 @@ const useInitializeUser = () => {
   const [logout] = useLogoutMutation();
   const [getCurrentUser] = useGetCurrentUserMutation();
   const [{ access_token }] = useCookies();
+  const { data } = useGetCookieQuery();
   const dispatch = useAppDispatch();
 
   // inicjacja użytkownika
   const initialize = async () => {
     if (isVerified) return;
+
+    if (data) {
+      const userFromToken: DecodedUser = jwtDecode(data.access_token);
+      const now = +new Date();
+
+      // sprawdzanie czy ciasteczka użytkownika są ważne
+      if (userFromToken.exp * 1000 > now) dispatch(setUser(userFromToken));
+      else {
+        const freshUser = await (await getCurrentUser().unwrap()).user;
+        dispatch(setUser(freshUser));
+      }
+    }
 
     if (!user && !access_token) {
       dispatch(setIsVerified(true));

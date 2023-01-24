@@ -32,7 +32,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getCookie: build.query<{ access_token: string }, void>({
+      query: () => "/auth/cookie",
+    }),
   }),
 });
 
-export const { useGetCurrentUserMutation, useLoginMutation, useRegisterMutation, useLogoutMutation } = authApiSlice;
+export const {
+  useGetCurrentUserMutation,
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useGetCookieQuery,
+} = authApiSlice;
