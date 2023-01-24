@@ -8,7 +8,7 @@ const SERVER_URL = import.meta.env.DEV ? import.meta.env.VITE_DEV_SERVER_URL : i
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api.stackcode.win/api",
+  baseUrl: "https://stackcode.win/api",
   credentials: "include",
 });
 
