@@ -4,6 +4,7 @@ const cookieOptions = {
   secure: process.env.NODE_ENV == "dev" ? false : true,
   expires: new Date(+new Date() + 1000 * 60 * 60 * 24 * 30 * 3),
   domain: "stackcode.win",
+  path: "/api",
 };
 
 export default cookieOptions;
