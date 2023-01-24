@@ -30,7 +30,7 @@ router.get(
   }),
   loginWithGoogle
 );
-router.get("/cookies", (req, res) => {
+router.get("/cookie", (req, res) => {
   const { access_token } = req.cookies;
   if (!access_token) return res.status(403).send("Access Denited");
 
