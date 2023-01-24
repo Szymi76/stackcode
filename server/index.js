@@ -48,6 +48,12 @@ app.use("/api/report", reportRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/answer", answerRouter);
 
+app.post("/test", (req, res) => {
+  const cookies = req.cookies;
+
+  res.status(200).json({ cookies });
+});
+
 // error handler
 app.use(errorHandler);
 
