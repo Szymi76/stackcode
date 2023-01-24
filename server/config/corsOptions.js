@@ -11,12 +11,7 @@ const corsOptions = {
   credentials: true,
   // exposedHeaders: [],
   // methods: [],
-  origin: [
-    process.env.DEV_CLIENT_URL,
-    process.env.PROD_CLIENT_URL,
-    "https://stackcode.onrender.com",
-    "https://stackcode.win",
-  ],
+  origin: [process.env.DEV_CLIENT_URL, process.env.PROD_CLIENT_URL],
 };
 
 export default corsOptions;
