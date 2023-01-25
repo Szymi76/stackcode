@@ -16,9 +16,9 @@ import reportRouter from "./routes/report.js";
 import commentRouter from "./routes/comment.js";
 import answerRouter from "./routes/answer.js";
 
-const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : "/etc/secrets/.env";
+const envPath = process.env.NODE_ENV == "dev" ? `${__dirname}/.env.local` : "/etc/secrets/.env";
 // konfiguracja .env.local
-config({ path: path.join(__dirname, envPath) });
+config({ path: path.join(envPath) });
 
 // port
 const PORT = process.env.PORT || 3000;

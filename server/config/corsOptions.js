@@ -2,9 +2,9 @@ import { config } from "dotenv";
 import path from "path";
 import __dirname from "./serverDir.js";
 
-const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : "/etc/secrets/.env";
+const envPath = process.env.NODE_ENV == "dev" ? `${__dirname}/.env.local` : "/etc/secrets/.env";
 
-config({ path: path.join(__dirname, envPath) });
+config({ path: path.join(envPath) });
 
 const corsOptions = {
   // allowedHeaders: [],
