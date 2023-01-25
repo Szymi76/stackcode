@@ -140,13 +140,15 @@ const Question = () => {
         </Flex>
 
         {/* 3 kropki - menu */}
-        <EllipsisVerticalIcon
-          height={30}
-          style={{ position: "absolute", top: "1rem", right: ".5rem" }}
-          color={showRightSide ? "#3aafa9" : "gray"}
-          onClick={() => setShowRightSide(!showRightSide)}
-          cursor="pointer"
-        />
+        <Box display={{ _: "block", md: "none" }} bg="white" position="absolute" top="1rem" right=".5rem">
+          <EllipsisVerticalIcon
+            height={30}
+            style={{}}
+            color={showRightSide ? "#3aafa9" : "gray"}
+            onClick={() => setShowRightSide(!showRightSide)}
+            cursor="pointer"
+          />
+        </Box>
       </Stack>
 
       {/* prawa kolumna */}
