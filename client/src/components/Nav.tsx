@@ -61,15 +61,15 @@ const Nav = () => {
           gap="1.25rem"
           flexDirection={{ _: "column", md: "row" }}>
           {/* linki navigatora */}
-          <Link to="/zadaj-pytanie" className="nav-link" children={"Zadaj pytanie"} />
-          <Link to="/forum" className="nav-link" children={"Forum"} />
-          <Link to="/blog" className="nav-link" children={"Blog"} />
-          <Link to="/szukaj" className="nav-link" children={"Szukaj"} />
+          <Link to="/zadaj-pytanie" className="nav-link" children={"Zadaj pytanie"} onClick={toggleMenu} />
+          <Link to="/forum" className="nav-link" children={"Forum"} onClick={toggleMenu} />
+          <Link to="/blog" className="nav-link" children={"Blog"} onClick={toggleMenu} />
+          <Link to="/szukaj" className="nav-link" children={"Szukaj"} onClick={toggleMenu} />
 
           {/* dodatkowe linki dla rozwijanego menu  */}
           <Flex direction="column" gap="1.25rem" display={{ _: !menuToggled ? "none" : "flex", md: "none" }}>
             {!user && <Link to="/zaloguj-sie" className="nav-link" children={"Zaloguj się"} />}
-            {user && <Link to="/twoj-profil" className="nav-link" children={"Twój profil"} />}
+            {user && <Link to="/twoj-profil" className="nav-link" children={"Twój profil"} onClick={toggleMenu} />}
             {user && <Link to="/home" className="nav-link" children={"Wyloguj się"} onClick={handleLogout} />}
             <XMarkIcon height={55} color="white" style={{ marginTop: "1rem" }} cursor="pointer" onClick={toggleMenu} />
           </Flex>

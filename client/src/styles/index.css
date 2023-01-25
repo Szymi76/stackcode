@@ -189,4 +189,10 @@ h6 {
   font-size: medium;
   padding: 0.45rem;
   font-family: monospace;
+  overflow-x: scroll;
+  white-space: pre-wrap;
+}
+
+.quill-result pre #text {
+  color: red;
 }

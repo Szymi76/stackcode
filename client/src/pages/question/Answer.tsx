@@ -20,6 +20,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   PencilSquareIcon,
+  EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 import AddCommentModal from "./AddCommentModal";
 import Comment from "./Comment";
@@ -40,6 +41,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const modal = useModalState();
+  const [showRightSide, setShowRightSide] = useState(false);
   const reportModal = useModalState();
   const [showComments, setShowComments] = useState(false);
   const { question } = useAppSelector((state) => state);
@@ -78,9 +80,9 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const textToCopy = `${location.origin}${location.pathname}#${index + 1}`;
 
   return (
-    <Flex id={`${index + 1}`}>
+    <Flex id={`${index + 1}`} position="relative">
       {/* lewa kolumna */}
-      <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
+      <Stack w="5%" px="1.25rem" display={{ _: "none", md: "flex" }} alignItems="center" spacing="md">
         {/* znaczek veryfikacji */}
         {answer.verified && <CheckBadgeIcon width={30} color="#4BB543" />}
 
@@ -114,7 +116,16 @@ const Answer = ({ answer, index }: AnswerProps) => {
       </Stack>
 
       {/* środek */}
-      <Stack w="90%" px="1rem" py=".5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
+      <Stack
+        w={{ _: "97%", md: "90%" }}
+        mx="auto"
+        position="relative"
+        px="1rem"
+        py=".5rem"
+        bg="white"
+        border="1px solid"
+        borderColor="light-gray"
+        borderRadius="5">
         {/* kontent */}
         <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
 
@@ -148,6 +159,15 @@ const Answer = ({ answer, index }: AnswerProps) => {
               <Text variant="body3" m="0" children={`Autor: ${question?.author.displayName}`} />
             </Flex>
           </Flex>
+
+          {/* 3 kropki - menu */}
+          <EllipsisVerticalIcon
+            height={30}
+            style={{ position: "absolute", top: "1rem", right: ".5rem" }}
+            color={showRightSide ? "#3aafa9" : "gray"}
+            onClick={() => setShowRightSide(!showRightSide)}
+            cursor="pointer"
+          />
         </Stack>
 
         {/* komentarze */}
@@ -179,7 +199,20 @@ const Answer = ({ answer, index }: AnswerProps) => {
       </Stack>
 
       {/* prawa kolumna */}
-      <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
+      <Stack
+        w="5%"
+        px="1.25rem"
+        alignItems="center"
+        spacing="md"
+        position={{ _: "absolute", md: "unset" }}
+        display={{ _: showRightSide ? "flex" : "none", md: "flex" }}
+        top="3.5rem"
+        right="2rem"
+        border={{ _: "1px solid", md: "none" }}
+        borderColor="light-gray"
+        borderRadius={5}
+        py={{ _: ".5rem", md: "0" }}
+        bg={{ _: "white", md: "transparent" }}>
         {/* kopiowanie linku */}
         {/* <LinkIcon
           className="move-down"
@@ -199,7 +232,40 @@ const Answer = ({ answer, index }: AnswerProps) => {
             title={showComments ? "Ukryj komentarze" : "Zobacz komentarze"}
             onClick={toggleShowComments}
           />
-          <Text position="absolute" right={-8} top={5} variant="body4" children={answer.comments.length} />
+          <Text
+            position="absolute"
+            display={{ _: "none", md: "block" }}
+            right={-8}
+            top={5}
+            variant="body4"
+            children={answer.comments.length}
+          />
+        </Box>
+        <Box borderTop="1px solid" borderColor="light-gray" display={{ _: "block", md: "none" }}>
+          <ChevronUpIcon
+            className="move-down"
+            height={30}
+            color={voted("up") ? "#3aafa9" : "black"}
+            title="Głosuj za"
+            onClick={() => handleToggleVote("up")}
+          />
+          <Text
+            variant="h3"
+            fontWeight="500"
+            m="0"
+            color="black"
+            children={question && question?.votes.up.length - question?.votes.down.length}
+            textAlign="center"
+            py=".5rem"
+          />
+          <ChevronDownIcon
+            className="move-down"
+            height={30}
+            style={{ cursor: "pointer" }}
+            color={voted("down") ? "#3aafa9" : "black"}
+            title="Głosuj przeciw"
+            onClick={() => handleToggleVote("down")}
+          />
         </Box>
       </Stack>
 

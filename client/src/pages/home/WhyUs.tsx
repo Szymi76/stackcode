@@ -1,17 +1,8 @@
-import { useRef } from "react";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
-import useOnScreen from "../../hooks/useOnScreen";
-import axios from "axios";
 
 const WhyUs = () => {
-  const test = async () => {
-    const res = await axios.post("https://stackcode.win/api/test", { a: "1" }, { withCredentials: true });
-    console.log(res);
-    console.log(res.data);
-  };
-
   return (
     <Box position="relative" mt={{ _: "1.5rem", md: "-1rem" }}>
       {/* tekst */}
@@ -30,7 +21,6 @@ const WhyUs = () => {
           doświadczeniem. Poza tym, nasze forum to także świetne miejsce do nawiązania nowych znajomości i wymiany
           poglądów z innymi osobami z branży. Dołącz do nas i korzystaj z wiedzy i inspiracji, jakie oferuje nasze forum
         </Text>
-        <Text children="TEST" onClick={test} />
       </Flex>
 
       {/* drugi skos */}

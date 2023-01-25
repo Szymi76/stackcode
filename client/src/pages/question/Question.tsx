@@ -2,7 +2,7 @@ import useOnScreen from "../../hooks/useOnScreen";
 import moment from "moment";
 import useOpenImages from "../../hooks/useOpenImages";
 import copyToClipboard from "../../utils/copyToClipboard";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useToast } from "@welcome-ui/toast";
 import { toggleMarked, toggleQuestionVote } from "../../features/question/questionSlice";
@@ -14,7 +14,14 @@ import {
 
 // komponenty
 import ReportModal from "../../components/ReportModal";
-import { StarIcon, LinkIcon, FlagIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import {
+  StarIcon,
+  LinkIcon,
+  FlagIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  EllipsisVerticalIcon,
+} from "@heroicons/react/24/outline";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Text } from "@welcome-ui/text";
@@ -26,6 +33,7 @@ const Question = () => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const modal = useModalState();
+  const [showRightSide, setShowRightSide] = useState(false);
   const { question } = useAppSelector((state) => state);
   const { user } = useAppSelector((state) => state.auth);
   const [toggleVoteAsync] = useToggleQuestionVoteMutation();
@@ -64,9 +72,9 @@ const Question = () => {
   const time = moment(date).fromNow();
 
   return (
-    <Flex ref={wrapperRef}>
+    <Flex ref={wrapperRef} position="relative">
       {/* lewa kolumna */}
-      <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
+      <Stack w="5%" px="1.25rem" display={{ _: "none", md: "flex" }} alignItems="center" spacing="md">
         {/* strzałka w góre */}
         <ChevronUpIcon
           className="move-down"
@@ -97,11 +105,19 @@ const Question = () => {
       </Stack>
 
       {/* środek */}
-      <Stack w="90%" p="1.5rem" bg="white" border="1px solid" borderColor="light-gray" borderRadius="5">
+      <Stack
+        w={{ _: "97%", md: "90%" }}
+        mx="auto"
+        position="relative"
+        p="1.5rem"
+        bg="white"
+        border="1px solid"
+        borderColor="light-gray"
+        borderRadius="5">
         {/* góra */}
         <Stack>
           {/* tytuł */}
-          <Text variant="h3" m="0" color="black" children={question?.title} />
+          <Text variant="h3" m="0" mr="1rem" color="black" children={question?.title} />
 
           {/* tagi */}
           <Flex gap=".25rem">
@@ -122,10 +138,32 @@ const Question = () => {
           <Text m="0" variant="body3" color="gray" children={`licz. wyśw. ${question?.views}`} />
           <Text m="0" variant="body3" color="gray" children={`Autor: ${question?.author.displayName}`} />
         </Flex>
+
+        {/* 3 kropki - menu */}
+        <EllipsisVerticalIcon
+          height={30}
+          style={{ position: "absolute", top: "1rem", right: ".5rem" }}
+          color={showRightSide ? "#3aafa9" : "gray"}
+          onClick={() => setShowRightSide(!showRightSide)}
+          cursor="pointer"
+        />
       </Stack>
 
       {/* prawa kolumna */}
-      <Stack w="5%" px="1.25rem" alignItems="center" spacing="md">
+      <Stack
+        w="5%"
+        px="1.25rem"
+        alignItems="center"
+        spacing="md"
+        position={{ _: "absolute", md: "unset" }}
+        display={{ _: showRightSide ? "flex" : "none", md: "flex" }}
+        top="3.5rem"
+        right="2rem"
+        border={{ _: "1px solid", md: "none" }}
+        borderColor="light-gray"
+        borderRadius={5}
+        bg={{ _: "white", md: "transparent" }}
+        py={{ _: ".5rem", md: "0" }}>
         <StarIcon
           className="move-down"
           height={30}
@@ -143,6 +181,33 @@ const Question = () => {
           onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: location.href })}
         />
         <FlagIcon className="move-down" height={30} title="Zgłoś pytanie" onClick={() => modal.show()} />
+        {/* strzałka w góre */}
+        <Box borderTop="1px solid" borderColor="light-gray" display={{ _: "block", md: "none" }}>
+          <ChevronUpIcon
+            className="move-down"
+            height={30}
+            color={voted("up") ? "#3aafa9" : "black"}
+            title="Głosuj za"
+            onClick={() => handleToggleVote("up")}
+          />
+          <Text
+            variant="h3"
+            fontWeight="500"
+            m="0"
+            color="black"
+            children={question && question?.votes.up.length - question?.votes.down.length}
+            textAlign="center"
+            py=".5rem"
+          />
+          <ChevronDownIcon
+            className="move-down"
+            height={30}
+            style={{ cursor: "pointer" }}
+            color={voted("down") ? "#3aafa9" : "black"}
+            title="Głosuj przeciw"
+            onClick={() => handleToggleVote("down")}
+          />
+        </Box>
       </Stack>
       {modal.visible && question && <ReportModal modal={modal} id={question?._id} reportFor="question" />}
     </Flex>

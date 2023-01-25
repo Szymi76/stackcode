@@ -85,7 +85,7 @@ const MakeQuestion = () => {
   };
 
   return (
-    <Box minH="100vh" py="6rem" px="2rem" bg="very-light-green">
+    <Box minH="100vh" py="6rem" px="1rem" bg="very-light-green">
       {/* wrapper */}
       <Flex direction="column" maxW="1100px" mx="auto" gap=".75rem">
         {/* kontent */}
