@@ -12,8 +12,8 @@ const logout = async (req, res) => {
     }
   }
 
-  res.clearCookie("access_token", cookieOptions);
-  res.clearCookie("refresh_token", cookieOptions);
+  res.clearCookie("access_token", {...cookieOptions, expires: new Date()});
+  res.clearCookie("refresh_token", {...cookieOptions, expires: new Date()});
 
   res.status(200).json({ message: "You got logged out successfully" });
 };
