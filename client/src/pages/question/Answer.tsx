@@ -117,7 +117,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
 
       {/* środek */}
       <Stack
-        w={{ _: "97%", md: "90%" }}
+        w={{ _: "95%", md: "90%" }}
         mx="auto"
         position="relative"
         px="1rem"

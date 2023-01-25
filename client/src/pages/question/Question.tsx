@@ -106,7 +106,7 @@ const Question = () => {
 
       {/* środek */}
       <Stack
-        w={{ _: "97%", md: "90%" }}
+        w={{ _: "95%", md: "90%" }}
         mx="auto"
         position="relative"
         p="1.5rem"
