@@ -1,5 +1,5 @@
 import Question from "../models/Question.js";
-import uploadDeltaImages from "../utils/uploadDeltaImages.js";
+// import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const addQuestion = async (req, res) => {
   try {
@@ -15,9 +15,7 @@ const addQuestion = async (req, res) => {
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
     // const newContent = uploadDeltaImages(content);
 
-    const link = title.replaceAll(" ", "-");
-
-    const question = await new Question({ author: req.user._id, title, content: content, tags, link }).save();
+    const question = await new Question({ author: req.user._id, title, content: content, tags }).save();
 
     res.status(201).json({ question });
   } catch (err) {
