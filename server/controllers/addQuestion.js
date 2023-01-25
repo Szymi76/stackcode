@@ -13,11 +13,11 @@ const addQuestion = async (req, res) => {
     if (questionWithGivenTitle) return res.status(409).json({ message: "Question with provided title already exists" });
 
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
-    const newContent = uploadDeltaImages(content);
+    // const newContent = uploadDeltaImages(content);
 
     const link = title.replaceAll(" ", "-");
 
-    const question = await new Question({ author: req.user._id, title, content: newContent, tags, link }).save();
+    const question = await new Question({ author: req.user._id, title, content: content, tags, link }).save();
 
     res.status(201).json({ question });
   } catch (err) {

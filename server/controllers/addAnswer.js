@@ -12,9 +12,9 @@ const addAnswer = async (req, res) => {
       return res.status(400).json({ message: "Delta have wrong structure" });
 
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
-    const newContent = uploadDeltaImages(content);
+    // const newContent = uploadDeltaImages(content);
 
-    const answer = await new Answer({ author: req.user._id, content: newContent }).save();
+    const answer = await new Answer({ author: req.user._id, content: content }).save();
 
     const question = await Question.findById(questionID).exec();
     if (!question) return res.status(404).json({ message: "Question with provided id does not exists" });
