@@ -22,7 +22,7 @@ const useInitializeUser = () => {
         await logout().unwrap();
       }
     } catch (err) {
-      console.warn(err);
+      dispatch(setUser(null));
     }
   };
 
