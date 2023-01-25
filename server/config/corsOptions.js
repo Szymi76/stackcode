@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import path from "path";
 import __dirname from "./serverDir.js";
 
-const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : ".env";
+const envPath = process.env.NODE_ENV == "dev" ? ".env.local" : "/etc/secrets/.env";
 
 config({ path: path.join(__dirname, envPath) });
 
