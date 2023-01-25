@@ -8,8 +8,8 @@ const NotLoggedInOnly = () => {
   const { user, isVerified } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
 
-  if (user === null && !isVerified) return <Loading />;
-  if (user === null && isVerified) return <Outlet />;
+  // if (user === null && !isVerified) return <Loading />;
+  if (user === null) return <Outlet />;
   return <Navigate to={"/home"} state={{ pathname }} replace />;
 };
 

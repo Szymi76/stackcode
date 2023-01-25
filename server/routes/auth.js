@@ -18,7 +18,7 @@ import "../services/googleStrategy.js";
 const router = Router();
 
 //@GET
-router.get("/user", verifyTokens, getUser);
+router.get("/user", getUser);
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/logout", logout);
 router.get("/refresh", refresh);
@@ -30,12 +30,6 @@ router.get(
   }),
   loginWithGoogle
 );
-router.get("/cookie", (req, res) => {
-  const { access_token } = req.cookies;
-  if (!access_token) return res.status(403).send("Access Denited");
-
-  res.status(200).json({ access_token });
-});
 
 // @POST
 router.post("/login", verifyLocal, login);

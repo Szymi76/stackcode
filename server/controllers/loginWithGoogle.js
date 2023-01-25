@@ -1,12 +1,13 @@
 import cookieOptions from "../config/cookieOptions.js";
 import User from "../models/User.js";
 import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
+import querystring from "querystring";
 
 const loginWithGoogle = async (req, res) => {
   const CLIENT_URL = process.env.NODE_ENV == "dev" ? process.env.DEV_CLIENT_URL : process.env.PROD_CLIENT_URL;
 
   const payload = {
-    id: req.user._id,
+    id: req.user._id.toString(),
     displayName: req.user.displayName,
     email: req.user.email,
     photoURL: req.user.photoURL,
@@ -21,6 +22,9 @@ const loginWithGoogle = async (req, res) => {
   // aktualizowanie refresh tokenów
   const refreshTokens = [...req.user.refreshTokens, newRefreshToken];
   await User.findByIdAndUpdate(req.user._id, { refreshTokens });
+
+  //const redURL = `${CLIENT_URL}/?${querystring.stringify(payload)}`;
+  //const redirectURL = `${CLIENT_URL}?/user=${decodeURIComponent(JSON.stringify(payload))}`;
 
   res.cookie("access_token", newAccessToken, cookieOptions);
   res.cookie("refresh_token", newRefreshToken, cookieOptions);

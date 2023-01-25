@@ -6,7 +6,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate, HashRouter } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import { WuiProvider, createTheme } from "@welcome-ui/core";
-import { store } from "./app/store";
+import { store, persistor } from "./app/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 // security routes
 import Layout from "./security/Layout";
@@ -30,13 +31,14 @@ import Tests from "./pages/tests";
 import QuestionPage from "./pages/question";
 import Profile from "./pages/profile";
 import NotFound from "./security/NotFound";
+import Loading from "./security/Loading";
 
 // const theme = createTheme();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <CookiesProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <PersistGate loading={<Loading />} persistor={persistor}>
         <WuiProvider theme={theme}>
           {/* <BrowserRouter> */}
           <HashRouter>
@@ -66,7 +68,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           </HashRouter>
           {/* </BrowserRouter> */}
         </WuiProvider>
-      </Provider>
-    </CookiesProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );

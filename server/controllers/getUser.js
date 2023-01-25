@@ -1,15 +1,30 @@
-const getUser = async (req, res) => {
-  const payload = {
-    id: req.user._id.toString(),
-    displayName: req.user.displayName,
-    email: req.user.email,
-    photoURL: req.user.photoURL,
-    provider: req.user.provider,
-    roles: req.user.roles,
-    emailVerified: req.user.emailVerified,
-  };
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-  res.status(200).json({ user: payload });
+const getUser = async (req, res) => {
+  try {
+    const { access_token, refresh_token } = req.cookies;
+
+    const verifyAccessToken = jwt.verify(access_token, process.env.ACCESS_TOKEN);
+    const verifyRefreshToken = jwt.verify(refresh_token, process.env.REFRESH_TOKEN);
+
+    const user = await User.findById(verifyAccessToken.id).exec();
+    if (!user) return res.status(403).send("Access Denied");
+
+    const payload = {
+      id: user._id.toString(),
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      provider: user.provider,
+      roles: user.roles,
+      emailVerified: user.emailVerified,
+    };
+
+    res.status(200).json({ user: payload });
+  } catch (err) {
+    res.status(401).send("Access Denited");
+  }
 };
 
 export default getUser;

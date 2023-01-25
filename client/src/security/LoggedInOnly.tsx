@@ -10,15 +10,7 @@ const LoggedInOnly = () => {
   const { user, isVerified } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
 
-  if (user === null && !isVerified)
-    return (
-      <>
-        <Nav />
-        <Loading />
-        <Footer />
-      </>
-    );
-  if (user === null && isVerified) return <Navigate to={"/home"} state={{ pathname }} replace />;
+  if (user === null) return <Navigate to={"/home"} state={{ pathname }} replace />;
   return (
     <>
       <Nav />
