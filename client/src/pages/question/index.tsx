@@ -22,6 +22,8 @@ const QuestionPage = () => {
   const { data, isLoading, isError } = useGetQuestionByIdQuery({ id: questionId! });
   const question = useAppSelector((state) => state.question);
 
+  document.title = question?.title || "Stackcode";
+
   // ustawianie pytania
   useEffect(() => {
     const result = data ? data.question : null;

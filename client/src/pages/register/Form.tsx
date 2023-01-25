@@ -11,6 +11,7 @@ import { Flex } from "@welcome-ui/flex";
 import { Button } from "@welcome-ui/button";
 import { Link } from "react-router-dom";
 import { Checkbox } from "@welcome-ui/checkbox";
+import { Loader } from "@welcome-ui/loader";
 
 type Inputs = {
   displayName: string;
@@ -23,7 +24,7 @@ type Inputs = {
 
 const Form = () => {
   const dispatch = useAppDispatch();
-  const [createAccount, { error }] = useRegisterMutation();
+  const [createAccount, { error, isLoading }] = useRegisterMutation();
   const {
     register,
     handleSubmit,
@@ -125,7 +126,10 @@ const Form = () => {
       />
 
       {/* przycisk do logowania */}
-      <Button w="100%" type="submit" my=".25rem" children="Kontynuuj" />
+      <Button w="100%" type="submit" my=".25rem" disabled={isLoading}>
+        {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
+        Kontynuuj
+      </Button>
 
       {/* link do logowania  */}
       <Flex alignItems="start" gap=".75rem" mb=".25rem">

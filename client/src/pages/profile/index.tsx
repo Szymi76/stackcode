@@ -6,6 +6,8 @@ import { Box } from "@welcome-ui/box";
 import { Stack } from "@welcome-ui/stack";
 
 const Profile = () => {
+  document.title = "Profil";
+
   return (
     <Box minH="100vh" pt="4rem" px="1rem" bg="very-light-green">
       <Stack py="2rem" spacing="md" maxW="1200px" mx="auto">

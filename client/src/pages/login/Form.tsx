@@ -10,6 +10,7 @@ import { Text } from "@welcome-ui/text";
 import { Flex } from "@welcome-ui/flex";
 import { Button } from "@welcome-ui/button";
 import { Link } from "react-router-dom";
+import { Loader } from "@welcome-ui/loader";
 
 type Inputs = {
   email: string;
@@ -18,7 +19,7 @@ type Inputs = {
 
 const Form = () => {
   const dispatch = useAppDispatch();
-  const [login, { error }] = useLoginMutation();
+  const [login, { error, isLoading }] = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -68,7 +69,10 @@ const Form = () => {
       )}
 
       {/* przycisk do logowania */}
-      <Button w="100%" type="submit" my=".25rem" children="Kontynuuj" />
+      <Button w="100%" type="submit" my=".25rem" disabled={isLoading}>
+        {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
+        Kontynuuj
+      </Button>
 
       {/* link do stworzenia konta */}
       <Flex alignItems="start" gap=".75rem" mb=".25rem">

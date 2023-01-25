@@ -4,6 +4,8 @@ import Welcome from "./Welcome";
 import WhyUs from "./WhyUs";
 
 const index = () => {
+  document.title = "Stackcode";
+
   return (
     <>
       <Welcome />

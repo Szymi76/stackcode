@@ -30,6 +30,8 @@ const MakeQuestion = () => {
   const modal = useModalState({ animated: true });
   const navigate = useNavigate();
 
+  document.title = "Zadaj nowe pytanie";
+
   // refy
   const editorRef = useRef<ReactQuill>(null);
   const tagRef = useRef<HTMLInputElement>(null);
