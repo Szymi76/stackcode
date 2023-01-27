@@ -28,7 +28,7 @@ const toggleQuestionVote = async (req, res) => {
     // głosowanie down, w momencie gdy głos jest już up
     if (isContainUp) {
       question.votes.down = [...question.votes.down, req.user._id];
-      question.votes.up = question.votes.down.filter((uid) => uid.toString() != req.user._id.toString());
+      question.votes.up = question.votes.up.filter((uid) => uid.toString() != req.user._id.toString());
       // głosowanie down, w momencie gdy głos up nie zawiera id
     } else {
       question.votes.down = isContainDown

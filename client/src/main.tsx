@@ -32,6 +32,8 @@ import QuestionPage from "./pages/question";
 import Profile from "./pages/profile";
 import NotFound from "./security/NotFound";
 import Loading from "./security/Loading";
+import Search from "./pages/search";
+import EditQuestion from "./pages/editQuestion";
 
 // const theme = createTheme();
 
@@ -49,8 +51,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                   <Route index path="/home" element={<Home />} />
                   <Route path="/" element={<Navigate to={"/home"} />} />
                   <Route path="/pytanie/:questionId" element={<QuestionPage />} />
-                  <Route path="*" element={<NotFound />} />
+                  <Route path="/szukaj" element={<Search />} />
                   {/* <Route path="/tests" element={<Tests />} /> */}
+                  <Route path="*" element={<NotFound />} />
                 </Route>
 
                 {/* route tylko dla NIE zalogowanych użytkowników */}
@@ -62,6 +65,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<LoggedInOnly />}>
                   <Route path="/zadaj-pytanie" element={<MakeQuestion />} />
                   <Route path="/twoj-profil" element={<Profile />} />
+                  <Route path="/edytuj-pytanie/:id" element={<EditQuestion />} />
                 </Route>
               </Route>
             </Routes>

@@ -165,7 +165,8 @@ const Question = () => {
         borderColor="light-gray"
         borderRadius={5}
         bg={{ _: "white", md: "transparent" }}
-        py={{ _: ".5rem", md: "0" }}>
+        py={{ _: ".5rem", md: "0" }}
+        zIndex={20}>
         <StarIcon
           className="move-down"
           height={30}

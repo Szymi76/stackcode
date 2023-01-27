@@ -214,7 +214,8 @@ const Answer = ({ answer, index }: AnswerProps) => {
         borderColor="light-gray"
         borderRadius={5}
         py={{ _: ".5rem", md: "0" }}
-        bg={{ _: "white", md: "transparent" }}>
+        bg={{ _: "white", md: "transparent" }}
+        zIndex={20}>
         {/* kopiowanie linku */}
         {/* <LinkIcon
           className="move-down"

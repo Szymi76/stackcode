@@ -52,7 +52,7 @@ const DeleteQuestionModal = ({ modal, question, onClose }: DeleteQuestionModalPr
         <Modal.Footer w={{ _: "auto", md: "100%" }} p={{ md: "0" }} pl={{ _: "2rem" }} borderTop="none">
           <Flex wrap="wrap" pt="1rem" justify="end" gap=".5rem">
             <Button
-              variant="primary-warning"
+              variant="primary-danger"
               px="2rem"
               alignSelf="end"
               disabled={isLoading}

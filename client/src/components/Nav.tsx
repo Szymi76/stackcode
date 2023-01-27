@@ -41,7 +41,7 @@ const Nav = () => {
       align="center"
       px="1rem"
       position="fixed"
-      zIndex={20}
+      zIndex={40}
       w="100%"
       flexDirection={{ _: "column", md: "row" }}
       transitionDuration={150}>
@@ -70,7 +70,7 @@ const Nav = () => {
           <Flex direction="column" gap="1.25rem" display={{ _: !menuToggled ? "none" : "flex", md: "none" }}>
             {!user && <Link to="/zaloguj-sie" className="nav-link" children={"Zaloguj się"} />}
             {user && <Link to="/twoj-profil" className="nav-link" children={"Twój profil"} onClick={toggleMenu} />}
-            {user && <Link to="/home" className="nav-link" children={"Wyloguj się"} onClick={handleLogout} />}
+            {user && <Link to={location.hash} className="nav-link" children={"Wyloguj się"} onClick={handleLogout} />}
             <XMarkIcon height={55} color="white" style={{ marginTop: "1rem" }} cursor="pointer" onClick={toggleMenu} />
           </Flex>
         </Flex>

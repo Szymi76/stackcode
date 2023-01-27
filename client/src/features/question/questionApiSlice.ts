@@ -3,6 +3,7 @@ import Question from "../../types/Question";
 
 type AddQuestionBody = { title: string; content: object; tags: string[] };
 type ToggleVoteBody = { questionID: string; vote: "up" | "down" };
+type EditQuestionBody = { questionID?: string; title?: string; content?: any; tags?: string[] };
 
 export const questionApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -54,6 +55,20 @@ export const questionApiSlice = apiSlice.injectEndpoints({
         url: "/question/delete",
         method: "DELETE",
         body,
+        cache: "reload", // [BŁĄD - request jest cache-owany nieważne co]
+      }),
+    }),
+
+    // wyszukiwanie pytań na podstawie tytułu
+    getQuestionsWithQuery: build.mutation<{ questions: Question[] }, { query: string }>({
+      query: ({ query }) => `/questions/search/${query.toLocaleLowerCase().replaceAll(" ", "-")}`,
+    }),
+
+    editQuestion: build.mutation<void, EditQuestionBody>({
+      query: (body) => ({
+        url: "/question/edit",
+        method: "PATCH",
+        body,
       }),
     }),
   }),
@@ -67,4 +82,6 @@ export const {
   useGetUserCreatedQuestionsQuery,
   useGetUserMarkedQuestionsQuery,
   useDeleteQuestionMutation,
+  useGetQuestionsWithQueryMutation,
+  useEditQuestionMutation,
 } = questionApiSlice;

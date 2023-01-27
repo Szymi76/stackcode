@@ -6,8 +6,7 @@ const editQuestion = async (req, res) => {
     const { questionID, title, content, tags } = req.body;
 
     if (!questionID) return res.status(400).json({ message: "Question id is required" });
-    if (!title && !content && !tags)
-      return res.status(400).json({ message: "At least one property is required" });
+    if (!title && !content && !tags) return res.status(400).json({ message: "At least one property is required" });
 
     const question = await Question.findById(questionID).exec();
 
@@ -21,12 +20,13 @@ const editQuestion = async (req, res) => {
 
       // sprawdzanie czy nowy kontent jest okej
       if (content && "ops" in content && Array.isArray(content.ops)) {
-        const newContent = uploadDeltaImages(content);
+        // const newContent = uploadDeltaImages(content);
 
-        if (newContent === null)
-          return res.status(400).json({ message: "Something went wrong while uploading images" });
+        // if (newContent === null)
+        //   return res.status(400).json({ message: "Something went wrong while uploading images" });
 
-        question.content = newContent;
+        // question.content = newContent;
+        question.content = content;
       }
 
       // sprawdzanie czy nowe tagi jest okej

@@ -136,7 +136,12 @@ const Row = ({ question, user, index, showAll, refetch }: RowProps) => {
         </Box>
 
         {/* edit */}
-        <PencilSquareIcon className="move-down" height={30} color="#15803d" />
+        <PencilSquareIcon
+          className="move-down"
+          height={30}
+          color="#15803d"
+          onClick={() => navigate(`/edytuj-pytanie/${question._id}`)}
+        />
 
         {/* usuń */}
         <TrashIcon className="move-down" height={30} color="#ef4444" onClick={() => deleteModal.show()} />
