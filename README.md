@@ -1,6 +1,6 @@
 # stackcode
 
-Forum dla programistów
+Projekt - Forum dla programistów
 
 **W trakcie tworzenia**
 
