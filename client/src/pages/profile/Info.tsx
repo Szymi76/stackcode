@@ -60,7 +60,7 @@ const Info = () => {
       </Flex>
       {/* przyciski */}
       <Flex gap=".5rem">
-        <Button children="Ustawienia" onClick={() => navigate("/ustawienia")} />
+        <Button children="Ustawienia" onClick={() => navigate("/ustawienia/twoja-nazwa")} />
         <Button children="Zadaj pytanie" onClick={() => navigate("/zadaj-pytanie")} />
       </Flex>
     </Stack>

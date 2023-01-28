@@ -30,11 +30,11 @@ const initialState: SearchTypes = {
 const Search = () => {
   const [search, setSearch] = useState<SearchTypes>(initialState);
   const [result, setResult] = useState<Question[] | null>(null);
-
   const [fetchQuestions, { isLoading }] = useGetQuestionsWithQueryMutation();
 
   document.title = `Szukaj - ${search.query}`;
 
+  // pobieranie i sortowanie pytań
   useEffect(() => {
     if (search.query.trim().length == 0) return setResult(null);
     fetchQuestions({ query: search.query })
@@ -42,6 +42,7 @@ const Search = () => {
       .then((value) => setResult(sortQuestions(value.questions, search)));
   }, [search.query]);
 
+  // sortowanie za każdym razem gdy filtry się zmienią
   useEffect(() => {
     if (!result) return;
 

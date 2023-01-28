@@ -13,6 +13,7 @@ interface QuestionRowProps {
 const QuestionRow = ({ question }: QuestionRowProps) => {
   const navigate = useNavigate();
 
+  // konwertowanie daty stworzenia na np. 5 min temu [PO ANGIELSKU]
   const date = new Date(question?.createdAt || "");
   moment.locale("pl");
   const time = moment(date).fromNow();
@@ -29,7 +30,9 @@ const QuestionRow = ({ question }: QuestionRowProps) => {
       px="1.25rem"
       flexGrow="1"
       transition="all .25s ease-out, opacity .25s ease-in-out .25s">
+      {/* lewa strona */}
       <Stack spacing="xs" w="80%">
+        {/* tytył  */}
         <Text
           variant="h4"
           textOverflow="ellipsis"
@@ -42,8 +45,12 @@ const QuestionRow = ({ question }: QuestionRowProps) => {
           cursor="pointer"
           onClick={() => navigate(`/pytanie/${question._id}`)}
         />
+
+        {/* data stworznie  */}
         <Text variant="body2" color="gray" m="0" children={time} />
       </Stack>
+
+      {/* bilans głosów */}
       <Text
         variant="h4"
         fontWeight="500"

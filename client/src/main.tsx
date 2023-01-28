@@ -34,6 +34,9 @@ import NotFound from "./security/NotFound";
 import Loading from "./security/Loading";
 import Search from "./pages/search";
 import EditQuestion from "./pages/editQuestion";
+import Settings from "./pages/settings";
+import UpdateDisplayName from "./pages/settings/UpdateDisplayName";
+import UpdateAwatar from "./pages/settings/UpdateAwatar";
 
 // const theme = createTheme();
 
@@ -66,6 +69,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                   <Route path="/zadaj-pytanie" element={<MakeQuestion />} />
                   <Route path="/twoj-profil" element={<Profile />} />
                   <Route path="/edytuj-pytanie/:id" element={<EditQuestion />} />
+
+                  {/* ustawienia */}
+                  <Route path="/ustawienia/twoja-nazwa" element={<UpdateDisplayName />} />
+                  <Route path="/ustawienia/awatar" element={<UpdateAwatar />} />
                 </Route>
               </Route>
             </Routes>

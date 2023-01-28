@@ -37,20 +37,24 @@ const Filters = ({ search, setSearch }: FiltersProps) => {
   const [dateASC, setDateASC] = useState("Od najnowszych");
   const [votesASC, setVotesASC] = useState("Malejąca");
 
+  // dodawanie nowego taga do filtrów
   const handleAddTag = (e?: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e?.key != "Enter" && e !== undefined) || tag.length < 3 || search.tags.length == 3) return;
     setSearch({ ...search, tags: [...search.tags, tag] });
   };
 
+  // usuwwanie taga z filtrów na podstawie indexu
   const handleRemoveTag = (index: number) => {
     setSearch({ ...search, tags: search.tags.filter((t, i) => i != index) });
   };
 
+  // zmiana daty sortowania
   const handleDateChange = (e: any) => {
     setDateASC(e.toString());
     setSearch({ ...search, dateASC: e.toString() != "Od najnowszych" });
   };
 
+  // zmiana sortowania po głosach
   const handleVotesChange = (e: any) => {
     setVotesASC(e.toString());
     setSearch({ ...search, votesASC: e.toString() != "Malejąca" });
