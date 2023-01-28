@@ -10,6 +10,7 @@ import loginWithGoogle from "../controllers/loginWithGoogle.js";
 import logout from "../controllers/logout.js";
 import refresh from "../controllers/refresh.js";
 import updateDisplayName from "../controllers/updateDisplayName.js";
+import updatePhotoURL from "../controllers/updatePhotoURL.js";
 import getUser from "../controllers/getUser.js";
 
 import "../services/localStrategy.js";
@@ -37,5 +38,6 @@ router.post("/register", register);
 
 // @PATCH
 router.patch("/update-display-name", verifyTokens, updateDisplayName, checkCookies);
+router.patch("/update-photo-url", verifyTokens, updatePhotoURL, checkCookies);
 
 export default router;

@@ -47,6 +47,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    // upodate photo url
+    updatePhotoURL: build.mutation<{ user: User }, { photoURL: string }>({
+      query: (body) => ({
+        url: "/auth/update-photo-url",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -56,4 +64,5 @@ export const {
   useRegisterMutation,
   useLogoutMutation,
   useUpdateDisplayNameMutation,
+  useUpdatePhotoURLMutation,
 } = authApiSlice;

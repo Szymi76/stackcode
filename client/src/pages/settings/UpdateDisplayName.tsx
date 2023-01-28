@@ -18,8 +18,6 @@ const UpdateDisplayName = () => {
   const [update, { isLoading }] = useUpdateDisplayNameMutation();
 
   const handleUpdate = async () => {
-    if (displayName!.trim().length < 4) return;
-
     const { user } = await update({ displayName: displayName!.trim() }).unwrap();
     dispatch(setUser(user));
     infoToast(toast, "Twoja nazwa zotsała zaktualizowana");
@@ -33,7 +31,9 @@ const UpdateDisplayName = () => {
       </Field>
 
       {/* zapisz */}
-      <Button disabled={isLoading || displayName!.trim().length < 4} onClick={handleUpdate}>
+      <Button
+        disabled={isLoading || displayName!.trim().length < 4 || displayName == user?.displayName}
+        onClick={handleUpdate}>
         {isLoading && <Loader size="xs" color="white" mr="1rem" />}
         Zapisz
       </Button>
