@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setUser, setIsVerified } from "../features/auth/authSlice";
-import { useLogoutMutation, useGetCurrentUserMutation, useGetCookieQuery } from "../features/auth/authApiSlice";
+import { useLogoutMutation, useGetCurrentUserMutation } from "../features/auth/authApiSlice";
 
 // hook służy aby podczas pierwszego renderu pobrać użytkownika z ciasteczek i
 // sprawdzić czy jest on jeszcze ważny.
