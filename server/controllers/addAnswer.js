@@ -12,7 +12,7 @@ const addAnswer = async (req, res) => {
       return res.status(400).json({ message: "Delta have wrong structure" });
 
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
-    // const newContent = uploadDeltaImages(content);
+    // const newContent = uploadDeltaImages(content); Zakomentowane z powodu
 
     const answer = await new Answer({ author: req.user._id, content: content }).save();
 

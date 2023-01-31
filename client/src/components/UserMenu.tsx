@@ -26,7 +26,7 @@ const UserMenu = () => {
     <div id="user-menu">
       {/* awatar i nazwa użytkownika */}
       <Flex h="100%" align="center" gap=".75rem" p={0}>
-        <img src={user?.photoURL} height={50} style={{ borderRadius: "9999px" }} />
+        <img src={user?.photoURL} height={50} width={50} style={{ borderRadius: "9999px" }} />
         <Text variant="body1" fontWeight={600} children={user?.displayName} />
       </Flex>
 

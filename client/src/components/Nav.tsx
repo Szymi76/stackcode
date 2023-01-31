@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
@@ -82,7 +83,8 @@ const Nav = () => {
             <Flex h="100%" align="center">
               <img
                 src={user.photoURL}
-                height={"65%"}
+                height={45}
+                width={45}
                 style={{ borderRadius: "9999px", cursor: "pointer" }}
                 onClick={handleToggleUserMenu}
               />
