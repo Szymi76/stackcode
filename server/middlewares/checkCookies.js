@@ -13,7 +13,7 @@ const checkCookies = async (req, res, next) => {
     const newRefreshToken = createRefreshToken({ id: req.user._id });
 
     // usuwanie uzytego refresh tokena i ustawienie nowego
-    user.refreshTokens = [...user.refreshTokens.filter((t) => t !== refresh_token), newRefreshToken];
+    req.user.refreshTokens = [...req.user.refreshTokens.filter((t) => t !== refresh_token), newRefreshToken];
     await req.user.save();
 
     res.cookie("access_token", newAccessToken, cookieOptions);
