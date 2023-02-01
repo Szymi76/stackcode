@@ -37,8 +37,6 @@ const UpdateDisplayName = () => {
     reader.readAsDataURL(photo);
   };
 
-  console.log(file);
-
   return (
     <SettingsWrapper title="Awatar">
       <Field label="Nowy awatar">
