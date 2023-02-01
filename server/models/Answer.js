@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import User from "./User.js";
 import Comment from "./Comment.js";
 import Report from "./Reports.js";
+import toggleVote from "../utils/toggleVote.js";
 
 const AnswerScheme = new mongoose.Schema(
   {
@@ -34,11 +35,11 @@ const AnswerScheme = new mongoose.Schema(
     },
     views: {
       type: Number,
-      default: 0
+      default: 0,
     },
     verified: {
       type: Boolean,
-      default: false
+      default: false,
     },
     comments: [
       {
@@ -59,6 +60,12 @@ const AnswerScheme = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// zmiana głosu z up/down i zapisywanie zmiany w bazie
+AnswerScheme.methods.toggleVote = async function (userID, vote) {
+  toggleVote(this, vote, userID);
+  return await this.save();
+};
 
 const Answer = mongoose.model("Answer", AnswerScheme);
 

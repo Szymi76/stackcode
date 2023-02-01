@@ -1,5 +1,6 @@
 import Answer from "../models/Answer.js";
 import Question from "../models/Question.js";
+import formatError from "../utils/formatError.js";
 import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const addAnswer = async (req, res) => {
@@ -9,10 +10,10 @@ const addAnswer = async (req, res) => {
     if (!questionID || !content) return res.status(400).json({ message: "All field are required" });
 
     if (!content.ops || !Array.isArray(content.ops))
-      return res.status(400).json({ message: "Delta have wrong structure" });
+      return res.status(400).json({ message: "Delta has wrong structure" });
 
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
-    // const newContent = uploadDeltaImages(content); Zakomentowane z powodu
+    // const newContent = uploadDeltaImages(content); [Zakomentowane z powodu braku możliwości operowania na plikach w onrender.com ]
 
     const answer = await new Answer({ author: req.user._id, content: content }).save();
 
@@ -24,8 +25,7 @@ const addAnswer = async (req, res) => {
 
     res.status(201).json({ answer });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json(formatError(err));
   }
 };
 

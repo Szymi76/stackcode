@@ -1,4 +1,5 @@
 import Question from "../models/Question.js";
+import formatError from "../utils/formatError.js";
 
 const getQuestionById = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ const getQuestionById = async (req, res) => {
 
     return res.status(200).json({ question: populatedQuestion });
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json(formatError(err));
   }
 };
 

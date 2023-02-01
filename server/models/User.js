@@ -42,6 +42,16 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: "local",
     },
+    active: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    bannedTo: {
+      type: Date,
+      required: true,
+      default: new Date(),
+    },
     refreshTokens: {
       type: [String],
       required: true,

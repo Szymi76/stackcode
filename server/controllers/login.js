@@ -1,29 +1,34 @@
-import cookieOptions from "../config/cookieOptions.js";
-import User from "../models/User.js";
 import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
+import cookieOptions from "../config/cookieOptions.js";
+import formatUser from "../utils/formatUser.js";
+import formatError from "../utils/formatError.js";
+import User from "../models/User.js";
 
 const login = async (req, res) => {
-  const payload = {
-    id: req.user._id.toString(),
-    displayName: req.user.displayName,
-    email: req.user.email,
-    photoURL: req.user.photoURL,
-    provider: req.user.provider,
-    roles: req.user.roles,
-    emailVerified: req.user.emailVerified,
-  };
+  try {
+    // sprawdzanie czy użytkownik posiada aktywne konto
+    if (!req.user.active) return res.status(404).json({ status: 404, message: "User was not found" });
 
-  const newAccessToken = createAccessToken(payload);
-  const newRefreshToken = createRefreshToken({ id: req.user._id });
+    // sprawdzanie czy użytkownik jest zbanoway
+    if (req.user.bannedTo > new Date())
+      return res.status(401).json({ message: `You are banned to: ${new Date(req.user.bannedTo).toISOString()}` });
 
-  // aktualizowanie refresh tokenów
-  const refreshTokens = [...req.user.refreshTokens, newRefreshToken];
-  await User.findByIdAndUpdate(req.user._id, { refreshTokens });
+    const payload = formatUser(req.user);
 
-  res.cookie("access_token", newAccessToken, cookieOptions);
-  res.cookie("refresh_token", newRefreshToken, cookieOptions);
+    const newAccessToken = createAccessToken(payload);
+    const newRefreshToken = createRefreshToken({ id: req.user._id });
 
-  res.status(200).json({ user: payload });
+    // aktualizowanie refresh tokenów
+    const refreshTokens = [...req.user.refreshTokens, newRefreshToken];
+    await User.findByIdAndUpdate(req.user._id, { refreshTokens });
+
+    res.cookie("access_token", newAccessToken, cookieOptions);
+    res.cookie("refresh_token", newRefreshToken, cookieOptions);
+
+    res.status(200).json({ user: payload });
+  } catch (err) {
+    res.status(500).json(formatError(err));
+  }
 };
 
 export default login;

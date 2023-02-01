@@ -1,11 +1,14 @@
 import Question from "../models/Question.js";
+import formatError from "../utils/formatError.js";
 
 const getUserCreatedQuestions = async (req, res) => {
-  const id = req.user._id;
+  try {
+    const questions = await Question.find({ author: req.user._id }).exec();
 
-  const questions = await Question.find({ author: id }).exec();
-
-  res.status(200).json({ questions });
+    res.status(200).json({ questions });
+  } catch (err) {
+    res.status(500).json(formatError(err));
+  }
 };
 
 export default getUserCreatedQuestions;

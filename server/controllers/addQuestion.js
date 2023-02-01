@@ -1,5 +1,6 @@
 import Question from "../models/Question.js";
-// import uploadDeltaImages from "../utils/uploadDeltaImages.js";
+import formatError from "../utils/formatError.js";
+import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const addQuestion = async (req, res) => {
   try {
@@ -13,13 +14,13 @@ const addQuestion = async (req, res) => {
     if (questionWithGivenTitle) return res.status(409).json({ message: "Question with provided title already exists" });
 
     // podmienienie każdego zdjęcia jako dataURL na link do prawdziwego pliku na serwerze
-    // const newContent = uploadDeltaImages(content);
+    // const newContent = uploadDeltaImages(content); [Zakomentowane z powodu braku możliwości operowania na plikach w onrender.com ]
 
     const question = await new Question({ author: req.user._id, title, content: content, tags }).save();
 
     res.status(201).json({ question });
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong", err });
+    res.status(500).json(formatError(err));
   }
 };
 

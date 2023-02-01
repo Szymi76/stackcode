@@ -1,4 +1,5 @@
 import Question from "../models/Question.js";
+import formatError from "../utils/formatError.js";
 import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const editQuestion = async (req, res) => {
@@ -41,7 +42,7 @@ const editQuestion = async (req, res) => {
 
     return res.status(200).json({ message: "You are not allowed to edit this question" });
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json(formatError(err));
   }
 };
 

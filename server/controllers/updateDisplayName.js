@@ -1,3 +1,4 @@
+import formatError from "../utils/formatError.js";
 import User from "../models/User.js";
 
 const updateDisplayName = async (req, res, next) => {
@@ -10,7 +11,7 @@ const updateDisplayName = async (req, res, next) => {
     req.result = { status: 200, message: "Display name was updated" };
     next();
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json(formatError(err));
   }
 };
 

@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import formatError from "../utils/formatError.js";
 import dataURLtoBlob from "../utils/dataURLtoBlob.js";
 import uploadFileToGoogleDrive from "../utils/uploadFileToGoogleDrive.js";
 
@@ -16,7 +17,7 @@ const updatePhotoURL = async (req, res, next) => {
     req.result = { status: 201, message: "Photo url was updated" };
     next();
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json(formatError(err));
   }
 };
 

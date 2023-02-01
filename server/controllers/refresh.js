@@ -1,72 +1,71 @@
+import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
+import cookieOptions from "../config/cookieOptions.js";
+import formatUser from "../utils/formatUser.js";
+import formatError from "../utils/formatError.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import cookieOptions from "../config/cookieOptions.js";
-import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
 
 const refresh = async (req, res) => {
-  // pobranie refresh tokena z ciasteczek
-  const { refresh_token } = req.cookies;
+  try {
+    // pobranie refresh tokena z ciasteczek
+    const { refresh_token } = req.cookies;
 
-  // sprawdzenie czy znajduję się refresh token
-  if (!refresh_token) return res.status(401).json({ message: "Refresh token was not provided" });
+    // sprawdzenie czy znajduję się refresh token
+    if (!refresh_token) return res.status(401).json({ message: "Refresh token was not provided" });
 
-  // wyczysczenie ciasteczek
-  res.clearCookie("refresh_token", cookieOptions);
+    // wyczysczenie ciasteczek
+    res.clearCookie("refresh_token", cookieOptions);
 
-  // znalezienie użytkownika po refresh tokenie
-  const user = await User.findOne({ refreshTokens: refresh_token }).exec();
+    // znalezienie użytkownika po refresh tokenie
+    const user = await User.findOne({ refreshTokens: refresh_token }).exec();
 
-  // sprawdzanie czy istnieje użytkownik z takim refresh tokenem
-  if (!user) return res.status(403).json({ message: "User with provided refresh token does not exists" });
+    // sprawdzanie czy istnieje użytkownik z takim refresh tokenem
+    if (!user) return res.status(403).json({ message: "User with provided refresh token does not exists" });
 
-  const filteredRefreshTokens = user.refreshTokens.filter((token) => token !== refresh_token);
+    const filteredRefreshTokens = user.refreshTokens.filter((token) => token !== refresh_token);
 
-  // sprawdzanie czy ktoś przypadkiem nie wykradł refresh tokena
-  if (!user) {
-    jwt.verify(refresh_token, process.env.REFRESH_TOKEN, async (err, decoded) => {
-      if (err) return res.status(403).json({ message: "Invalid refresh token" });
+    // sprawdzanie czy ktoś przypadkiem nie wykradł refresh tokena
+    if (!user) {
+      jwt.verify(refresh_token, process.env.REFRESH_TOKEN, async (err, decoded) => {
+        if (err) return res.status(403).json({ message: "Invalid refresh token" });
 
-      const hackedUser = await User.findById(decoded.id).exec();
-      hackedUser.refreshTokens = [];
-      await hackedUser.save();
-    });
+        const hackedUser = await User.findById(decoded.id).exec();
+        hackedUser.refreshTokens = [];
+        await hackedUser.save();
+      });
 
-    return res.status(403).json({ message: "Refresh token was probabliy stolen" });
-  }
-
-  jwt.verify(refresh_token, process.env.REFRESH_TOKEN, async (err, decoded) => {
-    // usunięcie refresh tokena jeśli jest on nie ważny
-    if (err) {
-      user.refreshTokens = filteredRefreshTokens;
-      await user.save();
+      return res.status(403).json({ message: "Refresh token was probabliy stolen" });
     }
 
-    // sprawdzanie czy to ten sam użytkownik
-    if (err || user._id.toString() !== decoded.id) return res.status(403).json({ message: "Refresh token is expired" });
+    jwt.verify(refresh_token, process.env.REFRESH_TOKEN, async (err, decoded) => {
+      // usunięcie refresh tokena jeśli jest on nie ważny
+      if (err) {
+        user.refreshTokens = filteredRefreshTokens;
+        await user.save();
+      }
 
-    // dane które znajdą się w nowym access tokenie
-    const payload = {
-      id: user._id,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      roles: user.roles,
-      provider: user.provider,
-    };
+      // sprawdzanie czy to ten sam użytkownik
+      if (err || user._id.toString() !== decoded.id)
+        return res.status(403).json({ message: "Refresh token is expired" });
 
-    const accessToken = createAccessToken(payload);
-    const newRefreshToken = createRefreshToken({ id: user._id });
+      // dane które znajdą się w nowym access tokenie
+      const payload = formatUser(user);
 
-    // aktualizacja refresh tokena w bazie danych
-    user.refreshTokens = [...filteredRefreshTokens, newRefreshToken];
-    await user.save();
+      const accessToken = createAccessToken(payload);
+      const newRefreshToken = createRefreshToken({ id: user._id });
 
-    res.cookie("access_token", accessToken, cookieOptions);
-    res.cookie("refresh_token", newRefreshToken, cookieOptions);
+      // aktualizacja refresh tokena w bazie danych
+      user.refreshTokens = [...filteredRefreshTokens, newRefreshToken];
+      await user.save();
 
-    res.status(200).json({ message: "Successfull refresh" });
-  });
+      res.cookie("access_token", accessToken, cookieOptions);
+      res.cookie("refresh_token", newRefreshToken, cookieOptions);
+
+      res.status(200).json({ message: "Successfull refresh" });
+    });
+  } catch (err) {
+    res.status(500).json(formatError(err));
+  }
 };
 
 export default refresh;

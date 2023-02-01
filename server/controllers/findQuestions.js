@@ -1,4 +1,5 @@
 import Question from "../models/Question.js";
+import formatError from "../utils/formatError.js";
 
 const findQuestions = async (req, res) => {
   try {
@@ -10,6 +11,7 @@ const findQuestions = async (req, res) => {
     const words = query.split("-");
     const questions = await Question.find().select("title tags createdAt votes").exec();
 
+    // wyszukiwanie pytań po konkretnych słowach i zapytania które zaczyna się tak samo jak pytanie
     const result = questions.filter((q) => {
       const title = q.title.toLowerCase();
       if (words.some((w) => title.includes(w))) return true;
@@ -19,10 +21,8 @@ const findQuestions = async (req, res) => {
 
     res.status(200).json({ questions: result });
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json(formatError(err));
   }
 };
 
 export default findQuestions;
-
-// [1,2].inc
