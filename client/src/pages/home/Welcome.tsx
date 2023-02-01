@@ -7,6 +7,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import Ilustration from "../../assets/Coding.png";
 import { motion } from "framer-motion";
 import useOnScreen from "../../hooks/useOnScreen";
+import { Link } from "react-router-dom";
 
 const Welcome = () => {
   // const ref: any = useRef<HTMLDivElement>();
@@ -47,10 +48,12 @@ const Welcome = () => {
           </ul>
 
           {/* przycisk */}
-          <Button size="lg" w="12rem" ml={{ _: "0", md: "1.5rem" }} mt=".5rem">
-            <Text fontSize="1.4em" fontWeight="500" children="Rozpocznij" />
-            <ArrowLongRightIcon />
-          </Button>
+          <Link to="/zadaj-pytanie" style={{ textDecoration: "none" }}>
+            <Button size="lg" w="12rem" ml={{ _: "0", md: "1.5rem" }} mt=".5rem">
+              <Text fontSize="1.4em" fontWeight="500" children="Rozpocznij" />
+              <ArrowLongRightIcon />
+            </Button>
+          </Link>
         </Flex>
       </Flex>
 
