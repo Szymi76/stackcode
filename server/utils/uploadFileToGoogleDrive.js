@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import fs, { createReadStream } from "fs";
+import fs from "fs";
 import { v4 as uuid } from "uuid";
 import __dirname from "../config/serverDir.js";
 import path from "path";
