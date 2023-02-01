@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
-const ACCESS_TOKEN_EXPIRES_IN = 60 * 8; // 8 minut
-const REFRESH_TOKEN_EXPIRES_IN = 60 * 30; // 30 minut
+const ACCESS_TOKEN_EXPIRES_IN = 60 * 10; // 10 minut
+const REFRESH_TOKEN_EXPIRES_IN = 60 * 60 * 6; // 6 godzin
 // const ACCESS_TOKEN_EXPIRES_IN = 10; // 10 sekund
 // const REFRESH_TOKEN_EXPIRES_IN = 20; // 20 sekund
 
