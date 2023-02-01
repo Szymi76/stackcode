@@ -1,6 +1,7 @@
 import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
 import cookieOptions from "../config/cookieOptions.js";
 import formatUser from "../utils/formatUser.js";
+import formatError from "../utils/formatError.js";
 
 const checkCookies = async (req, res, next) => {
   try {
