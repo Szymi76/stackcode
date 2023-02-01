@@ -26,10 +26,9 @@ const uploadFileToGoogleDrive = async (name, body) => {
     const uploadedFile = await uploadSingleFile(name, body, drive);
     // odebranie publicznego linku
     const publicLinks = await generatePublicURL(uploadedFile.id, drive);
-    return publicLinks.webContentLink;
+    return { link: publicLinks.webContentLink, error: null };
   } catch (err) {
-    console.log(err);
-    return null;
+    return { link: null, error: { name: err.name, message: err.message, stack: err.stack } };
   }
 };
 
