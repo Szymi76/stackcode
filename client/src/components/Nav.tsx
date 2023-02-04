@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
@@ -15,6 +15,7 @@ import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 // ikony
 import StackcodeLogo from "../assets/logo3.png";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const Nav = () => {
   const dispatch = useAppDispatch();
@@ -23,10 +24,13 @@ const Nav = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
-  const handleToggleUserMenu = () => setShowUserMemu(!showUserMenu);
+  const handleToggleUserMenu = () => setShowUserMemu((showUserMenu) => !showUserMenu);
 
   const toggleMenu = () => setMenuToggled(!menuToggled);
+
+  useOnClickOutside(userMenuRef, handleToggleUserMenu);
 
   const handleLogout = async () => {
     await logout();
@@ -90,7 +94,8 @@ const Nav = () => {
               />
 
               {/* menu użytkownika w prawym górnym rogu */}
-              {showUserMenu && <UserMenu />}
+              {/* @ts-ignore */}
+              {showUserMenu && <UserMenu ref={userMenuRef} />}
             </Flex>
           ) : (
             // przycisk do logowania dla nawigatora

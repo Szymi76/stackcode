@@ -1,3 +1,4 @@
+import { RefObject, forwardRef, ForwardedRef, Ref } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { setUser } from "../features/auth/authSlice";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
@@ -9,7 +10,7 @@ import { Text } from "@welcome-ui/text";
 import { Box } from "@welcome-ui/box";
 import { UserIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 
-const UserMenu = () => {
+const UserMenu = (props: {}, ref: RefObject<HTMLDivElement>) => {
   const dispatch = useAppDispatch();
   const [logout] = useLogoutMutation();
   const { user } = useAppSelector((state) => state.auth);
@@ -23,7 +24,7 @@ const UserMenu = () => {
   const redirectToProfile = () => navigate("/twoj-profil");
 
   return (
-    <div id="user-menu">
+    <div ref={ref} id="user-menu">
       {/* awatar i nazwa użytkownika */}
       <Flex h="100%" align="center" gap=".75rem" p={0}>
         <img src={user?.photoURL} height={50} width={50} style={{ borderRadius: "9999px" }} />
@@ -48,4 +49,7 @@ const UserMenu = () => {
   );
 };
 
-export default UserMenu;
+// @ts-ignore
+const ForwardedUserMenu = forwardRef<typeof UserMenu>(UserMenu);
+
+export default ForwardedUserMenu;
