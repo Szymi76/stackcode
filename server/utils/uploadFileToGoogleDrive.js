@@ -3,9 +3,10 @@ import fs from "fs";
 import { v4 as uuid } from "uuid";
 import __dirname from "../config/serverDir.js";
 import path from "path";
+import { Readable } from "stream";
 
 // przesyłanie pliku i zwracanie publicznego linku
-const uploadFileToGoogleDrive = async (name, body) => {
+const uploadFileToGoogleDrive = async (name, buffer) => {
   // klient z autoryzacją
   const oauth2Client = new google.auth.OAuth2({
     clientId: process.env.GOOGLE_DRIVE_CLIENT_ID,
@@ -21,10 +22,13 @@ const uploadFileToGoogleDrive = async (name, body) => {
     auth: oauth2Client,
   });
 
+  // konwertowanie buffera na stream
+  const stream = Readable.from(buffer);
+
   try {
     // przesyłanie pliku
-    const uploadedFile = await uploadSingleFile(name, body, drive);
-    // odebranie publicznego linku
+    const uploadedFile = await uploadSingleFile(name, stream, drive);
+    // wygenerowanie publicznego linku
     const publicLinks = await generatePublicURL(uploadedFile.id, drive);
     return { link: publicLinks.webContentLink, error: null };
   } catch (err) {
@@ -38,22 +42,22 @@ export default uploadFileToGoogleDrive;
 async function uploadSingleFile(name, body, drive) {
   const mimeType = "image/png";
   const filename = `${uuid()}.png`;
-  const filepath = path.join(__dirname, "uploads", filename);
-  fs.writeFileSync(filepath, body);
+  // const filepath = path.join(__dirname, "uploads", filename);
+  // fs.writeFileSync(filepath, body);
 
   const parents = [process.env.GOOGLE_DRIVE_BUCKET_ID];
 
   try {
     const response = await drive.files.create({
       requestBody: { name, mimeType, parents },
-      media: { mimeType, body: fs.createReadStream(filepath) },
+      media: { mimeType, body },
     });
     return response.data;
   } catch (err) {
     console.log(err);
     return null;
   } finally {
-    fs.rmSync(filepath);
+    //fs.rmSync(filepath);
   }
 }
 

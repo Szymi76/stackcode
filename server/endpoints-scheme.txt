@@ -4,11 +4,11 @@
 	@GET /google ✔️
 	@GET /github 
 	@PATCH /update-display-name (displayName) ✔️
-	@PATCH /update-profile-photo (file in form data)
+	@PATCH /update-profile-photo (file in form data) ✔️
 	@PATCH /update-password (oldPassword, newPassword)
 	@PATCH /verify-email
 	@PATCH /reset-password (email)
-	@DELETE /delete-account 
+	@DELETE /delete-account ✔️
 	@GET /logout ✔️
 	@GET /refresh ✔️
 
@@ -34,8 +34,8 @@
 	@DELETE /delete (answerID) ✔️
 
 /api/report
-	@POST /question (questionID),
-	@POST /answer (answerID)
+	@POST /question (questionID) ✔️
+	@POST /answer (answerID) ✔️
 
 
 	
