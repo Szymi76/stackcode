@@ -6,20 +6,11 @@ const findQuestions = async (req, res) => {
     let { query } = req.params;
     if (!query) return res.status(400).json({ message: "Query was not provided or its empty" });
 
-    query = query.toLocaleLowerCase();
+    query = query.replaceAll("-", " ");
+    const regexp = new RegExp(`${query}`, "gi");
+    const questions = await Question.find({ title: regexp }).exec();
 
-    const words = query.split("-");
-    const questions = await Question.find().select("title tags createdAt votes").exec();
-
-    // wyszukiwanie pytań po konkretnych słowach i zapytania które zaczyna się tak samo jak pytanie
-    const result = questions.filter((q) => {
-      const title = q.title.toLowerCase();
-      if (words.some((w) => title.includes(w))) return true;
-      if (title.startsWith(query)) return true;
-      return false;
-    });
-
-    res.status(200).json({ questions: result });
+    res.status(200).json({ questions });
   } catch (err) {
     res.status(500).json(formatError(err));
   }
