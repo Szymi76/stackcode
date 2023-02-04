@@ -8,9 +8,11 @@ const NotLoggedInOnly = () => {
   const { user, isVerified } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
 
+  const to = localStorage.getItem("last-pathname") ?? "/home";
+
   // if (user === null && !isVerified) return <Loading />;
   if (user === null) return <Outlet />;
-  return <Navigate to={"/home"} state={{ pathname }} replace />;
+  return <Navigate to={to} state={{ pathname }} replace />;
 };
 
 export default NotLoggedInOnly;
