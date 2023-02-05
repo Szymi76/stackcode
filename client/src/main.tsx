@@ -24,6 +24,7 @@ import MakeQuestion from "./pages/addQuestion";
 
 // other
 import theme from "./utils/theme";
+// import theme from "./utils/customTheme";
 
 // css
 import "./styles/index.css";
@@ -55,7 +56,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                   <Route path="/" element={<Navigate to={"/home"} />} />
                   <Route path="/pytanie/:questionId" element={<QuestionPage />} />
                   <Route path="/szukaj" element={<Search />} />
-                  {/* <Route path="/tests" element={<Tests />} /> */}
+                  <Route path="/tests" element={<Tests />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
 

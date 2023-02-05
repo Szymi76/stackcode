@@ -66,6 +66,7 @@
   color: var(--white);
   transition-duration: 100ms;
 }
+
 .nav-link:hover {
   text-decoration: underline;
 }
@@ -195,4 +196,16 @@ h6 {
 
 .quill-result pre #text {
   color: red;
+}
+
+.heroicon {
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+  cursor: pointer;
+  transition-duration: 0.15s;
+  -webkit-transition-duration: 0.15s; /* Safari */
+}
+.heroicon:active {
+  top: 2px;
 }

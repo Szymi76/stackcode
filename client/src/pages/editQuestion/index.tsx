@@ -16,6 +16,7 @@ import { InputText } from "@welcome-ui/input-text";
 import { Field } from "@welcome-ui/field";
 import { Loader } from "@welcome-ui/loader";
 import { useAppSelector } from "../../app/hooks";
+import { QuestionActionWrapper, QuestionFormWrapper } from "./components";
 
 type Errors = {
   title: string | undefined;
@@ -89,83 +90,72 @@ const EditQuestion = () => {
   };
 
   return (
-    <Box minH="100vh" py="6rem" px="1rem" bg="very-light-green">
-      {/* wrapper */}
-      <Flex direction="column" maxW="1100px" mx="auto" gap=".75rem">
-        {/* kontent */}
-        <Text variant="h3" mb="0" children="Edytuj pytanie" />
-        <Text variant="body3" color="gray" m="0" children={`ID: ${id}`} />
-        <Flex
-          direction="column"
-          gap="1.75rem"
-          bg="white"
-          border="1px solid"
-          borderColor="light-gray"
-          borderRadius="5"
-          p="1.5rem">
-          {/* pytanie */}
-          <Field
-            error={errors.title && <Text variant="body4" mt=".25rem" children={errors.title} />}
-            label="Pytanie *"
-            hint="skonstruuj takie pytanie, aby inni łatwo do niego dotarli (min. 5 znaków)">
-            <InputText
-              ref={titleRef}
-              defaultValue={data.question.title}
-              size="md"
-              minLength={5}
-              maxLength={80}
-              onChange={() => errors.title && setErrors({ ...errors, title: undefined })}
-            />
-          </Field>
-
-          {/* treść */}
-          <Field
-            error={errors.content && <Text variant="body4" mt=".25rem" children={errors.content} />}
-            label="Treść *"
-            hint="możesz umieszczać co chcesz, zdjęcia, kod, linki i wiele innych">
-            <Editor
-              ref={editorRef}
-              // @ts-ignore
-              defaultValue={data.question.content}
-              style={{ editor: { height: "300px" } }}
-              onChange={() => errors.content && setErrors({ ...errors, content: undefined })}
-            />
-          </Field>
-
-          {/* tagi */}
-          <Field
-            error={errors.tags && <Text variant="body4" mt=".25rem" children={errors.tags} />}
-            label="Tagi"
-            hint="tagi m.in pomogą innym znaleść twoje pytanie (max. 5 tagów)">
-            <Flex gap=".5rem">
-              <InputText size="md" minLength={3} maxLength={12} ref={tagRef} />
-              <Button children="Dodaj" onClick={handleAddTag} />
-            </Flex>
-          </Field>
-
-          {/* lista tagów */}
-          <TagsList tags={tags} setTags={setTags} />
-        </Flex>
-
-        {/* przycisk do przesyłania pytania */}
-        <Flex wrap="wrap" justify="end" gap=".5rem">
-          <Button
-            variant="primary-danger"
-            disabled={isLoading}
-            children="Anuluj"
-            onClick={() => navigate("/twoj-profil")}
+    <QuestionActionWrapper>
+      {/* kontent */}
+      <Text variant="h3" mb="0" children="Edytuj pytanie" />
+      <Text variant="body3" color="gray" m="0" children={`ID: ${id}`} />
+      <QuestionFormWrapper>
+        {/* pytanie */}
+        <Field
+          error={errors.title && <Text variant="body4" mt=".25rem" children={errors.title} />}
+          label="Pytanie *"
+          hint="skonstruuj takie pytanie, aby inni łatwo do niego dotarli (min. 5 znaków)">
+          <InputText
+            ref={titleRef}
+            defaultValue={data.question.title}
+            size="md"
+            minLength={5}
+            maxLength={80}
+            onChange={() => errors.title && setErrors({ ...errors, title: undefined })}
           />
-          <Button w="175px" px="1rem" alignSelf="end" disabled={isLoading} onClick={handleSubmit}>
-            {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
-            Potwierdź
-          </Button>
-        </Flex>
-        {isError && <Text variant="body4" color="gray" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
-      </Flex>
+        </Field>
 
+        {/* treść */}
+        <Field
+          error={errors.content && <Text variant="body4" mt=".25rem" children={errors.content} />}
+          label="Treść *"
+          hint="możesz umieszczać co chcesz, zdjęcia, kod, linki i wiele innych">
+          <Editor
+            ref={editorRef}
+            // @ts-ignore
+            defaultValue={data.question.content}
+            style={{ editor: { height: "300px" } }}
+            onChange={() => errors.content && setErrors({ ...errors, content: undefined })}
+          />
+        </Field>
+
+        {/* tagi */}
+        <Field
+          error={errors.tags && <Text variant="body4" mt=".25rem" children={errors.tags} />}
+          label="Tagi"
+          hint="tagi m.in pomogą innym znaleść twoje pytanie (max. 5 tagów)">
+          <Flex gap=".5rem">
+            <InputText size="md" minLength={3} maxLength={12} ref={tagRef} />
+            <Button children="Dodaj" onClick={handleAddTag} />
+          </Flex>
+        </Field>
+
+        {/* lista tagów */}
+        <TagsList tags={tags} setTags={setTags} />
+      </QuestionFormWrapper>
+
+      {/* przycisk do przesyłania pytania */}
+      <Flex wrap="wrap" justify="end" gap=".5rem">
+        <Button
+          variant="primary-danger"
+          disabled={isLoading}
+          children="Anuluj"
+          onClick={() => navigate("/twoj-profil")}
+        />
+        <Button w="175px" px="1rem" alignSelf="end" disabled={isLoading} onClick={handleSubmit}>
+          {isLoading && <Loader color="white" size="xs" mr=".5rem" />}
+          Potwierdź
+        </Button>
+      </Flex>
+      {isError && <Text variant="body4" color="gray" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       {/* finish modal */}
       {modal.visible && <FinishModal modal={modal} id={id} />}
-    </Box>
+    </QuestionActionWrapper>
   );
 };
 

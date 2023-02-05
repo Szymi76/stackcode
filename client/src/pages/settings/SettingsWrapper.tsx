@@ -28,7 +28,7 @@ const SettingsWrapper = ({ children, title }: SettingsWrapperProps) => {
                 style={{ textDecoration: "none" }}
                 to={`/ustawienia/${tab.toLowerCase().replaceAll(" ", "-")}`}>
                 <Text
-                  fontSize="lg"
+                  fontSize="h5"
                   whiteSpace="nowrap"
                   m="0"
                   py=".25rem"

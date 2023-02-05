@@ -1,18 +1,12 @@
-import { useRef } from "react";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";
 import { Button } from "@welcome-ui/button";
 import { Text } from "@welcome-ui/text";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
-import Ilustration from "../../assets/Coding.png";
-import { motion } from "framer-motion";
-import useOnScreen from "../../hooks/useOnScreen";
 import { Link } from "react-router-dom";
+import Ilustration from "../../assets/Coding.png";
 
 const Welcome = () => {
-  // const ref: any = useRef<HTMLDivElement>();
-  // const onScreen = useOnScreen(ref);
-
   return (
     <>
       <Flex h={{ _: "auto", md: "50vh" }} minH="450px" pt="13vh" align="start">
@@ -22,16 +16,13 @@ const Welcome = () => {
         </Flex>
 
         <Flex
-          // ref={ref}
           direction="column"
           align={{ _: "center", md: "start" }}
           justify="start"
           w="100%"
           pl={{ _: "o", md: "2rem" }}
-          // className={onScreen ? "fade-in" : ""}>
           className="fade-in">
           {/* tekst */}
-          {/* <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}> */}
           <Text
             variant="h1"
             maxW="35rem"

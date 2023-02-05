@@ -32,18 +32,18 @@ const UserMenu = (props: {}, ref: RefObject<HTMLDivElement>) => {
       </Flex>
 
       {/* adres email */}
-      <Text variant="body2" mt=".5rem" mb="2rem" children={user?.email} />
+      <Text mt=".5rem" mb="2rem" children={user?.email} />
 
       {/* przycisk do profilu */}
-      <Box className="user-menu-link" onClick={redirectToProfile}>
+      <Box className="user-menu-link" py=".25rem" onClick={redirectToProfile}>
         <UserIcon color="gray" height="2rem" />
-        <Text variant="body2" fontWeight={500} color="gray" children="Twój profil" />
+        <Text fontSize="sm" fontWeight={600} color="gray" children="Twój profil" />
       </Box>
 
       {/* przycisk do wylogowania */}
-      <Box className="user-menu-link" onClick={handleLogout}>
+      <Box className="user-menu-link" py=".25rem" onClick={handleLogout}>
         <ArrowLeftOnRectangleIcon color="gray" height="2rem" />
-        <Text variant="body2" fontWeight={500} color="gray" children="Wyloguj się" />
+        <Text fontSize="sm" fontWeight={600} color="gray" children="Wyloguj się" />
       </Box>
     </div>
   );

@@ -9,6 +9,7 @@ import { setUser } from "../../features/auth/authSlice";
 import { Loader } from "@welcome-ui/loader";
 import { useToast } from "@welcome-ui/toast";
 import infoToast from "./ToastInfo";
+import AsyncButton from "../../components/AsyncButton";
 
 const UpdateDisplayName = () => {
   const dispatch = useAppDispatch();
