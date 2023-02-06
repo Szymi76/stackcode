@@ -1,11 +1,19 @@
-import { ChevronDownIcon, ChevronUpIcon, FlagIcon, LinkIcon, StarIcon } from "@heroicons/react/24/outline";
+import {
+  ChatBubbleBottomCenterTextIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  FlagIcon,
+  LinkIcon,
+  StarIcon,
+} from "@heroicons/react/24/outline";
+import { Box } from "@welcome-ui/box";
 import { ModalStateReturn } from "@welcome-ui/modal";
 import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
 import { UseToastReturn } from "@welcome-ui/toast";
 import React from "react";
 import { useAppSelector } from "../../../app/hooks";
-import Answer from "../../../types/Answer";
+import Answer from "../../../types/Answers";
 import copyToClipboard from "../../../utils/copyToClipboard";
 
 /*
@@ -66,22 +74,33 @@ export const Left = ({ answer, handleToggleVote }: LeftProps) => {
     Prawa kolumna z akcjami dotyczącymi pytania
 */
 export type RightProps = {
-  toast: UseToastReturn;
   modal: ModalStateReturn;
-  answer: Answer | null;
+  answer: Answer;
+  commentsVisible: boolean;
+  toggleCommentsVisibility: () => void;
 };
 
-export const Right = ({ toast, modal, answer }: RightProps) => {
-  const { user } = useAppSelector((state) => state.auth);
-
+export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility }: RightProps) => {
   return (
     <Wrapper>
-      {/* link */}
-      <LinkIcon
-        className="heroicon"
-        title="Kopiuj link"
-        onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: location.href })}
-      />
+      {/* komentarze */}
+      <Box position="relative" color={commentsVisible ? "green" : "black"}>
+        <ChatBubbleBottomCenterTextIcon
+          className="move-down"
+          height={30}
+          title={commentsVisible ? "Ukryj komentarze" : "Zobacz komentarze"}
+          onClick={toggleCommentsVisibility}
+        />
+        {/* liczba komentarzy */}
+        <Text
+          position="absolute"
+          display={{ _: "none", md: "block" }}
+          right={-8}
+          top={5}
+          variant="body4"
+          children={answer.comments.length}
+        />
+      </Box>
 
       {/* zgłaszanie pytania */}
       <FlagIcon className="heroicon" title="Zgłoś odpowiedź" onClick={() => modal.show()} />

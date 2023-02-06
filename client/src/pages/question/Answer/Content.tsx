@@ -1,9 +1,9 @@
-import Answer from "../../../types/Answer";
+import Answer from "../../../types/Answers";
+import moment from "moment";
 import { Flex } from "@welcome-ui/flex";
 import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
-import { Tag } from "@welcome-ui/tag";
-import moment from "moment";
+import { ModalStateReturn } from "@welcome-ui/modal";
 
 /*
     Wrapper dla całego pytania (góra, środek, dół)
@@ -16,7 +16,8 @@ export const Wrapper = ({ children }: WrapperProps) => {
       w="95%"
       mx="auto"
       position="relative"
-      p="1.5rem"
+      px="1.5rem"
+      py=".5rem"
       bg="white"
       border="1px solid"
       borderColor="light-gray"
@@ -48,13 +49,39 @@ export const Header = ({ answer }: HeaderProps) => {
 /*
     Stopka dla kontentu pytania 
 */
-export type FooterProps = { answer: Answer | null };
+export type FooterProps = { answer: Answer; commentModal: ModalStateReturn };
 
-export const Footer = ({ answer }: FooterProps) => {
+export const Footer = ({ answer, commentModal }: FooterProps) => {
+  // ile czasu temu pytanie zostało napisane
+  const date = new Date(answer?.createdAt || "");
+  moment.locale("poland");
+  const time = moment(date).fromNow();
+
   return (
-    <Flex justify="space-between">
-      <Text m="0" variant="body3" color="gray" children={`licz. wyśw. ${answer?.views}`} />
-      <Text m="0" variant="body3" color="gray" children={`Autor: ${answer?.author.displayName}`} />
-    </Flex>
+    <Stack>
+      <Text
+        variant="body2"
+        fontWeight="500"
+        color={{ hover: "green" }}
+        cursor="pointer"
+        children="Dodaj komentarz ★"
+        w="min-content"
+        whiteSpace="nowrap"
+        onClick={() => commentModal.show()}
+        mb="0"
+      />
+      <Flex wrap="wrap" align="center" justify="space-between">
+        {/* wyświetlenia i data */}
+        <Flex gap=".5rem">
+          <Text m="0" color="gray" children={`licz. wyśw. ${answer.views} • ${time}`} />
+        </Flex>
+
+        {/* przez kogo i czy był edytowany */}
+        <Flex align="center" m="0" color="gray">
+          {/* {answer.updatedAt != answer.createdAt && <PencilSquareIcon height={15} />} */} {/* DO NAPRAWY  */}
+          <Text m="0" children={`Autor: ${answer?.author.displayName}`} />
+        </Flex>
+      </Flex>
+    </Stack>
   );
 };

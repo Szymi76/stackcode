@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 // komponenty
 import AddAnswer from "./AddAnswer";
-import Answer from "./Answer";
+// import Answer from "./Answer";
+import Answer from "./Answer/index";
 import NotFound from "./NotFound";
 // import Question from "./Question";
 import Question from "./Question/index";

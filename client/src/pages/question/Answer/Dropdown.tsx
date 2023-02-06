@@ -25,7 +25,13 @@ export const Trigger = ({ showDropdown, setShowDropdown }: TriggerProps) => {
 */
 type ActionsProps = LeftProps & RightProps;
 
-export const Actions = ({ toast, modal, answer, handleToggleVote }: ActionsProps) => {
+export const Actions = ({
+  modal,
+  answer,
+  handleToggleVote,
+  commentsVisible,
+  toggleCommentsVisibility,
+}: ActionsProps) => {
   return (
     <Stack
       display={{ _: "flex", md: "none" }}
@@ -37,7 +43,12 @@ export const Actions = ({ toast, modal, answer, handleToggleVote }: ActionsProps
       borderColor="light-gray"
       borderRadius={5}
       py=".5rem">
-      <Right modal={modal} toast={toast} answer={answer} />
+      <Right
+        modal={modal}
+        answer={answer}
+        commentsVisible={commentsVisible}
+        toggleCommentsVisibility={toggleCommentsVisibility}
+      />
       <Box borderBottom="1px solid" borderColor="light-gray" />
       <Left handleToggleVote={handleToggleVote} answer={answer} />
     </Stack>

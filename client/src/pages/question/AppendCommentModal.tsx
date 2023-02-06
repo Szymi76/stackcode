@@ -1,27 +1,24 @@
 import React, { useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Modal, ModalStateReturn } from "@welcome-ui/modal";
-import { useNavigate } from "react-router-dom";
 import { useAddCommentMutation } from "../../features/comment/commentApiSlice";
 import { addComment } from "../../features/question/questionSlice";
 
 // komponenty
 import Answer from "../../types/Answers";
 import { Button } from "@welcome-ui/button";
-import { Text } from "@welcome-ui/text";
 import { Flex } from "@welcome-ui/flex";
-import { Checkbox } from "@welcome-ui/checkbox";
 import { Field } from "@welcome-ui/field";
 import { Textarea } from "@welcome-ui/textarea";
 import { Loader } from "@welcome-ui/loader";
 
-interface AddCommentModalProps {
+interface AppendCommentModalProps {
   modal: ModalStateReturn;
   answer: Answer;
   onClose?: () => void;
 }
 
-const AddCommentModal = ({ modal, answer, onClose }: AddCommentModalProps) => {
+const AppendCommentModal = ({ modal, answer, onClose }: AppendCommentModalProps) => {
   const dispatch = useAppDispatch();
   const question = useAppSelector((state) => state.question);
   const [addCommentAsync, { isLoading, isError }] = useAddCommentMutation();
@@ -42,6 +39,7 @@ const AddCommentModal = ({ modal, answer, onClose }: AddCommentModalProps) => {
     }).unwrap();
     dispatch(addComment({ answerID: answer._id, comment }));
     textareaRef.current.value = "";
+    onClose && onClose();
     modal.hide();
   };
 
@@ -77,4 +75,4 @@ const AddCommentModal = ({ modal, answer, onClose }: AddCommentModalProps) => {
   );
 };
 
-export default AddCommentModal;
+export default AppendCommentModal;

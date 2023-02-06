@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
-import {useToggleAnswerVoteMutation} from "../../../features/answer/answerApiSlice";
-import { toggleAnswerVote } from "../../../features/answer/answerSlice";
+import { useToggleAnswerVoteMutation } from "../../../features/answer/answerApiSlice";
+import { toggleAnswerVote } from "../../../features/question/questionSlice";
+import AnswerType from "../../../types/Answers";
 
 // komponenty
 import { Box } from "@welcome-ui/box";
 import { Flex } from "@welcome-ui/flex";
 import { useModalState } from "@welcome-ui/modal";
-import { useToast } from "@welcome-ui/toast";
 import * as Side from "./Side";
 import * as Content from "./Content";
 import * as Dropdown from "./Dropdown";
+import * as Comments from "../Comments/index";
 import ReportModal from "../../../components/ReportModal";
+import AppendCommentModal from "../AppendCommentModal";
 
 type AnswerProps = {
   answer: AnswerType;
   index: number;
-}
+};
 
 const Answer = ({ answer, index }: AnswerProps) => {
   const dispatch = useAppDispatch();
-  const toast = useToast();
   const modal = useModalState();
-  const [showDropdown, setShowdropdown] = useState(false);
+  const commentModal = useModalState();
   const { user } = useAppSelector((state) => state.auth);
+  const [showDropdown, setShowdropdown] = useState(false);
+  const [commentsVisible, setCommentsVisible] = useState(false);
   const [toggleVoteAsync] = useToggleAnswerVoteMutation();
 
   // @ts-ignore
   const html = new QuillDeltaToHtmlConverter(answer.content.ops, {}).convert();
+
+  const toggleCommentsVisibility = () => setCommentsVisible(!commentsVisible);
 
   // zmiana głosu na pytanie
   const handleToggleVote = async (vote: "up" | "down") => {
@@ -46,14 +51,16 @@ const Answer = ({ answer, index }: AnswerProps) => {
 
       {/* kontent */}
       <Content.Wrapper>
-        {/* góra */}
-        <Content.Header answer={answer} />
-
-        {/* środek */}
         <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
+        <Content.Footer answer={answer} commentModal={commentModal} />
 
-        {/* dół */}
-        <Content.Footer answer={answer} />
+        {/* komentarze */}
+        <Comments.Wrapper commentsVisible={commentsVisible}>
+          <Comments.Header toggleCommentsVisibility={toggleCommentsVisibility} />
+          {answer.comments.map((comment, index) => (
+            <Comments.Single key={`comment-${index}`} comment={comment} />
+          ))}
+        </Comments.Wrapper>
 
         {/* menu - trzy kropki prawy górny róg */}
         <Dropdown.Trigger setShowDropdown={setShowdropdown} showDropdown={showDropdown} />
@@ -61,21 +68,29 @@ const Answer = ({ answer, index }: AnswerProps) => {
         {/* rozwijane menu pod 3-ma kropkami */}
         {showDropdown && (
           <Dropdown.Actions
-            handleToggleMarked={handleToggleMarked}
+            commentsVisible={commentsVisible}
+            toggleCommentsVisibility={toggleCommentsVisibility}
             handleToggleVote={handleToggleVote}
             modal={modal}
-            toast={toast}
             answer={answer}
           />
         )}
       </Content.Wrapper>
       {/* prawa kolumna */}
       <Flex display={{ _: "none", md: "flex" }} justify="center">
-        <Side.Right handleToggleMarked={handleToggleMarked} modal={modal} toast={toast} answer={answer} />
+        <Side.Right
+          modal={modal}
+          answer={answer}
+          commentsVisible={commentsVisible}
+          toggleCommentsVisibility={toggleCommentsVisibility}
+        />
       </Flex>
 
       {/* report modal */}
       {modal.visible && answer && <ReportModal modal={modal} id={answer?._id} reportFor="answer" />}
+      {commentModal.visible && (
+        <AppendCommentModal modal={commentModal} answer={answer} onClose={() => setCommentsVisible(true)} />
+      )}
     </Flex>
   );
 };
