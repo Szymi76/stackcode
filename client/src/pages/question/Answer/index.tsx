@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { useToggleAnswerVoteMutation } from "../../../features/answer/answerApiSlice";
@@ -29,6 +29,8 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const [showDropdown, setShowdropdown] = useState(false);
   const [commentsVisible, setCommentsVisible] = useState(false);
   const [toggleVoteAsync] = useToggleAnswerVoteMutation();
+
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   // @ts-ignore
   const html = new QuillDeltaToHtmlConverter(answer.content.ops, {}).convert();
@@ -63,11 +65,13 @@ const Answer = ({ answer, index }: AnswerProps) => {
         </Comments.Wrapper>
 
         {/* menu - trzy kropki prawy górny róg */}
-        <Dropdown.Trigger setShowDropdown={setShowdropdown} showDropdown={showDropdown} />
+        <Dropdown.Trigger ref={triggerRef} setShowDropdown={setShowdropdown} showDropdown={showDropdown} />
 
         {/* rozwijane menu pod 3-ma kropkami */}
         {showDropdown && (
           <Dropdown.Actions
+            triggerRef={triggerRef}
+            setShowDropdown={setShowdropdown}
             commentsVisible={commentsVisible}
             toggleCommentsVisibility={toggleCommentsVisibility}
             handleToggleVote={handleToggleVote}

@@ -2,54 +2,40 @@ import { RefObject, forwardRef, ForwardedRef, Ref } from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { setUser } from "../features/auth/authSlice";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
 // komponenty
 import { Flex } from "@welcome-ui/flex";
 import { Text } from "@welcome-ui/text";
 import { Box } from "@welcome-ui/box";
 import { UserIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
+import User from "../types/User";
 
-const UserMenu = (props: {}, ref: RefObject<HTMLDivElement>) => {
-  const dispatch = useAppDispatch();
-  const [logout] = useLogoutMutation();
-  const { user } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
+type UserMenuProps = { handleLogout: () => void; navigate: NavigateFunction; user: User };
 
-  const handleLogout = async () => {
-    await logout();
-    dispatch(setUser(null));
-  };
+const UserMenu = forwardRef<HTMLDivElement, UserMenuProps>(({ user, handleLogout, navigate }, ref) => (
+  <div ref={ref} id="user-menu">
+    {/* awatar i nazwa użytkownika */}
+    <Flex h="100%" align="center" gap=".75rem" p={0}>
+      <img src={user?.photoURL} height={50} width={50} style={{ borderRadius: "9999px" }} />
+      <Text variant="body1" fontWeight={600} children={user?.displayName} />
+    </Flex>
 
-  const redirectToProfile = () => navigate("/twoj-profil");
+    {/* adres email */}
+    <Text mt=".5rem" mb="2rem" children={user?.email} />
 
-  return (
-    <div ref={ref} id="user-menu">
-      {/* awatar i nazwa użytkownika */}
-      <Flex h="100%" align="center" gap=".75rem" p={0}>
-        <img src={user?.photoURL} height={50} width={50} style={{ borderRadius: "9999px" }} />
-        <Text variant="body1" fontWeight={600} children={user?.displayName} />
-      </Flex>
+    {/* przycisk do profilu */}
+    <Box className="user-menu-link" py=".25rem" onClick={() => navigate("/twoj-profil")}>
+      <UserIcon color="gray" height="2rem" />
+      <Text fontSize="sm" fontWeight={600} color="gray" children="Twój profil" />
+    </Box>
 
-      {/* adres email */}
-      <Text mt=".5rem" mb="2rem" children={user?.email} />
+    {/* przycisk do wylogowania */}
+    <Box className="user-menu-link" py=".25rem" onClick={handleLogout}>
+      <ArrowLeftOnRectangleIcon color="gray" height="2rem" />
+      <Text fontSize="sm" fontWeight={600} color="gray" children="Wyloguj się" />
+    </Box>
+  </div>
+));
 
-      {/* przycisk do profilu */}
-      <Box className="user-menu-link" py=".25rem" onClick={redirectToProfile}>
-        <UserIcon color="gray" height="2rem" />
-        <Text fontSize="sm" fontWeight={600} color="gray" children="Twój profil" />
-      </Box>
-
-      {/* przycisk do wylogowania */}
-      <Box className="user-menu-link" py=".25rem" onClick={handleLogout}>
-        <ArrowLeftOnRectangleIcon color="gray" height="2rem" />
-        <Text fontSize="sm" fontWeight={600} color="gray" children="Wyloguj się" />
-      </Box>
-    </div>
-  );
-};
-
-// @ts-ignore
-const ForwardedUserMenu = forwardRef<typeof UserMenu>(UserMenu);
-
-export default ForwardedUserMenu;
+export default UserMenu;

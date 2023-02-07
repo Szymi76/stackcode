@@ -7,7 +7,6 @@ import { addAnswer } from "../../features/question/questionSlice";
 // komponenty
 import Editor from "../../components/Editor";
 import { Box } from "@welcome-ui/box";
-import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
 import { Button } from "@welcome-ui/button";
 import { Flex } from "@welcome-ui/flex";

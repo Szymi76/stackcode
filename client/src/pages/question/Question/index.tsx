@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { toggleMarked, toggleQuestionVote } from "../../../features/question/questionSlice";
@@ -26,6 +26,8 @@ const Question = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [toggleVoteAsync] = useToggleQuestionVoteMutation();
   const [toggleMarkedAsync] = useToggleMarkekQuestionMutation();
+
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   // @ts-ignore
   const html = new QuillDeltaToHtmlConverter(question.content.ops, {}).convert();
@@ -63,13 +65,15 @@ const Question = () => {
         <Content.Footer question={question} />
 
         {/* menu - trzy kropki prawy górny róg */}
-        <Dropdown.Trigger setShowDropdown={setShowdropdown} showDropdown={showDropdown} />
+        <Dropdown.Trigger ref={triggerRef} setShowDropdown={setShowdropdown} showDropdown={showDropdown} />
 
         {/* rozwijane menu pod 3-ma kropkami */}
         {showDropdown && (
           <Dropdown.Actions
+            triggerRef={triggerRef}
             handleToggleMarked={handleToggleMarked}
             handleToggleVote={handleToggleVote}
+            setShowDropdown={setShowdropdown}
             modal={modal}
             toast={toast}
             question={question}

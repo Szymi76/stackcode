@@ -1,20 +1,11 @@
-import {
-  ChatBubbleBottomCenterTextIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  FlagIcon,
-  LinkIcon,
-  StarIcon,
-} from "@heroicons/react/24/outline";
+import { ChatBubbleBottomCenterTextIcon, ChevronDownIcon, ChevronUpIcon, FlagIcon } from "@heroicons/react/24/outline";
+import React from "react";
+import Answer from "../../../types/Answers";
+import { useAppSelector } from "../../../app/hooks";
 import { Box } from "@welcome-ui/box";
 import { ModalStateReturn } from "@welcome-ui/modal";
 import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
-import { UseToastReturn } from "@welcome-ui/toast";
-import React from "react";
-import { useAppSelector } from "../../../app/hooks";
-import Answer from "../../../types/Answers";
-import copyToClipboard from "../../../utils/copyToClipboard";
 
 /*
     Wrapper dla prawej i lewej Kolumny 
@@ -86,8 +77,7 @@ export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility
       {/* komentarze */}
       <Box position="relative" color={commentsVisible ? "green" : "black"}>
         <ChatBubbleBottomCenterTextIcon
-          className="move-down"
-          height={30}
+          className="heroicon"
           title={commentsVisible ? "Ukryj komentarze" : "Zobacz komentarze"}
           onClick={toggleCommentsVisibility}
         />
@@ -97,7 +87,7 @@ export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility
           display={{ _: "none", md: "block" }}
           right={-8}
           top={5}
-          variant="body4"
+          fontSize="xs"
           children={answer.comments.length}
         />
       </Box>

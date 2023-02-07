@@ -6,7 +6,7 @@ import { useGetQuestionByIdQuery } from "../../features/question/questionApiSlic
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 // komponenty
-import AddAnswer from "./AddAnswer";
+import AppendAnswer from "./AppendAnswer";
 // import Answer from "./Answer";
 import Answer from "./Answer/index";
 import NotFound from "./NotFound";
@@ -53,7 +53,7 @@ const QuestionPage = () => {
         </Stack>
         <Box>
           {/* dodawanie odpowiedzi */}
-          <AddAnswer />
+          <AppendAnswer />
         </Box>
       </Stack>
     </Box>

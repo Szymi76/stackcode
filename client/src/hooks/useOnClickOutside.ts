@@ -1,16 +1,18 @@
 // https://usehooks.com/useOnClickOutside/
 
-import { MutableRefObject, useEffect, RefObject } from "react";
+import { useEffect, RefObject } from "react";
 
-function useOnClickOutside<T>(ref: RefObject<T>, handler: (event: any) => void) {
+function useOnClickOutside<T1, T2>(ref: RefObject<T1>, handler: (event: any) => void, avoidRef?: RefObject<T2>) {
   useEffect(
     () => {
       const listener = (event: any) => {
         // Do nothing if clicking ref's element or descendent elements
         // @ts-ignore
-        if (!ref.current || ref.current.contains(event.target)) {
-          return;
-        }
+        if (!ref.current || ref.current.contains(event.target)) return;
+
+        // @ts-ignore
+        if (avoidRef && avoidRef.current && avoidRef.current.contains(event.target)) return;
+
         handler(event);
       };
       document.addEventListener("mousedown", listener);
