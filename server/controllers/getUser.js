@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
 
     res.status(200).json({ user: payload });
   } catch (err) {
-    res.status(401).send("Access Denited");
+    res.status(403).send("Access Denited");
   }
 };
 
