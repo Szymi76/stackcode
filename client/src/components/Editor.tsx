@@ -3,11 +3,11 @@ import ReactQuill, { Quill } from "react-quill";
 import EditorToolbar, { formats, modules } from "../utils/quill";
 import "react-quill/dist/quill.snow.css";
 
-interface EditorProps {
+type EditorProps = {
   defaultValue?: string;
   onChange?: () => void;
   style?: { toolbar?: CSSProperties; editor?: CSSProperties };
-}
+};
 
 const Editor = forwardRef<ReactQuill, EditorProps>(({ defaultValue = "", onChange, style }, ref) => {
   return (

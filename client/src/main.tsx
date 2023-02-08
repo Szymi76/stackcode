@@ -8,6 +8,7 @@ import { CookiesProvider } from "react-cookie";
 import { WuiProvider, createTheme } from "@welcome-ui/core";
 import { store, persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import "./styles/index.css";
 
 // security routes
 import Layout from "./security/Layout";
@@ -25,8 +26,6 @@ import Home from "./pages/home";
 import theme from "./utils/theme";
 // import theme from "./utils/customTheme";
 
-// css
-import "./styles/index.css";
 import Tests from "./pages/tests";
 import QuestionPage from "./pages/question";
 import Profile from "./pages/profile";
@@ -34,7 +33,6 @@ import NotFound from "./security/NotFound";
 import Loading from "./security/Loading";
 import Search from "./pages/search";
 import EditQuestion from "./pages/editQuestion";
-import Settings from "./pages/settings";
 import UpdateDisplayName from "./pages/settings/UpdateDisplayName";
 import UpdateAwatar from "./pages/settings/UpdateAwatar";
 import UploadQuestion from "./pages/uploadQuestion";
