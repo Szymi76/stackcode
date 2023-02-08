@@ -20,7 +20,6 @@ import App from "./App";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import MakeQuestion from "./pages/addQuestion";
 
 // other
 import theme from "./utils/theme";
@@ -38,7 +37,7 @@ import EditQuestion from "./pages/editQuestion";
 import Settings from "./pages/settings";
 import UpdateDisplayName from "./pages/settings/UpdateDisplayName";
 import UpdateAwatar from "./pages/settings/UpdateAwatar";
-
+import UploadQuestion from "./pages/uploadQuestion";
 // const theme = createTheme();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -67,7 +66,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 </Route>
                 {/* route tylko dla zalogowanych użytkowników */}
                 <Route path="/" element={<LoggedInOnly />}>
-                  <Route path="/zadaj-pytanie" element={<MakeQuestion />} />
+                  <Route path="/zadaj-pytanie" element={<UploadQuestion />} />
                   <Route path="/twoj-profil" element={<Profile />} />
                   <Route path="/edytuj-pytanie/:id" element={<EditQuestion />} />
 

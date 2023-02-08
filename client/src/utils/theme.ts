@@ -1345,7 +1345,7 @@ const theme = createTheme({
     focused: {
       default: {
         boxShadow: "0 0 0 3px #3AAFA9",
-        borderColor: "transparent",
+        borderColor: "transparent !important",
       },
       error: {
         boxShadow: "0 0 0 3px rgba(216, 124, 110, 1)",
@@ -1370,6 +1370,7 @@ const theme = createTheme({
     select: {
       default: {
         maxHeight: "9.6875rem",
+        borderColor: "transparent",
       },
       existing: {
         color: "#D2DDDD",
