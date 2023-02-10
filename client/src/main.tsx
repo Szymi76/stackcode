@@ -8,35 +8,32 @@ import { CookiesProvider } from "react-cookie";
 import { WuiProvider, createTheme } from "@welcome-ui/core";
 import { store, persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
-import "./styles/index.css";
 
 // security routes
 import Layout from "./security/Layout";
 import AccessForAll from "./security/AccessForAll";
 import NotLoggedInOnly from "./security/NotLoggedInOnly";
 import LoggedInOnly from "./security/LoggedInOnly";
+import NotFound from "./security/NotFound";
+import Loading from "./security/Loading";
 
 // pages
 import App from "./App";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import Question from "./pages/question";
+import Profile from "./pages/profile";
+import Search from "./pages/search";
+import EditQuestion from "./pages/editQuestion";
+import UpdateDisplayName from "./pages/settings/Tabs/UpdateDisplayName";
+import UpdateAwatar from "./pages/settings/Tabs/UpdateAwatar";
+import UploadQuestion from "./pages/uploadQuestion";
+import Tests from "./pages/tests";
 
 // other
 import theme from "./utils/theme";
-// import theme from "./utils/customTheme";
-
-import Tests from "./pages/tests";
-import QuestionPage from "./pages/question";
-import Profile from "./pages/profile";
-import NotFound from "./security/NotFound";
-import Loading from "./security/Loading";
-import Search from "./pages/search";
-import EditQuestion from "./pages/editQuestion";
-import UpdateDisplayName from "./pages/settings/UpdateDisplayName";
-import UpdateAwatar from "./pages/settings/UpdateAwatar";
-import UploadQuestion from "./pages/uploadQuestion";
-// const theme = createTheme();
+import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -51,9 +48,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/" element={<AccessForAll />}>
                   <Route index path="/home" element={<Home />} />
                   <Route path="/" element={<Navigate to={"/home"} />} />
-                  <Route path="/pytanie/:questionId" element={<QuestionPage />} />
+                  <Route path="/pytanie/:questionId" element={<Question />} />
                   <Route path="/szukaj" element={<Search />} />
-                  <Route path="/tests" element={<Tests />} />
+                  {/* <Route path="/tests" element={<TestSettings />} /> */}
                   <Route path="*" element={<NotFound />} />
                 </Route>
 

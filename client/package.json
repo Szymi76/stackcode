@@ -17,6 +17,7 @@
     "@welcome-ui/checkbox": "^4.2.0",
     "@welcome-ui/clear-button": "^5.0.0-alpha.8",
     "@welcome-ui/core": "^4.4.1",
+    "@welcome-ui/dropdown-menu": "^4.3.3",
     "@welcome-ui/field": "^5.0.0-alpha.8",
     "@welcome-ui/file-drop": "^4.2.0",
     "@welcome-ui/file-upload": "^4.2.0",

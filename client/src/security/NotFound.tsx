@@ -11,7 +11,7 @@ const NotFound = () => {
 
   return (
     <Stack bg="very-light-green" minH="100vh" pt="5rem" alignItems="center">
-      <Text variant="h2" children="Strona nie istnieje lub została usunięta" mb="0" />
+      <Text variant="h2" textAlign="center" children="Strona nie istnieje lub została usunięta" mb="0" />
       <Text
         variant="body2"
         color="gray"

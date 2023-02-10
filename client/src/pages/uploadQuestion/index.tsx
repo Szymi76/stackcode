@@ -128,7 +128,14 @@ const UploadQuestion = () => {
       </Content.Form>
 
       {/* przycisk do przesyłania pytania */}
-      <AsyncButton w="10rem" alignSelf="end" disabled={isLoading} onClick={handleSubmit} children="Prześlij" />
+      <AsyncButton
+        w="10rem"
+        alignSelf="end"
+        disabled={isLoading}
+        isLoading={isLoading}
+        onClick={handleSubmit}
+        children="Prześlij"
+      />
       {error && <Text fontSize="xs" color="red" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       {/* finish modal */}
       {modal.visible && questionID && (

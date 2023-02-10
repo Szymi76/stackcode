@@ -1,4 +1,3 @@
-import QuestionType from "../../types/Question";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { setQuestion } from "../../features/question/questionSlice";
@@ -7,10 +6,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 // komponenty
 import AppendAnswer from "./AppendAnswer";
-// import Answer from "./Answer";
 import Answer from "./Answer/index";
 import NotFound from "./NotFound";
-// import Question from "./Question";
 import Question from "./Question/index";
 import { Flex } from "@welcome-ui/flex";
 import { Box } from "@welcome-ui/box";

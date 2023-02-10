@@ -146,7 +146,14 @@ const EditQuestion = () => {
           onClick={() => navigate("/twoj-profil")}
         />
         {/* przycisk potwierdź */}
-        <AsyncButton w="10rem" alignSelf="end" disabled={isLoading} onClick={handleSubmit} children="Prześlij" />
+        <AsyncButton
+          w="10rem"
+          alignSelf="end"
+          disabled={isLoading}
+          isLoading={isLoading}
+          onClick={handleSubmit}
+          children="Prześlij"
+        />
       </Flex>
       {isError && <Text variant="body4" color="gray" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       {/* finish modal */}

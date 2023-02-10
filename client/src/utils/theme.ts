@@ -1016,7 +1016,7 @@ const theme = createTheme({
       backgroundColor: "transparent",
       color: "#696F6F",
       "&:hover": {
-        backgroundColor: "#3AAFA9",
+        backgroundColor: "#36D2C9",
         color: "rgba(0, 0, 0, 1)",
       },
       "&:focus": {
