@@ -80,7 +80,7 @@ export const Dropdown = ({ menu, tabs }: DropdownProps) => {
       {/* trigger */}
       <DropdownMenu.Trigger position="absolute" right="-1.5rem" bottom="-1rem" {...menu} as={Box}>
         <Box h="3rem" w="3rem">
-          <EllipsisVerticalIcon height={30} color="gray" cursor="pointer" style={{ outline: "none" }} />
+          <EllipsisVerticalIcon className="heroicon" height={30} color="gray" style={{ outline: "none" }} />
         </Box>
       </DropdownMenu.Trigger>
 
@@ -89,7 +89,7 @@ export const Dropdown = ({ menu, tabs }: DropdownProps) => {
         {tabs.map((tab, index) => {
           return (
             <DropdownMenu.Item key={"drop" + index} {...menu} onClick={() => navigate(tab.link)}>
-              {tab.label}
+              <Text m=".25rem" fontWeight="500" children={tab.label} />
             </DropdownMenu.Item>
           );
         })}
