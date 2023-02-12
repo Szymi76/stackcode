@@ -1,7 +1,7 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import Question from "../../types/Question";
 
-type AddQuestionBody = { title: string; content: object; tags: string[] };
+type AddQuestionBody = { title: string; content: string; tags: string[] };
 type ToggleVoteBody = { questionID: string; vote: "up" | "down" };
 type EditQuestionBody = { questionID?: string; title?: string; content?: any; tags?: string[] };
 

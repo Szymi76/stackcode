@@ -5,7 +5,7 @@ import User from "./User";
 type Question = {
   _id: string;
   title: string;
-  content: object;
+  content: string;
   tags: string[];
   author: User;
   views: number;

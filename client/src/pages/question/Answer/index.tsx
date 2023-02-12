@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { useToggleAnswerVoteMutation } from "../../../features/answer/answerApiSlice";
 import { toggleAnswerVote } from "../../../features/question/questionSlice";
 import AnswerType from "../../../types/Answers";
@@ -32,9 +31,6 @@ const Answer = ({ answer, index }: AnswerProps) => {
 
   const triggerRef = useRef<HTMLDivElement>(null);
 
-  // @ts-ignore
-  const html = new QuillDeltaToHtmlConverter(answer.content.ops, {}).convert();
-
   const toggleCommentsVisibility = () => setCommentsVisible(!commentsVisible);
 
   // zmiana głosu na pytanie
@@ -53,7 +49,12 @@ const Answer = ({ answer, index }: AnswerProps) => {
 
       {/* kontent */}
       <Content.Wrapper>
-        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
+        <Box
+          className="quill-result"
+          dangerouslySetInnerHTML={{ __html: answer.content }}
+          pb=".5rem"
+          overflowX="auto"
+        />
         <Content.Footer answer={answer} commentModal={commentModal} />
 
         {/* komentarze */}

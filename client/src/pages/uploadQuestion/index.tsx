@@ -34,7 +34,8 @@ const UploadQuestion = () => {
   // dodawanie nowego pytania
   const handleSubmit = async () => {
     try {
-      const content = editorRef.current?.getEditor().getContents();
+      //@ts-ignore
+      const content: string = editorRef.current?.value;
       if (!titleRef.current || !content) return;
       const title = titleRef.current.value.trim();
 

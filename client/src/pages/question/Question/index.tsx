@@ -29,9 +29,6 @@ const Question = () => {
 
   const triggerRef = useRef<HTMLDivElement>(null);
 
-  // @ts-ignore
-  const html = new QuillDeltaToHtmlConverter(question.content.ops, {}).convert();
-
   // zmiana głosu na pytanie
   const handleToggleVote = async (vote: "up" | "down") => {
     if (!user || !question) return;
@@ -59,7 +56,12 @@ const Question = () => {
         <Content.Header question={question} />
 
         {/* środek */}
-        <Box className="quill-result" dangerouslySetInnerHTML={{ __html: html }} pb=".5rem" overflowX="auto" />
+        <Box
+          className="quill-result"
+          dangerouslySetInnerHTML={{ __html: question!.content }}
+          pb=".5rem"
+          overflowX="auto"
+        />
 
         {/* dół */}
         <Content.Footer question={question} />

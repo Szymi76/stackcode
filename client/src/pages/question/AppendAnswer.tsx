@@ -22,8 +22,9 @@ const AddAnswer = () => {
   const handleSubmit = async () => {
     if (!question || !auth.user) return;
 
-    const content = editorRef.current?.getEditor().getContents();
-    if (!content || content.length() <= 1) return;
+    // @ts-ignore
+    const content: string = editorRef.current?.value;
+    if (!content || content.length <= 1) return;
 
     const { answer } = await addAnswerAsync({ questionID: question?._id, content }).unwrap();
     dispatch(addAnswer({ answer }));

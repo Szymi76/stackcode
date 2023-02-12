@@ -15,7 +15,7 @@ const Created = () => {
   const toggleIsAllShowed = () => setIsAllShowed(!isAllShowed);
 
   return (
-    <List.Wrapper label="Zaznaczone pytania" refetch={refetch}>
+    <List.Wrapper label="Stworzone pytania" refetch={refetch}>
       <List.Content>
         {isLoading || !questions ? <List.Loading /> : <Rows.All questions={questions} refetch={refetch} />}
         <List.Toggle

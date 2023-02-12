@@ -1,7 +1,7 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import Answer from "../../types/Answers";
 
-type AddAnswerBody = { questionID: string; content: any };
+type AddAnswerBody = { questionID: string; content: string };
 type ToggleAnswerVoteBody = { answerID: string; vote: "up" | "down" };
 
 export const questionApiSlice = apiSlice.injectEndpoints({

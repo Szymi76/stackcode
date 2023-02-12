@@ -1,5 +1,3 @@
-import { DeltaStatic } from "quill";
-
 export type Errors = {
   title: string | undefined;
   content: string | undefined;
@@ -26,11 +24,11 @@ export const validateNewTag = (tags: string[], newTag: string) => {
 /**
   Waliduje podane argumeny i zwraca objekt błędów i zminną `isValid` która mówi czy argumeny są poprawne
  */
-export const validateNewQuestion = (title: string, content: DeltaStatic, tags: string[]) => {
+export const validateNewQuestion = (title: string, content: string, tags: string[]) => {
   let errors = initialErrorsObject;
   if (title.length < 4) errors = { ...errors, title: "Pytanie musi wynosić co najmniej 4 znaki" };
   if (title.length == 0) errors = { ...errors, title: "Pytanie nie może być puste" };
-  if (content && content.length() <= 1) errors = { ...errors, content: "Treść nie może być pusta" };
+  if (content.length <= 1) errors = { ...errors, content: "Treść nie może być pusta" };
 
   const isValid = Object.values(errors).every((e) => e === undefined);
 
