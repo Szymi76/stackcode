@@ -1,8 +1,5 @@
 import { google } from "googleapis";
-import fs from "fs";
-import { v4 as uuid } from "uuid";
 import __dirname from "../config/serverDir.js";
-import path from "path";
 import { Readable } from "stream";
 
 // przesyłanie pliku i zwracanie publicznego linku
@@ -41,10 +38,6 @@ export default uploadFileToGoogleDrive;
 // przsyłanie pojedyńczego pliku do google drive
 async function uploadSingleFile(name, body, drive) {
   const mimeType = "image/png";
-  const filename = `${uuid()}.png`;
-  // const filepath = path.join(__dirname, "uploads", filename);
-  // fs.writeFileSync(filepath, body);
-
   const parents = [process.env.GOOGLE_DRIVE_BUCKET_ID];
 
   try {
