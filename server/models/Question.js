@@ -14,10 +14,9 @@ const QuestionScheme = new mongoose.Schema(
       unique: true,
     },
     content: {
-      type: Object,
+      type: String,
       required: true,
       minLength: 1,
-      maxLength: 300,
     },
     tags: {
       type: [String],

@@ -1,6 +1,6 @@
 import Question from "../models/Question.js";
 import formatError from "../utils/formatError.js";
-import uploadDeltaImages from "../utils/uploadDeltaImages.js";
+// import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const editQuestion = async (req, res) => {
   try {
@@ -20,15 +20,7 @@ const editQuestion = async (req, res) => {
       }
 
       // sprawdzanie czy nowy kontent jest okej
-      if (content && "ops" in content && Array.isArray(content.ops)) {
-        // const newContent = uploadDeltaImages(content);
-
-        // if (newContent === null)
-        //   return res.status(400).json({ message: "Something went wrong while uploading images" });
-
-        // question.content = newContent;
-        question.content = content;
-      }
+      question.content = content;
 
       // sprawdzanie czy nowe tagi jest okej
       if (Array.isArray(tags) && tags.length > 0) {
