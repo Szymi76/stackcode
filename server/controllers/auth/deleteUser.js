@@ -4,7 +4,7 @@ import formatError from "../../utils/formatError.js";
 
 const deleteUser = async (req, res) => {
   try {
-    await User.findByIdAndUpdate(req.user._id, { active: false }).exec();
+    await User.findByIdAndUpdate(req.user._id, { active: false, displayName: "Usunięty użytkownik" }).exec();
 
     res.clearCookie("access_token", cookieOptions);
     res.clearCookie("refresh_token", cookieOptions);

@@ -4,7 +4,6 @@ type User = {
   email: string;
   photoURL: string;
   provider: "local" | "google" | "github";
-  //   role: ["user", "moderator", "expert"]
   roles: string[];
   emailVerified: boolean;
 };

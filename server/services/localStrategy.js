@@ -13,7 +13,7 @@ const authLocalStrategy = new LocalStrategy(
   async (req, email, password, done) => {
     try {
       const user = await User.findOne({ email: email.trim() }).select("+password").exec();
-      if (!user) return done(null, false, { message: "User does not exists", status: 404 });
+      if (!user || !user.active) return done(null, false, { message: "User does not exists", status: 404 });
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return done(null, false, { message: "Password or email is incorrect", status: 409 });

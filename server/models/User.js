@@ -47,10 +47,19 @@ const UserSchema = new mongoose.Schema(
       required: true,
       default: true,
     },
-    bannedTo: {
-      type: Date,
-      required: true,
-      default: new Date(),
+    banned: {
+      reason: {
+        type: String,
+        default: "",
+      },
+      by: {
+        type: String,
+        default: "",
+      },
+      until: {
+        type: Date,
+        default: "",
+      },
     },
     refreshTokens: {
       type: [String],
