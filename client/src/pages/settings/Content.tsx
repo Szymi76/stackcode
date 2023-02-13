@@ -17,7 +17,7 @@ export const PREFIX = "/ustawienia";
 export const TABS = [
   { label: "Twoja nazwa", link: `${PREFIX}/twoja-nazwa` },
   { label: "Awatar", link: `${PREFIX}/awatar` },
-  { label: "Hasło", link: `${PREFIX}/haslo` },
+  { label: "Zmień hasło", link: `${PREFIX}/zmien-haslo` },
   { label: "Weryfikacja emailu", link: `${PREFIX}/weryfikacja-emaila` },
   { label: "Usuń konto", link: `${PREFIX}/usun-konto` },
 ];

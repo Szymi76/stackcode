@@ -39,6 +39,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
     // aktualizacja nazwy użytkownika
     updateDisplayName: build.mutation<{ user: User }, { displayName: string }>({
       query: (body) => ({
@@ -47,10 +48,28 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+
     // upodate photo url
     updatePhotoURL: build.mutation<{ user: User }, { photoURL: string }>({
       query: (body) => ({
         url: "/auth/update-photo-url",
+        method: "PATCH",
+        body,
+      }),
+    }),
+
+    // usuwanie konta
+    deleteUser: build.mutation<void, void>({
+      query: () => ({
+        url: "/auth/delete-user",
+        method: "DELETE",
+      }),
+    }),
+
+    // zmiana hasła
+    changePassword: build.mutation<{ user: User }, { oldPassword: string; newPassword: string }>({
+      query: (body) => ({
+        url: "/auth/change-password",
         method: "PATCH",
         body,
       }),
@@ -65,4 +84,6 @@ export const {
   useLogoutMutation,
   useUpdateDisplayNameMutation,
   useUpdatePhotoURLMutation,
+  useChangePasswordMutation,
+  useDeleteUserMutation,
 } = authApiSlice;

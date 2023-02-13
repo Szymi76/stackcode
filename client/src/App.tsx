@@ -20,6 +20,8 @@ import EditQuestion from "./pages/editQuestion";
 import UpdateDisplayName from "./pages/settings/Tabs/UpdateDisplayName";
 import UpdateAwatar from "./pages/settings/Tabs/UpdateAwatar";
 import UploadQuestion from "./pages/uploadQuestion";
+import DeleteUser from "./pages/settings/Tabs/DeleteUser";
+import ChangePassword from "./pages/settings/Tabs/ChangePassword";
 import Tests from "./pages/tests";
 
 const App = () => {
@@ -51,6 +53,8 @@ const App = () => {
             {/* ustawienia */}
             <Route path="/ustawienia/twoja-nazwa" element={<UpdateDisplayName />} />
             <Route path="/ustawienia/awatar" element={<UpdateAwatar />} />
+            <Route path="/ustawienia/usun-konto" element={<DeleteUser />} />
+            <Route path="/ustawienia/zmien-haslo" element={<ChangePassword />} />
           </Route>
         </Route>
       </Routes>

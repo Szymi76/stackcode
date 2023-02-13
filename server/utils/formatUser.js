@@ -5,6 +5,7 @@ const formatUser = (user) => {
     email: user.email,
     photoURL: user.photoURL,
     provider: user.provider,
+    banned: user.banned,
     roles: user.roles,
     emailVerified: user.emailVerified,
   };

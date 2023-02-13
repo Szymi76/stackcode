@@ -12,6 +12,8 @@ import refresh from "../controllers/auth/refresh.js";
 import updateDisplayName from "../controllers/auth/updateDisplayName.js";
 import updatePhotoURL from "../controllers/auth/updatePhotoURL.js";
 import getUser from "../controllers/auth/getUser.js";
+import changePassword from "../controllers/auth/changePassword.js";
+import deleteUser from "../controllers/auth/deleteUser.js";
 
 import "../services/localStrategy.js";
 import "../services/googleStrategy.js";
@@ -39,5 +41,9 @@ router.post("/register", register);
 // @PATCH
 router.patch("/update-display-name", verifyTokens, updateDisplayName, checkCookies);
 router.patch("/update-photo-url", verifyTokens, updatePhotoURL, checkCookies);
+router.patch("/change-password", verifyTokens, changePassword, checkCookies);
+
+// @DELETE
+router.delete("/delete-user", verifyTokens, deleteUser);
 
 export default router;
