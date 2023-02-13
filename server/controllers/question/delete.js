@@ -1,5 +1,5 @@
-import Question from "../models/Question.js";
-import formatError from "../utils/formatError.js";
+import Question from "../../models/Question.js";
+import formatError from "../../utils/formatError.js";
 
 const deleteQuestion = async (req, res) => {
   try {

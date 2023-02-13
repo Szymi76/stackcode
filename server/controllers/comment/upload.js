@@ -1,8 +1,8 @@
-import Answer from "../models/Answer.js";
-import Comment from "../models/Comment.js";
-import formatError from "../utils/formatError.js";
+import Answer from "../../models/Answer.js";
+import Comment from "../../models/Comment.js";
+import formatError from "../../utils/formatError.js";
 
-const addComment = async (req, res) => {
+const uploadComment = async (req, res) => {
   try {
     const { answerID, content } = req.body;
 
@@ -25,4 +25,4 @@ const addComment = async (req, res) => {
   }
 };
 
-export default addComment;
+export default uploadComment;

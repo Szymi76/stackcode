@@ -1,9 +1,9 @@
 import { Router } from "express";
 import verifyTokens from "../middlewares/verifyTokens.js";
 
-import getUserMarkedQuestions from "../controllers/getUserMarkedQuestions.js";
-import getUserCreatedQuestions from "../controllers/getUserCreatedQuestions.js";
-import findQuestions from "../controllers/findQuestions.js";
+import getUserMarkedQuestions from "../controllers/questions/getMarkedByUser.js";
+import getUserCreatedQuestions from "../controllers/questions/getCreatedByUser.js";
+import findQuestions from "../controllers/questions/find.js";
 
 const router = Router();
 

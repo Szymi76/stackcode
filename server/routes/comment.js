@@ -1,11 +1,11 @@
 import { Router } from "express";
 import verifyTokens from "../middlewares/verifyTokens.js";
 
-import addComment from "../controllers/addComment.js";
+import uploadComment from "../controllers/comment/upload.js";
 
 const router = Router();
 
 // @POST
-router.post("/add", verifyTokens, addComment);
+router.post("/add", verifyTokens, uploadComment);
 
 export default router;

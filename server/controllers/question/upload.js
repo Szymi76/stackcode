@@ -1,13 +1,11 @@
-import Question from "../models/Question.js";
-import formatError from "../utils/formatError.js";
+import Question from "../../models/Question.js";
+import formatError from "../../utils/formatError.js";
 // import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
-const addQuestion = async (req, res) => {
+const uploadQuestion = async (req, res) => {
   try {
     const { title, content, tags } = req.body;
     if (!title || !content || !tags) return res.status(400).json({ message: "Required data is missing" });
-
-    console.log(typeof content);
 
     const questionWithGivenTitle = await Question.findOne({ title }).exec();
     if (questionWithGivenTitle) return res.status(409).json({ message: "Question with provided title already exists" });
@@ -20,4 +18,4 @@ const addQuestion = async (req, res) => {
   }
 };
 
-export default addQuestion;
+export default uploadQuestion;

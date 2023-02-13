@@ -1,15 +1,15 @@
 import { Router } from "express";
 import verifyTokens from "../middlewares/verifyTokens.js";
 
-import addAnswer from "../controllers/addAnswer.js";
-import toggleAnswerVote from "../controllers/toggleAnswerVote.js";
-import editAnswer from "../controllers/editAnswer.js";
-import deleteAnswer from "../controllers/deleteAnswer.js";
+import uploadAnswer from "../controllers/answer/upload.js";
+import toggleAnswerVote from "../controllers/answer/toggleVote.js";
+import editAnswer from "../controllers/answer/edit.js";
+import deleteAnswer from "../controllers/answer/delete.js";
 
 const router = Router();
 
 // @POST
-router.post("/add", verifyTokens, addAnswer);
+router.post("/add", verifyTokens, uploadAnswer);
 
 // @PATCH
 router.patch("/toggle-vote", verifyTokens, toggleAnswerVote);

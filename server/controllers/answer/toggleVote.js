@@ -1,5 +1,5 @@
-import Answer from "../models/Answer.js";
-import formatError from "../utils/formatError.js";
+import Answer from "../../models/Answer.js";
+import formatError from "../../utils/formatError.js";
 
 const toggleAnswerVote = async (req, res) => {
   try {

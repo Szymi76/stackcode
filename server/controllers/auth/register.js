@@ -1,9 +1,9 @@
-import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
-import cookieOptions from "../config/cookieOptions.js";
-import formatError from "../utils/formatError.js";
-import formatUser from "../utils/formatUser.js";
+import { createAccessToken, createRefreshToken } from "../../utils/createTokens.js";
+import cookieOptions from "../../config/cookieOptions.js";
+import formatError from "../../utils/formatError.js";
+import formatUser from "../../utils/formatUser.js";
 import bcrypt from "bcrypt";
-import User from "../models/User.js";
+import User from "../../models/User.js";
 
 const register = async (req, res) => {
   try {

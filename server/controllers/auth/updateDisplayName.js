@@ -1,5 +1,5 @@
-import formatError from "../utils/formatError.js";
-import User from "../models/User.js";
+import formatError from "../../utils/formatError.js";
+import User from "../../models/User.js";
 
 const updateDisplayName = async (req, res, next) => {
   try {

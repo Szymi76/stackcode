@@ -1,6 +1,6 @@
-import cookieOptions from "../config/cookieOptions.js";
-import formatError from "../utils/formatError.js";
-import User from "../models/User.js";
+import cookieOptions from "../../config/cookieOptions.js";
+import formatError from "../../utils/formatError.js";
+import User from "../../models/User.js";
 
 const logout = async (req, res) => {
   try {

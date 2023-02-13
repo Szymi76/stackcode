@@ -1,9 +1,9 @@
-import Answer from "../models/Answer.js";
-import Question from "../models/Question.js";
-import formatError from "../utils/formatError.js";
+import Answer from "../../models/Answer.js";
+import Question from "../../models/Question.js";
+import formatError from "../../utils/formatError.js";
 // import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
-const addAnswer = async (req, res) => {
+const uploadAnswer = async (req, res) => {
   try {
     const { questionID, content } = req.body;
 
@@ -23,4 +23,4 @@ const addAnswer = async (req, res) => {
   }
 };
 
-export default addAnswer;
+export default uploadAnswer;

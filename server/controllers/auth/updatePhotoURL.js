@@ -1,7 +1,7 @@
-import User from "../models/User.js";
-import formatError from "../utils/formatError.js";
-import dataURLtoBlob from "../utils/dataURLtoBlob.js";
-import uploadFileToGoogleDrive from "../utils/uploadFileToGoogleDrive.js";
+import User from "../../models/User.js";
+import formatError from "../../utils/formatError.js";
+import dataURLtoBlob from "../../utils/dataURLtoBlob.js";
+import uploadFileToGoogleDrive from "../../utils/uploadFileToGoogleDrive.js";
 
 const updatePhotoURL = async (req, res, next) => {
   try {

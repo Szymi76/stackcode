@@ -3,15 +3,15 @@ import verifyLocal from "../middlewares/verifyLocal.js";
 import verifyTokens from "../middlewares/verifyTokens.js";
 import checkCookies from "../middlewares/checkCookies.js";
 
-import login from "../controllers/login.js";
-import register from "../controllers/register.js";
+import login from "../controllers/auth/login.js";
+import register from "../controllers/auth/register.js";
 import passport from "passport";
-import loginWithGoogle from "../controllers/loginWithGoogle.js";
-import logout from "../controllers/logout.js";
-import refresh from "../controllers/refresh.js";
-import updateDisplayName from "../controllers/updateDisplayName.js";
-import updatePhotoURL from "../controllers/updatePhotoURL.js";
-import getUser from "../controllers/getUser.js";
+import loginWithGoogle from "../controllers/auth/loginWithGoogle.js";
+import logout from "../controllers/auth/logout.js";
+import refresh from "../controllers/auth/refresh.js";
+import updateDisplayName from "../controllers/auth/updateDisplayName.js";
+import updatePhotoURL from "../controllers/auth/updatePhotoURL.js";
+import getUser from "../controllers/auth/getUser.js";
 
 import "../services/localStrategy.js";
 import "../services/googleStrategy.js";

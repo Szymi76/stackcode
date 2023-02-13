@@ -1,5 +1,5 @@
-import Answer from "../models/Answer.js";
-import formatError from "../utils/formatError.js";
+import Answer from "../../models/Answer.js";
+import formatError from "../../utils/formatError.js";
 // import uploadDeltaImages from "../utils/uploadDeltaImages.js";
 
 const editAnswer = async (req, res) => {

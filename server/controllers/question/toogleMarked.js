@@ -1,7 +1,7 @@
-import Question from "../models/Question.js";
-import formatError from "../utils/formatError.js";
+import Question from "../../models/Question.js";
+import formatError from "../../utils/formatError.js";
 
-const toogleMarked = async (req, res) => {
+const toogleMarkedQuestion = async (req, res) => {
   try {
     const { questionID } = req.body;
 
@@ -19,4 +19,4 @@ const toogleMarked = async (req, res) => {
   }
 };
 
-export default toogleMarked;
+export default toogleMarkedQuestion;

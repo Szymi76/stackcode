@@ -1,8 +1,8 @@
-import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
-import cookieOptions from "../config/cookieOptions.js";
-import formatError from "../utils/formatError.js";
-import formatUser from "../utils/formatUser.js";
-import User from "../models/User.js";
+import { createAccessToken, createRefreshToken } from "../../utils/createTokens.js";
+import cookieOptions from "../../config/cookieOptions.js";
+import formatError from "../../utils/formatError.js";
+import formatUser from "../../utils/formatUser.js";
+import User from "../../models/User.js";
 
 const loginWithGoogle = async (req, res) => {
   try {

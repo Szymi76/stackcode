@@ -1,10 +1,10 @@
-import Report from "../models/Reports.js";
-import Question from "../models/Question.js";
-import Answer from "../models/Answer.js";
-import Comment from "../models/Comment.js";
-import formatError from "../utils/formatError.js";
+import Report from "../../models/Reports.js";
+import Question from "../../models/Question.js";
+import Answer from "../../models/Answer.js";
+import Comment from "../../models/Comment.js";
+import formatError from "../../utils/formatError.js";
 
-const addReport = async (req, res) => {
+const uploadReport = async (req, res) => {
   try {
     const { id, text, reasons, for: reportFor } = req.body;
 
@@ -33,4 +33,4 @@ const addReport = async (req, res) => {
   }
 };
 
-export default addReport;
+export default uploadReport;

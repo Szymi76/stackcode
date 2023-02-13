@@ -1,8 +1,8 @@
-import { createAccessToken, createRefreshToken } from "../utils/createTokens.js";
-import cookieOptions from "../config/cookieOptions.js";
-import formatUser from "../utils/formatUser.js";
-import formatError from "../utils/formatError.js";
-import User from "../models/User.js";
+import { createAccessToken, createRefreshToken } from "../../utils/createTokens.js";
+import cookieOptions from "../../config/cookieOptions.js";
+import formatUser from "../../utils/formatUser.js";
+import formatError from "../../utils/formatError.js";
+import User from "../../models/User.js";
 
 const login = async (req, res) => {
   try {

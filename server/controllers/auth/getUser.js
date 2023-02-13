@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
-import formatUser from "../utils/formatUser.js";
-import formatError from "../utils/formatError.js";
+import User from "../../models/User.js";
+import formatUser from "../../utils/formatUser.js";
+import formatError from "../../utils/formatError.js";
 
 const getUser = async (req, res) => {
   try {

@@ -1,12 +1,12 @@
 import { Router } from "express";
 import verifyTokens from "../middlewares/verifyTokens.js";
 
-import addQuestion from "../controllers/addQuestion.js";
-import getQuestionById from "../controllers/getQuestionById.js";
-import toggleVote from "../controllers/toggleQuestionVote.js";
-import toogleMarked from "../controllers/toogleMarked.js";
-import editQuestion from "../controllers/editQuestion.js";
-import deleteQuestion from "../controllers/deleteQuestion.js";
+import uploadQuestion from "../controllers/question/upload.js";
+import getQuestionById from "../controllers/question/getById.js";
+import toggleVote from "../controllers/question/toggleVote.js";
+import toogleMarkedQuestion from "../controllers/question/toogleMarked.js";
+import editQuestion from "../controllers/question/edit.js";
+import deleteQuestion from "../controllers/question/delete.js";
 
 const router = Router();
 
@@ -14,11 +14,11 @@ const router = Router();
 router.get("/by-title/:id", getQuestionById);
 
 // @POST
-router.post("/add", verifyTokens, addQuestion);
+router.post("/add", verifyTokens, uploadQuestion);
 
 // @PATCH
 router.patch("/toggle-vote", verifyTokens, toggleVote);
-router.patch("/toggle-marked", verifyTokens, toogleMarked);
+router.patch("/toggle-marked", verifyTokens, toogleMarkedQuestion);
 router.patch("/edit", verifyTokens, editQuestion);
 
 // @DELETE
