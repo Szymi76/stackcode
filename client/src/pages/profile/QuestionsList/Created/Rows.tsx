@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useModalState } from "@welcome-ui/modal";
-import { useToast } from "@welcome-ui/toast";
-import copyToClipboard from "../../../../utils/copyToClipboard";
+import useToast from "../../../../hooks/useToast";
+import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
 
 // komponenty
 import Question from "../../../../types/Question";
@@ -21,11 +21,10 @@ export type SingleProps = { question: Question; index: number; refetch: () => vo
 
 export const Single = ({ question, index, refetch }: SingleProps) => {
   const navigate = useNavigate();
-  const toast = useToast();
+  const copyToClipboard = useCopyToClipboard();
   const deleteModal = useModalState();
 
-  const clipboardObject = { toast, text: "Skopiowano link", toCopy: `${location.origin}/pytanie/${question._id}` };
-  const handleCopy = () => copyToClipboard(clipboardObject);
+  const handleCopy = () => copyToClipboard(`${location.origin}/pytanie/${question._id}`);
   const handleRedirect = () => navigate(`/edytuj-pytanie/${question._id}`);
 
   return (

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { useUpdateDisplayNameMutation } from "../../../features/auth/authApiSlice";
-import { showInfoToast } from "../Toast";
+import useToast from "../../../hooks/useToast";
 import { setUser } from "../../../features/auth/authSlice";
 
 import AsyncButton from "../../../components/AsyncButton";
 import { Field } from "@welcome-ui/field";
 import { InputText } from "@welcome-ui/input-text";
-import { useToast } from "@welcome-ui/toast";
+// import { useToast } from "@welcome-ui/toast";
 import * as Setting from "../Content";
 
 const UpdateDisplayName = () => {
@@ -20,7 +20,7 @@ const UpdateDisplayName = () => {
   const handleUpdate = async () => {
     const { user } = await update({ displayName: displayName!.trim() }).unwrap();
     dispatch(setUser(user));
-    showInfoToast(toast, "Twoja nazwa zotsała zaktualizowana");
+    toast("Twoja nazwa została zaktualizowana");
   };
 
   const isButtonDisabled = isLoading || displayName!.trim().length < 4 || displayName == user?.displayName;

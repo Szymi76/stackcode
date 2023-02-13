@@ -1,4 +1,5 @@
 import ReactQuill from "react-quill";
+import useToast from "../../hooks/useToast";
 import { useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useAddAnswerMutation } from "../../features/answer/answerApiSlice";
@@ -14,6 +15,7 @@ import { Loader } from "@welcome-ui/loader";
 
 const AddAnswer = () => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const editorRef = useRef<ReactQuill>(null);
   const { question, auth } = useAppSelector((state) => state);
   const [addAnswerAsync, { isLoading, isError }] = useAddAnswerMutation();
@@ -29,6 +31,7 @@ const AddAnswer = () => {
     const { answer } = await addAnswerAsync({ questionID: question?._id, content }).unwrap();
     dispatch(addAnswer({ answer }));
     editorRef.current?.editor?.setText("");
+    toast("Dodano odpowiedź");
   };
 
   const text =

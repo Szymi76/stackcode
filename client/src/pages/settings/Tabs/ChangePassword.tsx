@@ -8,7 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import AsyncButton from "../../../components/AsyncButton";
 import { Field } from "@welcome-ui/field";
 import { InputText } from "@welcome-ui/input-text";
-import { useToast } from "@welcome-ui/toast";
+import useToast from "../../../hooks/useToast";
 import * as Setting from "../Content";
 import { Text } from "@welcome-ui/text";
 
@@ -36,7 +36,7 @@ const ChangePassword = () => {
       const { password, newPassword } = data;
       const { user } = await changePassword({ newPassword, oldPassword: password }).unwrap();
       dispatch(setUser(user));
-      showInfoToast(toast, "Hasło zostało zmienione");
+      toast("Hasło zostało zmienione");
       reset();
     } catch (err) {
       console.warn("Coś poszło nie tak podczas zmiany hasłą");

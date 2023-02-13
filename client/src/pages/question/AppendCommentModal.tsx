@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Modal, ModalStateReturn } from "@welcome-ui/modal";
 import { useAddCommentMutation } from "../../features/comment/commentApiSlice";
 import { addComment } from "../../features/question/questionSlice";
+import useToast from "../../hooks/useToast";
 
 // komponenty
 import Answer from "../../types/Answers";
@@ -20,6 +21,7 @@ interface AppendCommentModalProps {
 
 const AppendCommentModal = ({ modal, answer, onClose }: AppendCommentModalProps) => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const question = useAppSelector((state) => state.question);
   const [addCommentAsync, { isLoading, isError }] = useAddCommentMutation();
 
@@ -40,6 +42,7 @@ const AppendCommentModal = ({ modal, answer, onClose }: AppendCommentModalProps)
     dispatch(addComment({ answerID: answer._id, comment }));
     textareaRef.current.value = "";
     onClose && onClose();
+    toast("Dodano komentarz");
     modal.hide();
   };
 

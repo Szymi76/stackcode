@@ -5,8 +5,8 @@ import { Text } from "@welcome-ui/text";
 import { UseToastReturn } from "@welcome-ui/toast";
 import React from "react";
 import { useAppSelector } from "../../../app/hooks";
+import useCopyToClipboard from "../../../hooks/useCopyToClipboard";
 import Question from "../../../types/Question";
-import copyToClipboard from "../../../utils/copyToClipboard";
 
 /*
     Wrapper dla prawej i lewej Kolumny 
@@ -73,6 +73,7 @@ export type RightProps = {
 };
 
 export const Right = ({ toast, modal, question, handleToggleMarked }: RightProps) => {
+  const copyToClipboard = useCopyToClipboard();
   const { user } = useAppSelector((state) => state.auth);
   const marked = question?.markedBy.includes(user?.id || "");
 
@@ -88,11 +89,7 @@ export const Right = ({ toast, modal, question, handleToggleMarked }: RightProps
       />
 
       {/* link */}
-      <LinkIcon
-        className="heroicon"
-        title="Kopiuj link"
-        onClick={() => copyToClipboard({ toast, text: "Skopiowano link", toCopy: location.href })}
-      />
+      <LinkIcon className="heroicon" title="Kopiuj link" onClick={() => copyToClipboard(location.href, "link")} />
 
       {/* zgłaszanie pytania */}
       <FlagIcon className="heroicon" title="Zgłoś pytanie" onClick={() => modal.show()} />

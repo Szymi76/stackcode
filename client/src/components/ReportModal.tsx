@@ -12,7 +12,7 @@ import { Flex } from "@welcome-ui/flex";
 import { Field } from "@welcome-ui/field";
 import { Textarea } from "@welcome-ui/textarea";
 import { Loader } from "@welcome-ui/loader";
-import { Toast, useToast } from "@welcome-ui/toast";
+import useToast from "../hooks/useToast";
 
 const SELECT_OPTIONS = [
   { label: "Wulgarne słownictwo", value: "Wulgarne słownictwo" },
@@ -45,12 +45,7 @@ const ReportModal = ({ modal, id, reportFor, onClose }: AddCommentModalProps) =>
 
     await addReportAsync({ id, text, reasons: [reason], for: reportFor }).unwrap();
     textareaRef.current.value = "";
-    toast(
-      // @ts-ignore
-      <Toast.Snackbar p=".5rem" variant="success" hasCloseButton={false}>
-        <Text variant="body2" m="0" children="Zgłoszenie zostało przesłane" />
-      </Toast.Snackbar>
-    );
+    toast("Zgłoszenie zostało przesłane");
     modal.hide();
   };
 

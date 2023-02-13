@@ -5,6 +5,7 @@ import { Loader } from "@welcome-ui/loader";
 import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../hooks/useToast";
 
 /*
   Wrapper dla listy pytań
@@ -13,12 +14,19 @@ import { useNavigate } from "react-router-dom";
 export type WrapperProps = { children: React.ReactNode; label: string; refetch: () => void };
 
 export const Wrapper = ({ children, label, refetch }: WrapperProps) => {
+  const toast = useToast();
+
+  const handleRefetch = () => {
+    refetch();
+    toast("Pytania są aktualne");
+  };
+
   return (
     <Stack mt="2.5rem">
       {/* header */}
       <Flex align="center" justify="space-between">
         <Text variant="h3" my=".25rem" children={label} />
-        <ArrowPathIcon className="move-down" height={30} onClick={refetch} />
+        <ArrowPathIcon className="move-down" height={30} onClick={handleRefetch} />
       </Flex>
       {children}
     </Stack>

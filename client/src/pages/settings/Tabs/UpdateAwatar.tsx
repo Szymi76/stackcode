@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useUpdatePhotoURLMutation } from "../../../features/auth/authApiSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setUser } from "../../../features/auth/authSlice";
-import { useToast } from "@welcome-ui/toast";
+import useToast from "../../../hooks/useToast";
 
 // komponenty
 import { Box } from "@welcome-ui/box";
 import { Field } from "@welcome-ui/field";
-import { showInfoToast } from "../Toast";
 import * as Setting from "../Content";
 import AsyncButton from "../../../components/AsyncButton";
 
@@ -22,7 +21,7 @@ const UpdateDisplayName = () => {
     if (!file) return;
     const { user } = await update({ photoURL: file }).unwrap();
     dispatch(setUser(user));
-    showInfoToast(toast, "Twój awatar został zaktualizowany");
+    toast("Twój awatar został zaktualizowany");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

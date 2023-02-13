@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { useDeleteUserMutation } from "../../../features/auth/authApiSlice";
-import { showInfoToast } from "../Toast";
+import useToast from "../../../hooks/useToast";
 import { setUser } from "../../../features/auth/authSlice";
 
 import AsyncButton from "../../../components/AsyncButton";
 import { Field } from "@welcome-ui/field";
 import { InputText } from "@welcome-ui/input-text";
-import { useToast } from "@welcome-ui/toast";
 import * as Setting from "../Content";
 import { Text } from "@welcome-ui/text";
 
@@ -21,7 +20,7 @@ const DeleteUser = () => {
   const handleDeleteUser = async () => {
     await deleteUser().unwrap();
     dispatch(setUser(null));
-    showInfoToast(toast, "Konto zostało usunięte");
+    toast("Konto zostało usunięte");
   };
 
   const isButtonDisabled = isLoading || email != user?.email;
@@ -38,7 +37,7 @@ const DeleteUser = () => {
         <span style={{ textDecoration: "underline" }}>twoje konto zostanie na stałe usunięte.</span>
       </Text>
 
-      <Field label="Adres email">
+      <Field label="Adres email" maxW={500}>
         <InputText value={email} onChange={(e) => setEmail(e.target.value)} />
       </Field>
 

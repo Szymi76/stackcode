@@ -1,5 +1,5 @@
 import { Text } from "@welcome-ui/text";
-import { Toast, useToast, UseToastReturn } from "@welcome-ui/toast";
+import { Toast, UseToastReturn } from "@welcome-ui/toast";
 
 type copyToClipboardArgs = {
   toast: UseToastReturn;
