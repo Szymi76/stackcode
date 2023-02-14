@@ -4,6 +4,7 @@ import { Flex } from "@welcome-ui/flex";
 import { Stack } from "@welcome-ui/stack";
 import { Text } from "@welcome-ui/text";
 import { ModalStateReturn } from "@welcome-ui/modal";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 /*
     Wrapper dla całego pytania (góra, środek, dół)
@@ -83,5 +84,22 @@ export const Footer = ({ answer, commentModal }: FooterProps) => {
         </Flex>
       </Flex>
     </Stack>
+  );
+};
+
+export const VerifiedAnswer = () => {
+  return (
+    <Flex
+      align="center"
+      justify="center"
+      gap=".5rem"
+      border="1px solid"
+      borderColor="light-gray"
+      borderRadius={5}
+      maxW={275}
+      mt="1rem">
+      <CheckBadgeIcon height={30} color="#32a852" />
+      <Text fontWeight={500} children=" - sprawdzona odpowiedź" />
+    </Flex>
   );
 };

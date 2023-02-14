@@ -66,6 +66,11 @@ AnswerScheme.methods.toggleVote = async function (userID, vote) {
   return await this.save();
 };
 
+AnswerScheme.methods.toggleVerification = async function () {
+  this.verified = !this.verified;
+  return await this.save();
+};
+
 const Answer = mongoose.model("Answer", AnswerScheme);
 
 export default Answer;

@@ -20,7 +20,14 @@ export const questionApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    toggleVerification: build.mutation<void, { answerID: string }>({
+      query: (body) => ({
+        url: "/answer/toggle-verification",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAddAnswerMutation, useToggleAnswerVoteMutation } = questionApiSlice;
+export const { useAddAnswerMutation, useToggleAnswerVoteMutation, useToggleVerificationMutation } = questionApiSlice;

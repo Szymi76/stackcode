@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useToggleAnswerVoteMutation } from "../../../features/answer/answerApiSlice";
-import { addComment, toggleAnswerVote } from "../../../features/question/questionSlice";
+import { useToggleAnswerVoteMutation, useToggleVerificationMutation } from "../../../features/answer/answerApiSlice";
+import { addComment, changeVerificationTo, toggleAnswerVote } from "../../../features/question/questionSlice";
 import AnswerType from "../../../types/Answers";
 import useToast from "../../../hooks/useToast";
 
@@ -18,6 +18,9 @@ import * as Comments from "../Comments/index";
 import { Field } from "@welcome-ui/field";
 import { Textarea } from "@welcome-ui/textarea";
 import { useAddCommentMutation } from "../../../features/comment/commentApiSlice";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { Text } from "@welcome-ui/text";
+import { Button } from "@welcome-ui/button";
 
 type AnswerProps = {
   answer: AnswerType;
@@ -32,6 +35,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const { user } = useAppSelector((state) => state.auth);
   const question = useAppSelector((state) => state.question);
   const [addCommentAsync, { isLoading, isError }] = useAddCommentMutation();
+  const [verifyAnswerAsync] = useToggleVerificationMutation();
   const [showDropdown, setShowdropdown] = useState(false);
   const [commentsVisible, setCommentsVisible] = useState(false);
   const [toggleVoteAsync] = useToggleAnswerVoteMutation();
@@ -46,6 +50,11 @@ const Answer = ({ answer, index }: AnswerProps) => {
     if (!user) return;
     const { votes } = await toggleVoteAsync({ answerID: answer._id, vote }).unwrap();
     dispatch(toggleAnswerVote({ answerID: answer._id, votes }));
+  };
+
+  const handleVerifyAnswer = async () => {
+    await verifyAnswerAsync({ answerID: answer._id }).unwrap();
+    dispatch(changeVerificationTo({ answerID: answer._id, to: !answer.verified }));
   };
 
   // dodawanie nowego komentarza
@@ -82,6 +91,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
 
       {/* kontent */}
       <Content.Wrapper>
+        {answer.verified && <Content.VerifiedAnswer />}
         <Box
           className="quill-result"
           dangerouslySetInnerHTML={{ __html: answer.content }}
@@ -89,6 +99,14 @@ const Answer = ({ answer, index }: AnswerProps) => {
           overflowX="auto"
         />
         <Content.Footer answer={answer} commentModal={commentModal} />
+
+        {user?.roles.includes("expert") && (
+          <Button
+            mt="1rem"
+            children={answer.verified ? "Usuń weryfikację" : "Zweryfikuj"}
+            onClick={handleVerifyAnswer}
+          />
+        )}
 
         {/* komentarze */}
         <Comments.Wrapper commentsVisible={commentsVisible}>

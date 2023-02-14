@@ -1,4 +1,5 @@
 import { ChatBubbleBottomCenterTextIcon, ChevronDownIcon, ChevronUpIcon, FlagIcon } from "@heroicons/react/24/outline";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import Answer from "../../../types/Answers";
 import { useAppSelector } from "../../../app/hooks";

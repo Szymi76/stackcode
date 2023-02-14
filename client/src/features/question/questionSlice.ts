@@ -50,9 +50,26 @@ const questionSlice = createSlice({
       // @ts-ignore
       state.answers[index].comments.push(comment);
     },
+
+    changeVerificationTo: (state, action: PayloadAction<{ answerID: string; to: boolean }>) => {
+      const { answerID, to } = action.payload;
+
+      if (!state) return state;
+
+      const index = state?.answers.findIndex((a) => a._id == answerID);
+
+      state.answers[index].verified = to;
+    },
   },
 });
 
 export default questionSlice.reducer;
-export const { setQuestion, toggleQuestionVote, toggleAnswerVote, toggleMarked, addComment, addAnswer } =
-  questionSlice.actions;
+export const {
+  setQuestion,
+  toggleQuestionVote,
+  toggleAnswerVote,
+  toggleMarked,
+  addComment,
+  addAnswer,
+  changeVerificationTo,
+} = questionSlice.actions;
