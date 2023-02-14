@@ -8,8 +8,8 @@ import { validateNewQuestion, validateNewTag, initialErrorsObject, Errors } from
 // komponenty
 import Editor from "../../components/Editor";
 import ReactQuill from "react-quill";
-import FinishModal from "./FinishModal";
 import AsyncButton from "../../components/AsyncButton";
+import DefaultModal from "../../components/Modals/DefaultModal";
 import { Flex } from "@welcome-ui/flex";
 import { Button } from "@welcome-ui/button";
 import { Text } from "@welcome-ui/text";
@@ -158,7 +158,15 @@ const EditQuestion = () => {
       </Flex>
       {isError && <Text variant="body4" color="gray" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
       {/* finish modal */}
-      {modal.visible && <FinishModal modal={modal} id={id} />}
+      {/* {modal.visible && <FinishModal modal={modal} id={id} />} */}
+      <DefaultModal
+        modal={modal}
+        title="Twoje pytanie zostało edytowane pomyślnie"
+        content="Możesz je zobaczyć na forum lub w swoim profilu."
+        defaultLabel="Wróć do profilu"
+        onDefaultButtonClick={() => navigate(`/twoj-profil`)}
+        extraButtons={<Button children="Zobacz pytanie" onClick={() => navigate(`/pytanie/${id}`)} />}
+      />
     </Content.Wrapper>
   );
 };

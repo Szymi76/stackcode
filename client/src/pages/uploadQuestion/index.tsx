@@ -7,18 +7,21 @@ import { validateNewTag, validateNewQuestion, initialErrorsObject, Errors } from
 // komponenty
 import Editor from "../../components/Editor";
 import ReactQuill from "react-quill";
-import FinishModal from "./FinishModal";
 import AsyncButton from "../../components/AsyncButton";
+import DefaultModal from "../../components/Modals/DefaultModal";
 import { Flex } from "@welcome-ui/flex";
 import { Button } from "@welcome-ui/button";
 import { Text } from "@welcome-ui/text";
 import { InputText } from "@welcome-ui/input-text";
+import { Field } from "@welcome-ui/field";
+import { Checkbox } from "@welcome-ui/checkbox";
 import * as Content from "./Content";
 import * as Tags from "./Tags";
 
 const UploadQuestion = () => {
   const [tags, setTags] = useState<string[]>(["Javascript", "React"]);
   const [errors, setErrors] = useState(initialErrorsObject);
+  const [checked, setChecked] = useState(false);
   const [questionID, setQuestionID] = useState<string | null>(null);
   const [addQuestion, { isLoading, isError, error }] = useAddQuestionMutation();
   const modal = useModalState({ animated: true });
@@ -81,6 +84,20 @@ const UploadQuestion = () => {
       setErrors({ ...errors, title: "Pytanie z takim tytyłem już istnieje" });
   }, [error]);
 
+  const handleCheckChange = () => {
+    setChecked(!checked);
+    localStorage.setItem("show-finish-modal", String(checked));
+  };
+
+  const modalContent = (
+    <Flex direction="column">
+      <Text color="gray">Możesz je znaleść na swoim profilu. Pytanie możesz usunąć i edytować.</Text>
+      <Field ml=".5rem" w="100%" label="zaznacz, jeśli nie chcesz widzieć tego okna ponownie">
+        <Checkbox checked={checked} onChange={handleCheckChange} />
+      </Field>
+    </Flex>
+  );
+
   return (
     <Content.Wrapper>
       {/* kontent */}
@@ -137,11 +154,19 @@ const UploadQuestion = () => {
         onClick={handleSubmit}
         children="Prześlij"
       />
+
+      {/* informacja o błędzie podczas przesyłania pytania */}
       {error && <Text fontSize="xs" color="red" alignSelf="end" mt="0" children="Coś poszło nie tak" />}
-      {/* finish modal */}
-      {modal.visible && questionID && (
-        <FinishModal modal={modal} questionID={questionID} onClose={() => navigate("/home")} />
-      )}
+
+      {/* modal końcowy */}
+      <DefaultModal
+        modal={modal}
+        title="Twoje pytanie zostało przesłane pomyślnie"
+        onDefaultButtonClick={() => navigate(`/pytanie/${questionID}`)}
+        content={modalContent}
+        defaultLabel="Zobacz pytanie"
+        onClose={() => navigate(`/pytanie/${questionID}`)}
+      />
     </Content.Wrapper>
   );
 };

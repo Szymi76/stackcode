@@ -28,7 +28,7 @@ const UpdateDisplayName = () => {
   return (
     <Setting.Wrapper title="Twoja nazwa">
       {/* twoja nazwa */}
-      <Field label="Twoja nowa nazwa" hint="(min. 4 znaki)">
+      <Field label="Twoja nowa nazwa" hint="(min. 4 znaki, max 16 znaków)">
         <InputText value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
       </Field>
 

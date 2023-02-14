@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useModalState } from "@welcome-ui/modal";
-import useToast from "../../../../hooks/useToast";
 import useCopyToClipboard from "../../../../hooks/useCopyToClipboard";
+import { useDeleteQuestionMutation } from "../../../../features/question/questionApiSlice";
 
 // komponenty
 import Question from "../../../../types/Question";
-import DeleteQuestionModal from "../../DeleteQuestionModal";
+import DeleteModal from "../../../../components/Modals/DeleteModal";
 import { ChatBubbleBottomCenterTextIcon, LinkIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Flex } from "@welcome-ui/flex";
 import { Stack } from "@welcome-ui/stack";
@@ -23,9 +23,15 @@ export const Single = ({ question, index, refetch }: SingleProps) => {
   const navigate = useNavigate();
   const copyToClipboard = useCopyToClipboard();
   const deleteModal = useModalState();
+  const [deleteQuestionAsync, { isLoading, isError }] = useDeleteQuestionMutation();
 
   const handleCopy = () => copyToClipboard(`${location.origin}/pytanie/${question._id}`);
   const handleRedirect = () => navigate(`/edytuj-pytanie/${question._id}`);
+
+  const handleDeleteQuestion = async () => {
+    await deleteQuestionAsync({ questionID: question._id });
+    refetch();
+  };
 
   return (
     <List.Row question={question}>
@@ -46,7 +52,14 @@ export const Single = ({ question, index, refetch }: SingleProps) => {
         <TrashIcon className="heroicon" color="#ef4444" onClick={() => deleteModal.show()} />
       </Flex>
 
-      {deleteModal.visible && <DeleteQuestionModal modal={deleteModal} question={question} onClose={refetch} />}
+      {/* {deleteModal.visible && <DeleteQuestionModal modal={deleteModal} question={question} onClose={refetch} />} */}
+      <DeleteModal
+        modal={deleteModal}
+        title="Czy na pewno chcesz usunąć pytanie?"
+        content="Kliknięcie usuń swpowoduje nieodwracalne usunięcie pytania!"
+        onConfirm={handleDeleteQuestion}
+        isLoading={isLoading}
+      />
     </List.Row>
   );
 };
