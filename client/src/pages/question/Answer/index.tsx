@@ -1,7 +1,16 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useToggleAnswerVoteMutation, useToggleVerificationMutation } from "../../../features/answer/answerApiSlice";
-import { addComment, changeVerificationTo, toggleAnswerVote } from "../../../features/question/questionSlice";
+import {
+  useDeleteAnswerMutation,
+  useToggleAnswerVoteMutation,
+  useToggleVerificationMutation,
+} from "../../../features/answer/answerApiSlice";
+import {
+  addComment,
+  changeVerificationTo,
+  deleteAnswer,
+  toggleAnswerVote,
+} from "../../../features/question/questionSlice";
 import AnswerType from "../../../types/Answers";
 import useToast from "../../../hooks/useToast";
 
@@ -35,6 +44,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const { user } = useAppSelector((state) => state.auth);
   const question = useAppSelector((state) => state.question);
   const [addCommentAsync, { isLoading, isError }] = useAddCommentMutation();
+  const [deleteAnswerAsync] = useDeleteAnswerMutation();
   const [verifyAnswerAsync] = useToggleVerificationMutation();
   const [showDropdown, setShowdropdown] = useState(false);
   const [commentsVisible, setCommentsVisible] = useState(false);
@@ -55,6 +65,12 @@ const Answer = ({ answer, index }: AnswerProps) => {
   const handleVerifyAnswer = async () => {
     await verifyAnswerAsync({ answerID: answer._id }).unwrap();
     dispatch(changeVerificationTo({ answerID: answer._id, to: !answer.verified }));
+  };
+
+  const handleDelete = async (answerID: string) => {
+    await deleteAnswerAsync({ answerID }).unwrap();
+    dispatch(deleteAnswer({ answerID }));
+    toast("Usunięto odpowiedź");
   };
 
   // dodawanie nowego komentarza
@@ -127,6 +143,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
             commentsVisible={commentsVisible}
             toggleCommentsVisibility={toggleCommentsVisibility}
             handleToggleVote={handleToggleVote}
+            handleDelete={handleDelete}
             modal={modal}
             answer={answer}
           />
@@ -139,6 +156,7 @@ const Answer = ({ answer, index }: AnswerProps) => {
           answer={answer}
           commentsVisible={commentsVisible}
           toggleCommentsVisibility={toggleCommentsVisibility}
+          handleDelete={handleDelete}
         />
       </Flex>
 

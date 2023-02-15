@@ -17,7 +17,11 @@ const uploadAnswer = async (req, res) => {
     question.answers = [...question.answers, answer._id];
     await question.save();
 
-    res.status(201).json({ answer });
+    const populateArr = [{ path: "author", select: "_id displayName email photoURL" }];
+
+    const populatedAnswer = await answer.populate(populateArr);
+
+    res.status(201).json({ answer: populatedAnswer });
   } catch (err) {
     res.status(500).json(formatError(err));
   }

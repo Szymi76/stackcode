@@ -11,16 +11,16 @@ const getQuestionById = async (req, res) => {
     if (!question) return res.status(404).json({ message: "Question not found" });
 
     const populateArr = [
-      { path: "author", select: "displayName email photoURL" },
+      { path: "author", select: "_id displayName email photoURL" },
       {
         path: "answers",
         populate: [
-          { path: "author", select: "displayName email photoURL" },
+          { path: "author", select: "_id displayName email photoURL" },
           {
             path: "comments",
             populate: {
               path: "author",
-              select: "displayName email photoURL",
+              select: "_id displayName email photoURL",
             },
           },
         ],

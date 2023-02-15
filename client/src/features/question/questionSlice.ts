@@ -57,8 +57,15 @@ const questionSlice = createSlice({
       if (!state) return state;
 
       const index = state?.answers.findIndex((a) => a._id == answerID);
-
       state.answers[index].verified = to;
+    },
+
+    deleteAnswer: (state, action: PayloadAction<{ answerID: string }>) => {
+      const { answerID } = action.payload;
+
+      if (!state) return state;
+
+      state.answers = state.answers.filter((ans) => ans._id != answerID);
     },
   },
 });
@@ -72,4 +79,5 @@ export const {
   addComment,
   addAnswer,
   changeVerificationTo,
+  deleteAnswer,
 } = questionSlice.actions;

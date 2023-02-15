@@ -27,7 +27,19 @@ export const questionApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    deleteAnswer: build.mutation<void, { answerID: string }>({
+      query: (body) => ({
+        url: "/answer/delete",
+        method: "DELETE",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAddAnswerMutation, useToggleAnswerVoteMutation, useToggleVerificationMutation } = questionApiSlice;
+export const {
+  useAddAnswerMutation,
+  useToggleAnswerVoteMutation,
+  useToggleVerificationMutation,
+  useDeleteAnswerMutation,
+} = questionApiSlice;

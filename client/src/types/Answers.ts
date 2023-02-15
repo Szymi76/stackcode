@@ -4,7 +4,7 @@ import User from "./User";
 
 type Answer = {
   _id: string;
-  author: User;
+  author: User & { _id: string };
   content: string;
   votes: {
     up: string[];

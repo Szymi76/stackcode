@@ -1,4 +1,10 @@
-import { ChatBubbleBottomCenterTextIcon, ChevronDownIcon, ChevronUpIcon, FlagIcon } from "@heroicons/react/24/outline";
+import {
+  ChatBubbleBottomCenterTextIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  FlagIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import Answer from "../../../types/Answers";
@@ -70,9 +76,14 @@ export type RightProps = {
   answer: Answer;
   commentsVisible: boolean;
   toggleCommentsVisibility: () => void;
+  handleDelete: (answerID: string) => void;
 };
 
-export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility }: RightProps) => {
+export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility, handleDelete }: RightProps) => {
+  const { user } = useAppSelector((state) => state.auth);
+
+  const showDeleteIcon = user?.id == answer.author._id || user?.roles.includes("moderator") ? true : false;
+
   return (
     <Wrapper>
       {/* komentarze */}
@@ -95,6 +106,16 @@ export const Right = ({ modal, answer, commentsVisible, toggleCommentsVisibility
 
       {/* zgłaszanie pytania */}
       <FlagIcon className="heroicon" title="Zgłoś odpowiedź" onClick={() => modal.show()} />
+
+      {/* usuwanie odpowiedzi */}
+      {showDeleteIcon && (
+        <TrashIcon
+          className="heroicon"
+          color="#ef4444"
+          title="Usuń odpowiedź"
+          onClick={() => handleDelete(answer._id)}
+        />
+      )}
     </Wrapper>
   );
 };
