@@ -48,6 +48,11 @@ app.use("/api/report", reportRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/answer", answerRouter);
 
+app.get("*", (req, res) => {
+  const defaultPagePath = path.join(__dirname, "views", "defaultPage.html");
+  res.sendFile(defaultPagePath);
+});
+
 // error handler
 app.use(errorHandler);
 

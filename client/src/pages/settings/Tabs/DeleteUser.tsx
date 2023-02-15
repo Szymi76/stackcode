@@ -46,7 +46,7 @@ const DeleteUser = () => {
         isLoading={isLoading}
         variant="primary-danger"
         disabled={isButtonDisabled}
-        children="Usuń"
+        children="Usuń konto"
         onClick={handleDeleteUser}
       />
     </Setting.Wrapper>

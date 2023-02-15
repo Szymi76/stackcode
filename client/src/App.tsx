@@ -22,6 +22,7 @@ import UpdateAwatar from "./pages/settings/Tabs/UpdateAwatar";
 import UploadQuestion from "./pages/uploadQuestion";
 import DeleteUser from "./pages/settings/Tabs/DeleteUser";
 import ChangePassword from "./pages/settings/Tabs/ChangePassword";
+import VerifyEmail from "./pages/settings/Tabs/VerifyEmail";
 import Tests from "./pages/tests";
 
 const App = () => {
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/ustawienia/awatar" element={<UpdateAwatar />} />
             <Route path="/ustawienia/usun-konto" element={<DeleteUser />} />
             <Route path="/ustawienia/zmien-haslo" element={<ChangePassword />} />
+            <Route path="/ustawienia/weryfikacja-emaila" element={<VerifyEmail />} />
           </Route>
         </Route>
       </Routes>

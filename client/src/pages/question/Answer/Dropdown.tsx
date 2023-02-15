@@ -37,6 +37,7 @@ export const Actions = ({
   toggleCommentsVisibility,
   setShowDropdown,
   triggerRef,
+  handleDelete,
 }: ActionsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setShowDropdown(false), triggerRef);
@@ -58,6 +59,7 @@ export const Actions = ({
         answer={answer}
         commentsVisible={commentsVisible}
         toggleCommentsVisibility={toggleCommentsVisibility}
+        handleDelete={handleDelete}
       />
       <Box borderBottom="1px solid" borderColor="light-gray" />
       <Left handleToggleVote={handleToggleVote} answer={answer} />

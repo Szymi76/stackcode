@@ -74,6 +74,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+
+    // weryfikacja adresu email
+    verifyEmail: build.mutation<void, void>({
+      query: () => ({
+        url: `/auth/verify-email`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -86,4 +94,5 @@ export const {
   useUpdatePhotoURLMutation,
   useChangePasswordMutation,
   useDeleteUserMutation,
+  useVerifyEmailMutation,
 } = authApiSlice;

@@ -1,3 +1,5 @@
+import formatError from "../utils/formatError.js";
+
 const errorHandler = (err, req, res, next) => {
   console.log("------- ERROR -------");
   console.log(err);

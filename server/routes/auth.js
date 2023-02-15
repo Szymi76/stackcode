@@ -14,6 +14,8 @@ import updatePhotoURL from "../controllers/auth/updatePhotoURL.js";
 import getUser from "../controllers/auth/getUser.js";
 import changePassword from "../controllers/auth/changePassword.js";
 import deleteUser from "../controllers/auth/deleteUser.js";
+import emailVerification from "../controllers/auth/emailVerification.js";
+import verifyEmailToken from "../controllers/auth/verifyEmailToken.js";
 
 import "../services/localStrategy.js";
 import "../services/googleStrategy.js";
@@ -25,6 +27,8 @@ router.get("/user", getUser);
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/logout", logout);
 router.get("/refresh", refresh);
+router.get("/verify-email", verifyTokens, emailVerification);
+router.get("/verify/:id/:verifyToken", verifyEmailToken);
 router.get(
   "/google/callback",
   passport.authenticate("google", {
