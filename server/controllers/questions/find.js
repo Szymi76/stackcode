@@ -6,7 +6,7 @@ const findQuestions = async (req, res) => {
     let { query } = req.params;
     if (!query) return res.status(400).json({ message: "Query was not provided or its empty" });
 
-    query = query.replaceAll("-", " ");
+    // query = query.replaceAll("-", " ");
     const regexp = new RegExp(`${query}`, "gi");
     const questions = await Question.find({ title: regexp }).exec();
 
