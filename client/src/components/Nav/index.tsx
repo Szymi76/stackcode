@@ -38,6 +38,11 @@ const Nav = () => {
     toggleNav();
   };
 
+  const handleClickOnInfoLink = () => {
+    toggleNav();
+    scrollTo({ top: 9999, behavior: "smooth" });
+  };
+
   return (
     <Wrapper navToggled={navToggled}>
       {/* logo po lewej */}
@@ -52,9 +57,8 @@ const Nav = () => {
         {/* lista linków */}
         <Links.Wrapper>
           <Links.Single to="/zadaj-pytanie" text="Zadaj pytanie" onClick={toggleNav} />
-          <Links.Single to="/forum" text="Forum" onClick={toggleNav} />
-          <Links.Single to="/blog" text="Blog" onClick={toggleNav} />
           <Links.Single to="/szukaj" text="Szukaj" onClick={toggleNav} />
+          <Links.Single to="/home" text="Informacje" onClick={handleClickOnInfoLink} />
 
           {/* linki widoczne tylko w wersji responsywnej */}
           <Links.ResnponsiveWrapper navToggled={navToggled}>
