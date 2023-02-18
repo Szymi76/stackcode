@@ -16,6 +16,9 @@ import changePassword from "../controllers/auth/changePassword.js";
 import deleteUser from "../controllers/auth/deleteUser.js";
 import emailVerification from "../controllers/auth/emailVerification.js";
 import verifyEmailToken from "../controllers/auth/verifyEmailToken.js";
+import resetPassword from "../controllers/auth/resetPassword.js";
+import resetPasswordPage from "../controllers/auth/resetPasswordPage.js";
+import verifyResetPassword from "../controllers/auth/verifyResetPassword.js";
 
 import "../services/localStrategy.js";
 import "../services/googleStrategy.js";
@@ -41,6 +44,9 @@ router.get(
 // @POST
 router.post("/login", verifyLocal, login);
 router.post("/register", register);
+router.post("/reset-password", resetPassword);
+router.get("/reset/:resetToken", resetPasswordPage);
+router.post("/reset/verify", verifyResetPassword);
 
 // @PATCH
 router.patch("/update-display-name", verifyTokens, updateDisplayName, checkCookies);

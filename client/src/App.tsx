@@ -24,6 +24,7 @@ import DeleteUser from "./pages/settings/Tabs/DeleteUser";
 import ChangePassword from "./pages/settings/Tabs/ChangePassword";
 import VerifyEmail from "./pages/settings/Tabs/VerifyEmail";
 import Tests from "./pages/tests";
+import ForgotPassword from "./pages/login/ForgotPassword";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/" element={<NotLoggedInOnly />}>
             <Route path="/zaloguj-sie" element={<Login />} />
             <Route path="/stworz-konto" element={<Register />} />
+            <Route path="/resetowanie-hasla" element={<ForgotPassword />} />
           </Route>
           {/* route tylko dla zalogowanych użytkowników */}
           <Route path="/" element={<LoggedInOnly />}>
