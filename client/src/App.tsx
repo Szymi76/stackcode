@@ -23,7 +23,6 @@ import UploadQuestion from "./pages/uploadQuestion";
 import DeleteUser from "./pages/settings/Tabs/DeleteUser";
 import ChangePassword from "./pages/settings/Tabs/ChangePassword";
 import VerifyEmail from "./pages/settings/Tabs/VerifyEmail";
-import Tests from "./pages/tests";
 import ForgotPassword from "./pages/login/ForgotPassword";
 
 const App = () => {

@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+// providers
 import { Provider } from "react-redux";
 import { WuiProvider, createTheme } from "@welcome-ui/core";
 import { store, persistor } from "./app/store";
 import { PersistGate } from "redux-persist/integration/react";
+
+// komponenty
 import Loading from "./security/Loading";
 import App from "./App";
+
+// inne
 import theme from "./utils/theme";
 import "./styles/index.css";
 

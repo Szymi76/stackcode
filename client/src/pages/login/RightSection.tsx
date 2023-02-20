@@ -47,11 +47,11 @@ const RightSection = () => {
             <Text>Kontynuuj za pomocą Google</Text>
           </a>
 
-          {/* logowanie za pomocą google */}
-          <a href={`${SERVER_URL}/api/auth/github`} className="login-provider-card">
+          {/* logowanie za pomocą github */}
+          {/* <a href={`${SERVER_URL}/api/auth/github`} className="login-provider-card">
             <img src={GithubLogo} height={40} width={40} />
             <Text>Kontynuuj za pomocą Github</Text>
-          </a>
+          </a> */}
         </Flex>
       </Box>
 
